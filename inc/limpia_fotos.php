@@ -8,6 +8,6 @@ while ($archivo = readdir($directorio)){
 	unlink($dir.$archivo);
 }
 closedir($directorio);
-include 'config.php';
+include '../inc/config.php';
 mysqli_query($link,"DELETE FROM fotos WHERE uploader='1'");
 ?>
