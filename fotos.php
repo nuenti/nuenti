@@ -1,9 +1,9 @@
 <?php
-require ("verify_login.php");
+require ("inc/verify_login.php");
 head("Fotos - Social");
 echo "<script type='text/javascript' src='fotos/foto_etiqueta.js'></script>";
 echo "<script type='text/javascript' src='fotos/foto_visualizador.js'></script>";
-require ("estructura.php");
+require ("inc/estructura.php");
 
 if (!$_GET['iduser']) {
 	$_GET['iduser'] = $global_idusuarios;

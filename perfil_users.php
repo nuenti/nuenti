@@ -1,5 +1,5 @@
 <?php
-	require("verify_login.php");
+	require("inc/verify_login.php");
 
 	//Comprueba amistad
 	$query=mysqli_query($link,"SELECT count(*) FROM amigos WHERE user1='".$_GET['id']."' AND user2='".$global_idusuarios."' OR user2='".$_GET['id']."' AND user1='".$global_idusuarios."'");
@@ -17,7 +17,7 @@
 		$usuario=mysqli_fetch_assoc($query);
 	}
 	head($usuario['nombre']." - Social");
-	require("estructura.php");
+	require("inc/estructura.php");
 
 
 ?>

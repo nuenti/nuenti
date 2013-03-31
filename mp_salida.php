@@ -1,7 +1,7 @@
 <?php
-	require("verify_login.php");
+	require("inc/verify_login.php");
 	head("Mensajeria Privada - Social");
-	require("estructura.php");
+	require("inc/estructura.php");
 
 	echo "<h2>Mensajeria Privada</h2>";
 

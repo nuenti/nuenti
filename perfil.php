@@ -1,8 +1,8 @@
 <?php
-	require("verify_login.php");
+	require("inc/verify_login.php");
 
 	head("Perfil - Social");
-	require("estructura.php");
+	require("inc/estructura.php");
 ?>
 <div class="barra_izq">
 	<?php

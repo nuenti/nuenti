@@ -1,9 +1,9 @@
 <?php
-	require("verify_login.php");
+	require("inc/verify_login.php");
 	head("Mensajeria Privada - Social");
-	require("estructura.php");
+	require("inc/estructura.php");
 
-	require_once("validador.class.php");
+	require_once("inc/validador.class.php");
 	$Validador = new Validador();
 	$Validador->SetInput(array('name' => 'mensaje_privado', 'alias' => 'Mensaje', 'min' => '2'));
 	$Validador->GeneraValidadorJS();

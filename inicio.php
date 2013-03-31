@@ -1,8 +1,8 @@
 <?php
 	$tiempo_inicio = microtime(true);
-	require("verify_login.php");
+	require("inc/verify_login.php");
 	head("Inicio - Social");
-	require("estructura.php");
+	require("inc/estructura.php");
 ?>
 <div class="barra_izq">
 	<?php

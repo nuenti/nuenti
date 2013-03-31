@@ -1,5 +1,5 @@
 <?php
-require ("verify_login.php");
+require ("inc/verify_login.php");
 
 if ($_POST['estado']) {
 	mysqli_query($link,"UPDATE usuarios SET estado='" . $_POST['estado'] . "' WHERE idusuarios='" . $global_idusuarios . "'");

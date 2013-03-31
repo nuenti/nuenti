@@ -1,12 +1,12 @@
 <?php
-require ("verify_login.php");
+require ("inc/verify_login.php");
 head("Subir fotos - Social");
 require ("upload/subida.html");
 ?>
 </head>
 <body>
 	<?php
-	require ("estructura.php");
+	require ("inc/estructura.php");
 	?>
 	<div class="cuerpo_full">
 		<?php

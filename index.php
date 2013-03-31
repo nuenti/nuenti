@@ -1,6 +1,6 @@
 <?php
 session_start();
-require('config.php');
+require('inc/config.php');
 if(isset($_SESSION['idsesion'])) {
 	header("Location: inicio.php");
 } else {

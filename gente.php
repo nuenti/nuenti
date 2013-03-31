@@ -1,7 +1,7 @@
 <?php
-	require("verify_login.php");
+	require("inc/verify_login.php");
 	head("Buscador - Social");
-	require("estructura.php");
+	require("inc/estructura.php");
 ?>
 
 <div style="float: left;width: 600px;">

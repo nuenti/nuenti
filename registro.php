@@ -1,5 +1,5 @@
 <?php
-require('config.php');
+require('inc/config.php');
 	head("Registro - Social");
 	?>
 	<script type="text/javascript" src="jscripts/valida_registro.php"></script>
@@ -46,7 +46,7 @@ if($_POST){
 				
 				<input type="checkbox" class="validable" name="tos" id="checkbox_tos" value="tos_yes"><label for="checkbox_tos">Acepto los terminos de uso</label><br>
 
-				Provincia: <select name="Provincia" class="validable"><?php require("select_provincias.html"); ?></select><br>
+				Provincia: <select name="Provincia" class="validable"><?php require("inc/select_provincias.html"); ?></select><br>
 				<input type="hidden" name="Registro" value="yes"/>
 				<button type='button' name='registro' value='Registrarse' onclick="validador('submit')">Registrarse</button>
 			</form>

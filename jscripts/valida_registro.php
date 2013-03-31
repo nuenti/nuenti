@@ -1,6 +1,6 @@
 	<?php
 	header ('Content-Type: text/javascript; charset=utf-8');
-	require_once("../validador.class.php");
+	require_once("../inc/validador.class.php");
 	$Validador = new Validador();
 	$Validador->SetInput(array('name' => 'Nombre', 'min' => '4'));
 	$Validador->SetInput(array('name' => 'Apellidos', 'obligatorio' => 'yes'));
