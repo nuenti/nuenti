@@ -1,12 +1,13 @@
 function ajax_post(p) {
-
 	if (!p.url)
 		p.url = "post.php";
-	if (!p.async)
-		p.async = true;
-	if (!p.visible)
-		p.visible = true;
 		
+	if (p.async!=false)
+		p.async = true;
+		
+	if (p.visible!=false)
+		p.visible = true;
+
 	var ajax = $.ajax({
 		type : "POST",
 		url : p.url,
@@ -14,14 +15,14 @@ function ajax_post(p) {
 		cache : false,
 		async : false
 	});
-	var promise = ajax.done(function(msg) {
-		//alert(msg);
-		return msg;
-	});
+	/*var promise = ajax.done(function(msg) {
+	 //alert(msg);
+	 return msg;
+	 });*/
 
 	var promise = ajax.always(function(msg) {
 		$("#ajax_cargando_padre").remove();
-		if(p.visible == true){
+		if (p.visible == true) {
 			$("body").append("<div id='ajax_cargando_padre'><div id='ajax_cargando'><img src='imagenes/loading.gif'><div class='texto'>Procesando petici&oacute;n, por favor espere.</div></div></div>");
 		}
 	});
@@ -31,14 +32,19 @@ function ajax_post(p) {
 	});
 
 	var promise = ajax.done(function(msg) {
-		if (msg.length == 0 && !p.retrieve) {
-			$("#ajax_cargando").addClass("ajax_ok");
-			$("#ajax_cargando").html("<img src='imagenes/ok.png'><div class='texto'>Acci&oacute;n completada con &eacute;xito.</div>");
-			$("#ajax_cargando_padre").fadeIn(function() {
-				setTimeout(function() {
-					$("#ajax_cargando").fadeOut("slow");
-				}, 1000);
-			});
+		if (msg.length == 0 && !p.retrieve){
+			if(p.visible == true) {
+				$("#ajax_cargando").addClass("ajax_ok");
+				$("#ajax_cargando").html("<img src='imagenes/ok.png'><div class='texto'>Acci&oacute;n completada con &eacute;xito.</div>");
+				$("#ajax_cargando_padre").fadeIn(function() {
+					setTimeout(function() {
+						$("#ajax_cargando").fadeOut("slow");
+					}, 1000);
+				});
+				$("#ajax_cargando").click(function(){
+					$(this).remove();
+				});
+			}
 			if (p.reload)
 				window.setTimeout((function() {
 					window.location.reload();
@@ -82,26 +88,6 @@ function ajax_post_aceptar() {
 	});
 }
 
-function chat_turn(modo) {
-	if (modo == "on") {
-		ajax_post("post.php", "chat_estado=on");
-		location.reload();
-	} else {
-		ajax_post("post.php", "chat_estado=off");
-		location.reload();
-	}
-}
-
-function chat_toggle() {
-	if ($("#chat_contactos").css("display") == "none") {
-		$("#chat_contactos").css({
-			"display" : "inline-block"
-		});
-	} else {
-		$("#chat_contactos").hide();
-	}
-}
-
 
 $(document).ready(function() {
 	// Muestra y oculta los menús
@@ -124,4 +110,4 @@ $(document).ready(function() {
 			});
 		}
 	});
-});
+}); 

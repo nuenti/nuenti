@@ -17,7 +17,7 @@
 		$usuario=mysqli_fetch_assoc($query);
 	}
 	head($usuario['nombre']." - Social");
-	require("inc/estructura.php");
+	require("inc/estructura.inc.php");
 
 
 ?>

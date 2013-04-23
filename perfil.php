@@ -2,35 +2,38 @@
 	require("inc/verify_login.php");
 
 	head("Perfil - Social");
-	require("inc/estructura.php");
+	require("inc/estructura.inc.php");
 ?>
 <div class="barra_izq">
+	<div class="marco_small">
 	<?php
 		if($usuario['idfotos_princi']){
 			$foto=mysqli_query($link,"SELECT * from fotos WHERE idfotos='".$usuario['idfotos_princi']."'");
 			$foto=mysqli_fetch_assoc($foto);
-			echo "<img alt='foto principal' style='max-height:200px;max-width:200px;' src='".$foto['archivo']."' />";
+			echo "<img alt='foto principal' style='max-height:200px;max-width:180px;' src='".$foto['archivo']."' />";
 		}
 		echo $global_nombre." ".$global_apellidos;
 		echo "<br>Edad: ".$usuario['edad'];
 	?>
+	</div>
 </div>
 <div class="barra_centro_der" >
-	<div class="marco_full">
+	<div class="marco">
 		<form method="POST" action="post.php" id="cambio_estado">
 	
 			<?php
 				if($usuario['estado']){
-					echo "<input type='text' name='estado' size='95' value='".$usuario['estado']."' />";
+					$estado=$usuario['estado'];
 				}else{
-					echo "<input type='text' name='estado' size='95' value='Actualiza tu estado' />";
+					$estado="Actualiza tu estado";
 				}
+					echo "<input type='text' name='estado' size='92' value='{$estado}' />";
 			?>
 			<button type="submit" value="Submit">Cambiar</button>
 		</form>
 	</div>
 	
-	<div class="marco_full" >
+	<div class="marco" >
 		<h2>Comentarios</h2>
 		<?php
 		$query=mysqli_query($link,"SELECT *, DATE_FORMAT(fecha, '%d/%m/%Y %H:%i') AS fechaf FROM tablon,usuarios WHERE receptor='".$global_idusuarios."' AND idusuarios=emisor ORDER BY idtablon DESC");
@@ -45,6 +48,10 @@
 		?>
 	</div>
 </div>
+
+		<?php
+			require ("inc/chat.php");
+		?>
 
 
 <?php

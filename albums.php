@@ -1,9 +1,10 @@
 <?php
 require ("inc/verify_login.php");
 head("Albums - Social");
-require ("inc/estructura.php");
+require ("inc/estructura.inc.php");
 ?>
 <div class="barra_full">
+	<div class="marco">
 	<?php
 
 	//Albums de fotos de ¿?
@@ -82,13 +83,13 @@ require ("inc/estructura.php");
 
 	//Formulario creacion de albumes
 	?>
-	<div style='float:left;display: inline-block;margin-left: 35px;'>
+	<div style='display: inline-block;margin-left: 35px;'>
 
 	Crea un album personalizado
 	<hr>
 	Nombre del album:
 	<input type="text" name="album" id='album_id'/>
-	<button onclick="ajax_post('post.php','album='+$('#album_id').val(),true)">
+	<button onclick="ajax_post({data:'album='+$('#album_id').val(),reload:true})">
 	Crear album
 	</button>
 	</div>
@@ -107,14 +108,19 @@ require ("inc/estructura.php");
 		function album_renombrar(id, name) {
 			var name = prompt("Escribe el nombre del album", name);
 			if (name != null && name != "") {
-				ajax_post('post.php', 'album_renombrar=' + name + '&album_id=' + id, true);
+				ajax_post({data:'album_renombrar=' + name + '&album_id=' + id,reload: true});
 			}
 		}
 
 		function album_borrar(id, name) {
 			var r = confirm("¿Estás seguro de borrar el album \"" + name + "\" ?");
 			if (r == true && id != "") {
-				ajax_post('post.php', 'album_borrar=' + id, true);
+				ajax_post({data:'album_borrar=' + id,reload: true});
 			}
 		}
 	</script>
+</div>
+
+<?php
+require ("inc/chat.php");
+?>

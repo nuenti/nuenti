@@ -1,7 +1,7 @@
 <?php
 	require("inc/verify_login.php");
 	head("Mensajeria Privada - Social");
-	require("inc/estructura.php");
+	require("inc/estructura.inc.php");
 
 	require_once("inc/validador.class.php");
 	$Validador = new Validador();

@@ -1,7 +1,7 @@
 <?php
 	require("inc/verify_login.php");
 	head("Mensajeria Privada - Social");
-	require("inc/estructura.php");
+	require("inc/estructura.inc.php");
 
 	echo "<h2>Mensajeria Privada</h2>";
 	$query=mysqli_query($link,"SELECT *, DATE_FORMAT(fecha, '%d/%m/%Y %H:%i') AS fechaf FROM mps,usuarios WHERE receptor='".$global_idusuarios."' AND idusuarios=emisor ORDER BY idmps DESC");

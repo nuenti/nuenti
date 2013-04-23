@@ -29,7 +29,7 @@ if($_POST){
 }
 ?>
 	<div class="centrar">
-		<div class="marco">
+		<div class="marco" style="width: 300px;">
 			<div id="valida_error"></div>
 			<form name="registro" method='post' action='registro.php'>
 				Nombre: <input type='text' class="validable" size='15' maxlength='20' name='Nombre' value="<?php echo $_POST['Nombre']; ?>" /><br />

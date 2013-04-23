@@ -105,6 +105,10 @@ body {
 	margin-left: 5px;
 	width: 39px;
 }
+
+span.ayuda {
+	cursor: help;
+}
 /*******************************	MENU HORIZONTAL *****************/
 #menudrop, #menudrop ul, #menudrop ul li, #menudrop ul li ul, #menudrop ul li ul li {
 	margin: 0;
@@ -248,6 +252,22 @@ div.login_form {
 	font-size: 12px;
 }
 
+/************	NOVEDADES	*****************/
+div.novedad_user {
+	/*display: inline-block;*/
+	/*max-width: 900px;*/
+	border-bottom: 1px solid #E5E5E5;
+	border-top: 1px solid #E5E5E5;
+	padding: 10px 0;
+}
+div.novedad_novedad {
+	line-height: 20px;
+}
+
+div.fecha_novedad{
+	font-size:10px;
+	display: inline;
+}
 /************** ESTANDARD *****************/
 
 h2.encabezado {
@@ -257,7 +277,7 @@ h2.encabezado {
 	text-shadow: 2px 5px 20px black;
 	margin: 10px;
 }
-
+/*
 div.barra_izq {
 	width: 200px;
 	background-color: white;
@@ -268,7 +288,20 @@ div.barra_izq {
 	padding: 7px;
 	float: left;
 	margin: 0 0 10px;
+}*/
+
+div.barra_full {
+	float: left;
+	width: 960px;
+	margin: 0 0 10px;
 }
+
+div.barra_izq {
+	width: 200px;
+	float: left;
+	margin: 10px 10px 10px 0;
+}
+
 div.barra_izq_centro {
 	width: 700px;
 	background-color: white;
@@ -278,15 +311,14 @@ div.barra_izq_centro {
 	box-shadow: 2px 2px 3px black;
 	padding: 15px;
 	float: left;
-	margin: 0 0 10px;
+	margin: 0px 10px 10px 10px;
 }
 
 div.barra_centro_der {
 	float: left;
-	width: 750px;
-	border: 1px solid red;
-	padding: 15px;
-	margin: 0 0 10px;
+	width: 740px;
+	/*padding: 15px;*/
+	margin: 10px 0px 10px 10px;
 }
 
 div.barra_der {
@@ -313,26 +345,12 @@ div.barra_der {
  margin:0 0 10px;
  }*/
 
-div.barra_full {
-	float: left;
-	width: 960px;
-	border: 1px solid red;
-	padding: 20px;
-	background-color: white;
-	border-radius: 7px 7px 7px 7px;
-	border-style: solid;
-	border-width: 0px;
-	box-shadow: 2px 2px 3px black;
-	margin: 0 0 10px;
-}
 
 div.centrar {
 	text-align: center;
 }
 
 div.marco {
-	display: inline-block;
-	text-align: left;
 	background-color: white;
 	border-radius: 7px 7px 7px 7px;
 	border-style: solid;
@@ -342,17 +360,17 @@ div.marco {
 	margin: 0 auto 30px auto;
 }
 
-div.marco_full {
-	text-align: left;
+div.marco_small {
 	background-color: white;
 	border-radius: 7px 7px 7px 7px;
 	border-style: solid;
 	border-width: 0px;
 	box-shadow: 2px 2px 3px black;
-	padding: 25px 30px 30px 30px;
+	padding: 10px;
 	margin: 0 auto 30px auto;
 }
 
+/*
 div.cuerpo_full {
 	float: left;
 	background-color: white;
@@ -363,7 +381,7 @@ div.cuerpo_full {
 	padding: 7px;
 	margin: 0 0 10px;
 	width: 1000px;
-}
+}*/
 /*
  div.cuerpo_centro{
  float:left;
@@ -416,8 +434,80 @@ button {
 	margin: 5px;
 	text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.35);
 }
+
+.imagen_perfil{
+	margin-right: 5px;
+    min-height: 50px;
+    min-width: 50px;
+    max-height: 50px;
+    max-width: 50px;
+    vertical-align: top;
+}
+img.imagen{
+	margin: 10px;
+    max-height: 100px;
+    max-width: 500px;
+}
 /*******************	CHAT	*****************/
 
+#chat_anclaje{
+    bottom: 0;
+    position: fixed;
+}
+
+#chat_boton{
+    background-color: white;
+    background-image: url("../imagenes/chat.png");
+    background-repeat: no-repeat;
+    background-size: 40px 40px;
+    border-radius: 10px 10px 10px 10px;
+    bottom: 0;
+    box-shadow: 1px 1px 3px black;
+    display: inline-block;
+    height: 40px;
+    
+    vertical-align: bottom;
+    width: 40px;
+}
+
+#chat_padre_contactos {
+    background-color: white;
+    border-radius: 10px 10px 10px 10px;
+    box-shadow: 5px 5px 5px black;
+    display: none;
+    font-size: 12px;
+    list-style: none outside none;
+    left: -40px;
+    margin-right: -40px;
+    padding: 8px;
+    position: relative;
+    top: -50px;
+    width: 200px;
+}
+
+
+
+
+
+
+#chat_opciones{
+    background-image: url("../imagenes/iconos4.png");
+    background-position: -102px -6px;
+    height: 12px;
+    position: relative;
+    right: -146px;
+    top: -25px;
+    width: 12px;
+}
+#chat_opciones_lista{
+    display: none;
+    left: -60px;
+    position: relative;
+    top: 20px;
+    width: 100px;
+    z-index: 99999999;
+}
+/*
 #chat {
 	margin: 0 0 5px;
 	position: fixed;
@@ -437,23 +527,8 @@ button {
 	box-shadow: 1px 1px 3px black;
 }
 
-#chat_contactos {
-	margin-right: -40px;
-	display: none;
-	padding: 8px;
-	width: 270px;
-	background-color: white;
-	border-radius: 10px 10px 10px 10px;
-	box-shadow: 5px 5px 5px black;
-	/*line-height:30px;*/
-	font-size: 12px;
-	list-style: none outside none;
-	position: relative;
-	top: -50px;
-	left: -40px;
-	width: 200px;
-}
 
+*/
 #chat_contactos ul {
 	list-style: none outside none;
 	padding: 0;
@@ -463,6 +538,7 @@ button {
 	cursor: pointer;
 	display: inline-block;
 }
+
 #chat_contactos li div {
 	display: inline-block;
 	background-image: url('../imagenes/iconos3.png');
@@ -544,6 +620,7 @@ button {
 }
 
 .chat_ventana_min {
+	cursor:pointer;
 	background-color: white;
 	border-radius: 10px 10px 10px 10px;
 	box-shadow: 5px 5px 5px black;
@@ -577,16 +654,13 @@ button {
 
 /*******************	ALBUMS	***************/
 div.album {
-	/*border: 1px solid gray;
-	 border-radius: 7px 7px 7px 7px;
-	 box-shadow: 2px 2px;
-	 display: inline-block;*/
-	float: left;
-	max-height: 300px;
-	margin: 25px;
-	padding: 7px;
-	width: 400px;
-	text-decoration: none;
+    display: inline-block;
+    margin: 25px;
+    max-height: 300px;
+    padding: 7px;
+    text-decoration: none;
+    vertical-align: top;
+    width: 375px;
 }
 
 div.album .album_titulo a {
@@ -725,7 +799,8 @@ li.etiqueta_seleccionada {
 div.etiqueta_seleccionada {
 	border-color: red;
 }
-.foto_comentario {padding: 10px 0;
+.foto_comentario {
+	padding: 10px 0;
 	border-bottom: 1px solid #E5E5E5;
 }
 .foto_comentario > img {
@@ -736,14 +811,15 @@ div.etiqueta_seleccionada {
 }
 
 .foto_comentario > div {
-	display: inline-block;    max-width: 900px;
+	display: inline-block;
+	max-width: 900px;
 }
 
 .foto_come_titu {
 	display: inline-block;
 }
 
-.foto_come_titu > a{
+.foto_come_titu > a {
 	color: #36679F;
 	font-size: 10px;
 	vertical-align: top;

@@ -1,7 +1,7 @@
 <?php
 require ("inc/verify_login.php");
 head("Albums - Social");
-require ("inc/estructura.php");
+require ("inc/estructura.inc.php");
 ?>
 <div class="barra_full">
 	<?php

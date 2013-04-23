@@ -24,9 +24,17 @@ if(	(!$_POST['Nombre'] OR !$_POST['Apellidos'] OR !$_POST['contrasenia'] OR
 		</div>
 		<?php
 	}else{
-		mysqli_query($link,"INSERT INTO usuarios (nombre, apellidos, fnac, password, email,fecha_reg, sexo)
-			values ('".$_POST['Nombre']."','".$_POST['Apellidos']."',STR_TO_DATE('".$_POST['nacimiento']."','%d/%m/%Y'),'".sha1($_POST['contrasenia'])."','".$_POST['Email']."',curdate(),'".$_POST['Sexo']."')");
-		error_mysql('exit');
+		if($_POST['Sexo']=="H"){
+			$img_princ=1;
+		}elseif($_POST['Sexo']=="M"){
+			$img_princ=2;
+		}else{
+			$img_princ=NULL;
+		}
+		
+		mysqli_query($link,"INSERT INTO usuarios (nombre, apellidos, fnac, password, email,fecha_reg, sexo, idfotos_princi)
+			values ('".$_POST['Nombre']."','".$_POST['Apellidos']."',STR_TO_DATE('".$_POST['nacimiento']."','%d/%m/%Y'),'".sha1($_POST['contrasenia'])."','".$_POST['Email']."',curdate(),'".$_POST['Sexo']."', '{$img_princ}')");
+		//error_mysql('exit');
 		?>
 		<div class="centrar">
 			<div class="marco">

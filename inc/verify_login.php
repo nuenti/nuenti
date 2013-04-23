@@ -15,6 +15,7 @@
 		$global_apellidos=$usuario['apellidos'];
 		$global_nombrefull=$usuario['nombre']." ".$usuario['apellidos'];
 		$global_idsesion=$usuario['idsesion'];
+		$_SESSION['chat_estado']=$usuario['chat_estado'];
 	} else {
 		header("Location: logout.php?no_sesion");
 	}

@@ -1,7 +1,7 @@
 <?php
 	require("inc/verify_login.php");
-	head("Buscador - Social");
-	require("inc/estructura.php");
+	head("Gente - Social");
+	require("inc/estructura.inc.php");
 ?>
 
 <div style="float: left;width: 600px;">
@@ -69,7 +69,7 @@ echo "</div>";
 				//print_r($row);
 				echo $row['nombre']." ".$row['apellidos']." -> ";
 				if($row['amigo']==0 AND $row['enviada']==0){
-					echo "<a href='buscador.php?busqueda=".$_GET['busqueda']."&agregar=".$row['idusuarios']."'>Agregar</a>";
+					echo "<a href='gente.php?busqueda=".$_GET['busqueda']."&agregar=".$row['idusuarios']."'>Agregar</a>";
 				}elseif($row['amigo']==0 AND $row['enviada']==1){
 					echo "Peticion enviada";
 				}elseif($row['amigo']==1){
@@ -85,7 +85,7 @@ echo "</div>";
 <div class="barra_der" style="width: 360px;">
 	Buscador de personas
 	<hr>
-	<form method="GET" action="buscador.php">
+	<form method="GET" action="gente.php">
 		Nombre: <input type="text" name="busqueda" value="<?php echo $_GET['busqueda']; ?>"/><br>
 		<button type="submit">Buscar</button>
 	</form>

@@ -1,128 +1,242 @@
-/////////////////////	CHAT FUNCTIONS	////////////////////
-$(document).ready(function(){
+chat_mode_home = false;
+$(window).ready(function() {
 	/*if(location.href.search(/(login.php|registro.php)/gi)!=-1){
-		return;
-	}*/
+	 return;
+	 }*/
 	/*$("body").append("<div id='chat'></div>");
-	$("#chat").append("<div id='chat_boton'></div>");
-	$("#chat").append("<div id='chat_conv_tmp' style='display:none;'></div>");*/
-	
-	timeOutId = setInterval(estado_online, 30000);
-	estado_online();
-	
-	leer();
-	timeOutLeer = setInterval(leer, 5000);
-	
-	chat_contactos();
-	timeOutchat_contactos = setInterval(chat_contactos, 10000);
-	
-	
+	 $("#chat").append("<div id='chat_boton'></div>");
+	 $("#chat").append("<div id='chat_conv_tmp' style='display:none;'></div>");*/
+	if (chat_estado == true) {
+		chat_turn('on');
+	}
 });
 
-function estado_online(){
+function chat_turn(modo) {
+	if (modo == "on") {
+		ajax_post({
+			data : "chat_estado=on",
+			visible : false
+		});
+		$("#chat_estado").html("<p style='cursor:pointer;' onclick=\"chat_turn('off')\">Desactivar Chat</p>");
+
+		chat_online();
+		timeOutChatOnline = window.setInterval(chat_online, 30000);
+		chat_leer();
+		timeOutChatLeer = window.setInterval(chat_leer, 5000);
+		chat_contactos();
+		timeOutChatContactos = window.setInterval(chat_contactos, 10000);
+
+		chat_estado = true;
+	} else {
+		//Cerramos conversaciones activas
+		$(".chat_ventana,.chat_ventana_min").remove();
+		//Desactivamos el chat
+		ajax_post({
+			data : "chat_estado=off",
+			visible : false
+		});
+		$("#chat_contactos").html("");
+		$("#chat_estado").html("<p style='cursor:pointer;' onclick='chat_turn(\"on\")'>Activar Chat</p>");
+
+		timeOutChatOnline = window.clearInterval(timeOutChatOnline);
+		timeOutChatLeer = window.clearInterval(timeOutChatLeer);
+		timeOutChatContactos = window.clearInterval(timeOutChatContactos);
+		chat_estado = false;
+	}
+}
+
+function chat_online() {
 	$.ajax({
-	  type: "POST",
-	  url: "post.php",
-	  data: { estado_online: "1" }
-	}).done(function( msg ) {
-	  //alert( "Data Saved: " + msg );*/
+		type : "POST",
+		url : "post.php",
+		data : {
+			chat_online : "1"
+		}
+	}).done(function(msg) {
+		//alert( "Data Saved: " + msg );*/
 	});
 }
 
-function chat_contactos(){
+function chat_contactos() {
 	$.ajax({
-	  type: "POST",
-	  url: "post.php",
-	  data: { chat_contactos: "1" }
-	}).done(function( msg ) {
+		type : "POST",
+		url : "post.php",
+		data : {
+			chat_contactos : "1"
+		}
+	}).done(function(msg) {
 		$("#chat_contactos").html(msg);
 	});
 }
 
-function chat_init_conv(iduser, nombre, img){
-	if($("#chat_conv_"+iduser).length<1){
-		$("#chat").append(
-			"<div id='chat_conv_"+iduser+"_min' class='chat_ventana_min' onclick=\"max('"+iduser+"')\">"+
-				"<img src='"+img+"' alt='"+nombre+"'/>"+
-				"<div class='mensajes'></div>"+
-			"</div>"+
-			"<div id='chat_conv_"+iduser+"' class='chat_ventana' iduser='"+iduser+"'>"+nombre+
-				"<div class='boton cerr' onclick=\"cerrar('"+iduser+"')\"></div>"+
-				"<div class='boton max'></div>"+
-				"<div class='boton mini' onclick=\"mini('"+iduser+"')\"></div>"+
-				"<div id='mensajes'></div>"+
-				"<textarea name='mensaje' onkeypress=\"chat_press_enter(event,this,'"+iduser+"')\" /></textarea>"+
-				"<button type='button' onclick=\"enviar('"+iduser+"')\">Enviar</button>"+
-			"</div>");
+function chat_toggle() {
+	if (chat_mode_home != true) {
+		if ($("#chat_padre_contactos").css("display") == "none") {
+			$("#chat_padre_contactos").css({
+				"display" : "inline-block"
+			});
+		} else {
+			$("#chat_padre_contactos").hide();
+		}
+	}
+}
+
+function chat_conv_init(iduser, nombre, img) {
+	//Minimizamos conversaciones abiertas
+	$(".chat_ventana").each(function() {
+		user = $(this).attr("iduser");
+		chat_conv_mini(user);
+	});
+	if ($("#chat_conv_" + iduser).length < 1) {
+		$("#chat_anclaje").append("<div id='chat_conv_" + iduser + "_min' class='chat_ventana_min' onclick=\"chat_conv_show('" + iduser + "')\">" + "<img src='" + img + "' alt='" + nombre + "'/>" + "<div class='mensajes'></div>" + "</div>" + "<div id='chat_conv_" + iduser + "' class='chat_ventana' iduser='" + iduser + "'>" + nombre + "<div class='boton cerr' onclick=\"chat_conv_cerrar('" + iduser + "')\"></div>" + "<div class='boton max' onclick=\"chat_conv_max('" + iduser + "')\"></div>" + "<div class='boton mini' onclick=\"chat_conv_mini('" + iduser + "')\"></div>" + "<div id='mensajes'></div>" + "<textarea name='mensaje' onkeypress=\"chat_press_enter(event,this,'" + iduser + "')\" /></textarea>" + "<button type='button' onclick=\"chat_enviar('" + iduser + "')\">Enviar</button>" + "</div>");
+
+		$("#chat_conv_" + iduser).find("textarea").focus();
+	} else {
+		chat_conv_show(iduser);
+		$("#chat_conv_" + iduser).find("textarea").focus();
 	}
 	chat_toggle();
 }
 
-function chat_press_enter(e,t,iduser) {
-  tecla = (document.all) ? e.keyCode : e.which;
-  if (tecla==13){  	enviar(iduser);  }
+function chat_conv_cerrar(emisor) {
+	$("#chat_conv_" + emisor).remove();
 }
-function enviar(iduser){
-	mensaje = $("#chat_conv_"+iduser).find("textarea").val();
-	if(mensaje.length==0) return false;
-	$("#chat_conv_"+iduser).find("textarea").val("");
-	$("#chat_conv_"+iduser).find("#mensajes").append("<div class='mensaje'>Yo: "+mensaje+'</div>');
+
+function chat_conv_mini(emisor) {
+	$("#chat_conv_" + emisor).hide();
+	$("#chat_conv_" + emisor + "_min").css({
+		"display" : "inline-block"
+	});
+	$("#chat_conv_" + emisor + "_min").find(".mensajes").hide();
+}
+
+function chat_conv_max(emisor) {
+	if($("#chat_conv_" + emisor).css("width")=="300px"){
+		$("#chat_conv_" + emisor).css({
+			"width" : "400px",
+			"height" : "500px"
+		});
+		
+		$("#chat_conv_" + emisor).find("#mensajes").css({
+			"width" : "400px",
+			"height" : "400px"
+		});
+		
+		$("#chat_conv_" + emisor).find("textarea").css({
+			"width" : "321px"
+		});
+	}else{
+		$("#chat_conv_" + emisor).css({
+			"width" : "300px",
+			"height" : "300px"
+		});
+		
+		$("#chat_conv_" + emisor).find("#mensajes").css({
+			"width" : "298px",
+			"height" : "200px"
+		});
+		
+		$("#chat_conv_" + emisor).find("textarea").css({
+			"width" : "225px"
+		});
+	}
+	
+}
+
+function chat_conv_show(emisor) {
+	//Minimizamos conversaciones abiertas
+	$(".chat_ventana").each(function() {
+		user = $(this).attr("iduser");
+		chat_conv_mini(user);
+	});
+	$("#chat_conv_" + emisor).css({
+		"display" : "inline-block"
+	});
+	$("#chat_conv_" + emisor).show();
+	$("#chat_conv_" + emisor + "_min").hide();
+
+	$("#chat_conv_" + emisor).find("textarea").focus();
+}
+
+function chat_press_enter(e, t, iduser) {
+	tecla = (document.all) ? e.keyCode : e.which;
+	if (tecla == 13) {
+		chat_enviar(iduser);
+	}
+}
+
+function chat_opciones() {
+	if ($("#chat_opciones_lista").css("display") == "none") {
+		$("#chat_opciones_lista").css({
+			"display" : "inline-block"
+		});
+	} else {
+		$("#chat_opciones_lista").hide();
+	}
+}
+
+function chat_enviar(iduser) {
+	mensaje = $("#chat_conv_" + iduser).find("textarea").val();
+	if (mensaje.length == 0)
+		return false;
+	$("#chat_conv_" + iduser).find("textarea").val("");
+	$("#chat_conv_" + iduser).find("#mensajes").append("<div class='mensaje'>Yo: " + mensaje + '</div>');
 	$.ajax({
-	  type: "POST",
-	  url: "post.php",
-	  data: { chat_enviar: "1", receptor: iduser, mensaje: mensaje}
-	}).done(function( msg ) {
-	  //alert( msg );
+		type : "POST",
+		url : "post.php",
+		data : {
+			chat_enviar : "1",
+			receptor : iduser,
+			mensaje : mensaje
+		}
+	}).done(function(msg) {
+		//alert( msg );
 	});
 }
 
-function leer(){
+function chat_leer() {
 
 	$.ajax({
-	  type: "POST",
-	  cache: false,
-	  url: "post.php",
-	  data: { chat_leer: "1"}
-	}).done(function( msg ) {
+		type : "POST",
+		cache : false,
+		url : "post.php",
+		data : {
+			chat_leer : "1"
+		}
+	}).done(function(msg) {
 		$("#chat_conv_tmp").html(msg);
 
-		$("#chat_conv_tmp").find("div").each(function(){
-		  	emisor=$(this).attr("iduser");
-		  	nombre=$(this).attr("nombre");
-		  	img=$(this).attr("img");
-		  
-		  	if($("#chat_conv_"+emisor).css("display")=="none"){
-		  		//minimizada
-		  		$("#chat_conv_"+emisor+"_min").find(".mensajes").css({"display":"inline-block"});  
-		  		$("#chat_conv_"+emisor).find("#mensajes").append("<div class='mensaje'>"+$(this).html()+'</div>');
-	  		}else if($("#chat_conv_"+emisor).length>0){
-	  			//maximizada
-		  		$("#chat_conv_"+emisor).find("#mensajes").append("<div class='mensaje'>"+$(this).html()+'</div>');
-	  		}else{
-	  			//sin iniciar
-		  		chat_init_conv(emisor,nombre,img);
-				chat_toggle(); //minimizar lista contactos
-		  		$("#chat_conv_"+emisor).find("#mensajes").append("<div class='mensaje'>"+$(this).html()+'</div>');
-	  			mini(emisor); //minimizar conversa
-	  			$("#chat_conv_"+emisor+"_min").find(".mensajes").css({"display":"inline-block"}); //mostrar simbolo mensajes
-	  		}
-	  		//$("#chat_conv_"+emisor).find("#mensajes").scrollTop($("#chat_conv_"+emisor).find("#mensajes").prop("scrollHeight"))
-			$("#chat_conv_"+emisor).find("#mensajes").animate({ scrollTop: $("#chat_conv_"+emisor).find("#mensajes").prop("scrollHeight")},3000);
+		$("#chat_conv_tmp").find("div").each(function() {
+			emisor = $(this).attr("iduser");
+			nombre = $(this).attr("nombre");
+			img = $(this).attr("img");
+
+			if ($("#chat_conv_" + emisor).css("display") == "none") {
+				//minimizada
+				$("#chat_conv_" + emisor + "_min").find(".mensajes").css({
+					"display" : "inline-block"
+				});
+				$("#chat_conv_" + emisor).find("#mensajes").append("<div class='mensaje'>" + $(this).html() + '</div>');
+			} else if ($("#chat_conv_" + emisor).length > 0) {
+				//maximizada
+				$("#chat_conv_" + emisor).find("#mensajes").append("<div class='mensaje'>" + $(this).html() + '</div>');
+			} else {
+				//sin iniciar
+				chat_conv_init(emisor, nombre, img);
+				chat_toggle();
+				//minimizar lista contactos
+				$("#chat_conv_" + emisor).find("#mensajes").append("<div class='mensaje'>" + $(this).html() + '</div>');
+				chat_conv_mini(emisor);
+				//minimizar conversa
+				$("#chat_conv_" + emisor + "_min").find(".mensajes").css({
+					"display" : "inline-block"
+				});
+				//mostrar simbolo mensajes
+			}
+			//$("#chat_conv_"+emisor).find("#mensajes").scrollTop($("#chat_conv_"+emisor).find("#mensajes").prop("scrollHeight"))
+			$("#chat_conv_" + emisor).find("#mensajes").animate({
+				scrollTop : $("#chat_conv_" + emisor).find("#mensajes").prop("scrollHeight")
+			}, 3000);
 		});
 	});
-}
-
-function cerrar(emisor){
-	$("#chat_conv_"+emisor).remove();
-}
-
-function mini(emisor){
-	$("#chat_conv_"+emisor).hide();
-	$("#chat_conv_"+emisor+"_min").css({"display":"inline-block"});
-	$("#chat_conv_"+emisor+"_min").find(".mensajes").hide();
-}
-
-function max(emisor){
-	$("#chat_conv_"+emisor).css({"display":"inline-block"});
-	$("#chat_conv_"+emisor+"_min").hide();
 }

@@ -1,7 +1,10 @@
 Registro de usuario
+	Mediante API externa
 	Nivel de seguridad de contraseña
 	Envio de email para validacion
+	Crypt
 Login de usuario
+	Cifrado
 Inicio con novedades
 Perfil con comentarios y publicaciones
 Mensajeria privada (Escribir, Entrada, Salida)
@@ -10,13 +13,16 @@ Albums
 		Etiquetas fotos
 		Comentarios & editar y borrar
 	Subida fotos
+Gente
+	Quizas conozcas
+	Buscador
 Panel de control
 	Ips de acceso
 	Cambio de datos (Contrase�a, nombre, correo, localidad)
 Chat
 Logout
 
-
+Sucesos -> Novedades
 Aplicacion web para movil mediante jquery
 
 
@@ -24,10 +30,16 @@ Aplicacion web para movil mediante jquery
 NOVEDADES:
 	Campos estandard tabla: ID, fecha, tipo evento
 	Campos especiales: 
-		Aceptada peticion de amistad - propietario, visitante (doble insert con alternacion de valores)
-		Cambio foto principal - idupropietarioser, imagen
+		Aceptada peticion de amistad - (amistad) - propietario, visitante (doble insert con alternacion de valores)
+		Cambio foto principal - (foto_principal) - idupropietarioser, imagen
 		Cambio estado - propietario, texto
 		Publicaciones - propietario, texto
 		Comentarios en el tablon - propietario, visitante, texto
-		Subida fotos - propietario, imagenes
+		Subida fotos - (subida_fotos) - propietario, cantidad de imagenes
 		Etiquetacion de fotos - propietario, imagenes 
+
+SELECT DATEDIFF(now(),fecha) as a,
+ADDTIME(now(), '-7 0:0:0') as b
+				FROM sucesos
+				WHERE propietario = 2
+				ORDER BY fecha DESC
