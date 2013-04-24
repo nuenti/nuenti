@@ -7,17 +7,11 @@ require ("inc/estructura.inc.php");
 <div class="barra_izq">
 	<div class="marco_small">
 		<?php
-		if ($usuario['idfotos_princi']) {
-			$foto = mysqli_query($link, "SELECT * from fotos WHERE idfotos='" . $usuario['idfotos_princi'] . "'");
-			$foto = mysqli_fetch_assoc($foto);
-			echo "<img alt='foto principal' src='" . $foto['archivo'] . "' style='max-height: 178px; max-width: 178px;' /><br>";
-		}
-		echo $global_nombre . " " . $global_apellidos;
-		echo "<br>Edad: " . $usuario['edad'];
-
-		########## NEWS ##############
+			########## NEWS ##############
+			
 		?>
 	</div>
+	
 	<!-- ########## CHAT #############-->
 	<div class="marco_small">
 		<script language="JavaScript">

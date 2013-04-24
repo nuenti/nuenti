@@ -35,21 +35,29 @@ if ($_POST['comentario_tablon'] != "") {
 	}
 }
 
-if ($_POST['mensaje_privado'] != "") {
-	mysqli_query($link, "INSERT INTO mps (emisor,receptor,mp,fecha) VALUES ('" . $global_idusuarios . "','" . $_POST['receptor'] . "','" . $_POST['mensaje_privado'] . "',now())");
-	if (mysqli_errno() != 0) {
-		error_mysql("exit");
-	} else {
-		header("Location: gente.php?id=" . $_POST['receptor'] . "&mp_enviado");
-	}
-}
+
 
 if ($_GET['mensaje_leido'] != "") {
 	mysqli_query($link, "UPDATE mps SET estado='leido' WHERE idmps='" . $_GET['mensaje_leido'] . "'");
 	error_mysql();
 }
 
-/************	ALBUM	*********************/
+######## MENSAJERIA PRIVADA
+if ($_POST['mp_enviar']) {
+	//print_r($_POST);
+	mysqli_query($link, "INSERT INTO mps (emisor,receptor,mp,fecha) VALUES ('{$global_idusuarios}','{$_POST['receptor']}','{$_POST['mensaje']}',now())");
+	error_mysql("exit");
+	die();
+}
+
+//TODO
+
+
+
+
+
+
+########	ALBUM
 if ($_POST['album']) {
 	$result = mysqli_query($link, "SELECT * FROM albums WHERE usuarios_idusuarios='" . $global_idusuarios . "' AND album='" . $_POST['album'] . "'");
 	if (mysqli_num_rows($result) > 0) {
@@ -66,17 +74,11 @@ if ($_POST['album_renombrar']) {
 }
 
 if ($_POST['album_borrar']) {
-	//$result=mysqli_query($link,"SELECT * FROM albums WHERE usuarios_idusuarios='".$global_idusuarios."' AND album='".$_POST['album']."'");
-	/*if(mysqli_num_rows($result)>0){
-	 echo "Ya existe un album con el mismo nombre.";
-	 }else{
-	 mysqli_query($link,"INSERT INTO albums (usuarios_idusuarios, album) VALUES ('".$global_idusuarios."','".$_POST['album']."')");
-	 }*/
 	mysqli_query($link, "DELETE FROM albums WHERE idalbums='" . $_POST['album_borrar'] . "' AND usuarios_idusuarios='" . $global_idusuarios . "'");
 	die();
 }
 
-/************	FOTOS	*********************/
+########	FOTOS
 if ($_POST['foto_edicion']) {
 	mysqli_query($link, "DELETE FROM etiquetas WHERE fotos_idfotos='" . $_POST['idfotos'] . "'");
 
@@ -160,47 +162,32 @@ if ($_POST['foto_leer_comentarios']) {
 		$q_numeracion = mysqli_query($link, "
 			SELECT count(*) AS total
 			FROM fotos_comentarios WHERE fotos_idfotos='" . $_POST['idfoto'] . "' ORDER BY fecha DESC");
-
 		$r_numeracion = mysqli_fetch_assoc($q_numeracion);
-		$p = $_POST['page'] - 4;
-		if ($p < 1)
-			$p = 1;
 
-		$actual = $p;
 		$siguiente = $_POST['page'] + 1;
 		$anterior = $_POST['page'] - 1;
-		$u = $_POST['page'] + 4;
-		if ($u > ceil($r_numeracion['total'] / 10))
-			$u = ceil($r_numeracion['total'] / 10);
+		$ultima = ceil($r_numeracion['total'] / 10);
 
 		//BARRA NAVEGACION
-		echo "<div>";
-		if ($_POST['page'] > 1) {
-			echo "<div class='flecha_back_top' onclick=\"foto_leer_comentarios(idfoto,0);\"></div>";
-			echo "<div class='flecha_back' onclick=\"foto_leer_comentarios(idfoto,{$anterior});\"></div>";
-		}
-		while ($actual <= $u) {
-			echo "<div";
-			if ($actual == $_POST['page']) {
-				echo " style='font-weight:bold;'";
+		echo "<div id='barra_navegacion'>";
+			if ($_POST['page'] > 1) {
+				echo "<img class='flecha_back_top' src='css/flechas/flecha_left_top.jpg' onclick=\"foto_leer_comentarios(idfoto,1);\">";
+				echo "<img class='flecha_back' src='css/flechas/flecha_left.jpg' onclick=\"foto_leer_comentarios(idfoto,{$anterior});\">";
 			}
-			echo " onclick='foto_leer_comentarios(idfoto,{$actual});'>{$actual}</div>";
-
-			$actual++;
-		}
-		//echo "pagina ".$_POST['page']." de ".ceil($r_numeracion['total']/10);
-		if ($_POST['page'] < ceil($r_numeracion['total'] / 10)) {
-			echo "<div class='flecha_next' onclick=\"foto_leer_comentarios(idfoto,{$siguiente});\"></div>";
-			echo "<div class='flecha_next_top' onclick=\"foto_leer_comentarios(idfoto," . ceil($r_numeracion['total'] / 10) . ");\"></div>";
-		}
-
+			echo "<div class='texto'>".$_POST['page']." de ".$ultima."</div>";
+			
+		if ($_POST['page'] < $ultima) {
+				echo "<img class='flecha_next' src='css/flechas/flecha_right.jpg' onclick=\"foto_leer_comentarios(idfoto,{$siguiente});\">";
+				echo "<img class='flecha_next_top' src='css/flechas/flecha_right_top.jpg' onclick=\"foto_leer_comentarios(idfoto," . $ultima . ");\">";
+			}
+		
 	} else {
 		echo "<div>Todavia nadie ha comentado esta foto</div>";
 	}
 	die();
 }
 
-/************	CHAT	*********************/
+########	CHAT
 if ($_POST['chat_estado']) {
 	$_SESSION['chat_estado'] = $_POST['chat_estado'];
 	mysqli_query($link, "UPDATE usuarios SET chat_estado='{$_POST['chat_estado']}' WHERE idusuarios='" . $global_idusuarios . "'");

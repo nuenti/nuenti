@@ -16,30 +16,28 @@ body {
 }
 
 #ajax_cargando_padre {
-	color: white;
-	position: fixed;
-	text-align: center;
-	width: 996px;
-	z-index: 2147483647;
+    left: 0;
+    position: fixed;
+    text-align: center;
+    top: 100px;
+    width: 100%;
+    z-index: 2147483647;
 }
 
 #ajax_cargando {
-	background-color: white;
-	border: 3px solid #3869A0;
-	border-radius: 8px 8px 8px 8px;
-	color: black;
-	margin: 70px auto;
-	padding: 20px;
-	text-align: center;
-	width: 600px;
-	z-index: 2147483647;
+    background-color: white;
+    border: 3px solid #3869A0;
+    border-radius: 8px 8px 8px 8px;
+    color: black;
+    margin: 70px auto;
+    width: 300px;
 }
 
 #ajax_cargando img {
-	display: inline-block;
-	height: 100px;
-	vertical-align: middle;
-	width: 100px;
+    display: inline-block;
+    height: 100px;
+    vertical-align: middle;
+    width: 100px;
 }
 
 #ajax_cargando .texto {
@@ -73,8 +71,6 @@ body {
 }
 
 .flecha_back_top {
-	display: inline-block;
-	background: url("flechas_small.png") repeat scroll -117px 0 transparent;
 	cursor: pointer;
 	height: 36px;
 	margin-left: 5px;
@@ -82,24 +78,18 @@ body {
 }
 
 .flecha_back {
-	display: inline-block;
-	background: url("flechas_small.png") repeat scroll 39px -46px transparent;
 	cursor: pointer;
 	height: 36px;
 	margin-left: 5px;
 	width: 35px;
 }
 .flecha_next {
-	display: inline-block;
-	background: url("flechas_small.png") repeat scroll -39px -45px transparent;
 	cursor: pointer;
 	height: 36px;
 	margin-left: 5px;
 	width: 36px;
 }
 .flecha_next_top {
-	display: inline-block;
-	background: url("flechas_small.png") repeat scroll -38px 0 transparent;
 	cursor: pointer;
 	height: 36px;
 	margin-left: 5px;
@@ -264,8 +254,8 @@ div.novedad_novedad {
 	line-height: 20px;
 }
 
-div.fecha_novedad{
-	font-size:10px;
+div.fecha_novedad {
+	font-size: 10px;
 	display: inline;
 }
 /************** ESTANDARD *****************/
@@ -278,21 +268,21 @@ h2.encabezado {
 	margin: 10px;
 }
 /*
-div.barra_izq {
-	width: 200px;
-	background-color: white;
-	border-radius: 7px 7px 7px 7px;
-	border-style: solid;
-	border-width: 0px;
-	box-shadow: 2px 2px 3px black;
-	padding: 7px;
-	float: left;
-	margin: 0 0 10px;
-}*/
+ div.barra_izq {
+ width: 200px;
+ background-color: white;
+ border-radius: 7px 7px 7px 7px;
+ border-style: solid;
+ border-width: 0px;
+ box-shadow: 2px 2px 3px black;
+ padding: 7px;
+ float: left;
+ margin: 0 0 10px;
+ }*/
 
 div.barra_full {
 	float: left;
-	width: 960px;
+	width: 997px;
 	margin: 0 0 10px;
 }
 
@@ -311,7 +301,7 @@ div.barra_izq_centro {
 	box-shadow: 2px 2px 3px black;
 	padding: 15px;
 	float: left;
-	margin: 0px 10px 10px 10px;
+	margin: 0px 10px 10px 0px;
 }
 
 div.barra_centro_der {
@@ -323,7 +313,7 @@ div.barra_centro_der {
 
 div.barra_der {
 	float: right;
-	width: 245px;
+	width: 230px;
 	background-color: white;
 	border-radius: 7px 7px 7px 7px;
 	border-style: solid;
@@ -344,7 +334,6 @@ div.barra_der {
  padding:7px;
  margin:0 0 10px;
  }*/
-
 
 div.centrar {
 	text-align: center;
@@ -371,17 +360,17 @@ div.marco_small {
 }
 
 /*
-div.cuerpo_full {
-	float: left;
-	background-color: white;
-	border-radius: 7px 7px 7px 7px;
-	border-style: solid;
-	border-width: 0px;
-	box-shadow: 2px 2px 3px black;
-	padding: 7px;
-	margin: 0 0 10px;
-	width: 1000px;
-}*/
+ div.cuerpo_full {
+ float: left;
+ background-color: white;
+ border-radius: 7px 7px 7px 7px;
+ border-style: solid;
+ border-width: 0px;
+ box-shadow: 2px 2px 3px black;
+ padding: 7px;
+ margin: 0 0 10px;
+ width: 1000px;
+ }*/
 /*
  div.cuerpo_centro{
  float:left;
@@ -435,100 +424,93 @@ button {
 	text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.35);
 }
 
-.imagen_perfil{
+.imagen_perfil {
 	margin-right: 5px;
-    min-height: 50px;
-    min-width: 50px;
-    max-height: 50px;
-    max-width: 50px;
-    vertical-align: top;
+	min-height: 50px;
+	min-width: 50px;
+	max-height: 50px;
+	max-width: 50px;
+	vertical-align: top;
 }
-img.imagen{
+img.imagen {
 	margin: 10px;
-    max-height: 100px;
-    max-width: 500px;
+	max-height: 100px;
+	max-width: 500px;
 }
 /*******************	CHAT	*****************/
 
-#chat_anclaje{
-    bottom: 0;
-    position: fixed;
-}
-
-#chat_boton{
-    background-color: white;
-    background-image: url("../imagenes/chat.png");
-    background-repeat: no-repeat;
-    background-size: 40px 40px;
-    border-radius: 10px 10px 10px 10px;
-    bottom: 0;
-    box-shadow: 1px 1px 3px black;
-    display: inline-block;
-    height: 40px;
-    
-    vertical-align: bottom;
-    width: 40px;
-}
-
-#chat_padre_contactos {
-    background-color: white;
-    border-radius: 10px 10px 10px 10px;
-    box-shadow: 5px 5px 5px black;
-    display: none;
-    font-size: 12px;
-    list-style: none outside none;
-    left: -40px;
-    margin-right: -40px;
-    padding: 8px;
-    position: relative;
-    top: -50px;
-    width: 200px;
-}
-
-
-
-
-
-
-#chat_opciones{
-    background-image: url("../imagenes/iconos4.png");
-    background-position: -102px -6px;
-    height: 12px;
-    position: relative;
-    right: -146px;
-    top: -25px;
-    width: 12px;
-}
-#chat_opciones_lista{
-    display: none;
-    left: -60px;
-    position: relative;
-    top: 20px;
-    width: 100px;
-    z-index: 99999999;
-}
-/*
-#chat {
-	margin: 0 0 5px;
+#chat_anclaje {
+	bottom: 0;
 	position: fixed;
-	bottom: 0px;
 }
 
 #chat_boton {
-	vertical-align: bottom;
+	background-color: white;
+	background-image: url("../css/chat.png");
+	background-repeat: no-repeat;
+	background-size: 40px 40px;
+	border-radius: 10px 10px 10px 10px;
+	bottom: 0;
+	box-shadow: 1px 1px 3px black;
 	display: inline-block;
 	height: 40px;
+	vertical-align: bottom;
 	width: 40px;
-	background-image: url('../imagenes/chat.png');
-	background-size: 40px 40px;
-	background-repeat: no-repeat;
-	background-color: white;
-	border-radius: 10px 10px 10px 10px;
-	box-shadow: 1px 1px 3px black;
 }
 
+#chat_padre_contactos {
+	background-color: white;
+	border-radius: 10px 10px 10px 10px;
+	box-shadow: 5px 5px 5px black;
+	display: none;
+	font-size: 12px;
+	list-style: none outside none;
+	left: -40px;
+	margin-right: -40px;
+	padding: 8px;
+	position: relative;
+	top: -50px;
+	width: 200px;
+}
 
-*/
+#chat_opciones {
+	background-image: url("../css/iconos4.png");
+	background-position: -102px -6px;
+	height: 12px;
+	position: relative;
+	right: -146px;
+	top: -25px;
+	width: 12px;
+}
+#chat_opciones_lista {
+	display: none;
+	left: -60px;
+	position: relative;
+	top: 20px;
+	width: 100px;
+	z-index: 99999999;
+}
+/*
+ #chat {
+ margin: 0 0 5px;
+ position: fixed;
+ bottom: 0px;
+ }
+
+ #chat_boton {
+ vertical-align: bottom;
+ display: inline-block;
+ height: 40px;
+ width: 40px;
+ background-image: url('../css/chat.png');
+ background-size: 40px 40px;
+ background-repeat: no-repeat;
+ background-color: white;
+ border-radius: 10px 10px 10px 10px;
+ box-shadow: 1px 1px 3px black;
+ }
+
+ */
 #chat_contactos ul {
 	list-style: none outside none;
 	padding: 0;
@@ -541,7 +523,7 @@ img.imagen{
 
 #chat_contactos li div {
 	display: inline-block;
-	background-image: url('../imagenes/iconos3.png');
+	background-image: url('../css/iconos3.png');
 	height: 8px;
 	width: 8px;
 	margin: 0 4px;
@@ -570,7 +552,7 @@ img.imagen{
 	cursor: pointer;
 	float: right;
 	display: inline-block;
-	background-image: url('../imagenes/iconos3.png');
+	background-image: url('../css/iconos3.png');
 	height: 10px;
 	width: 10px;
 	margin: 0 4px;
@@ -620,7 +602,7 @@ img.imagen{
 }
 
 .chat_ventana_min {
-	cursor:pointer;
+	cursor: pointer;
 	background-color: white;
 	border-radius: 10px 10px 10px 10px;
 	box-shadow: 5px 5px 5px black;
@@ -635,7 +617,7 @@ img.imagen{
 }
 
 .chat_ventana_min .mensajes {
-	background-image: url("../imagenes/iconos3.png");
+	background-image: url("../css/iconos3.png");
 	background-position: -177px -211px;
 	height: 10px;
 	width: 10px;
@@ -654,13 +636,13 @@ img.imagen{
 
 /*******************	ALBUMS	***************/
 div.album {
-    display: inline-block;
-    margin: 25px;
-    max-height: 300px;
-    padding: 7px;
-    text-decoration: none;
-    vertical-align: top;
-    width: 375px;
+	display: inline-block;
+	margin: 25px;
+	max-height: 300px;
+	padding: 7px;
+	text-decoration: none;
+	vertical-align: top;
+	width: 375px;
 }
 
 div.album .album_titulo a {
@@ -686,7 +668,7 @@ div.album_titulo {
 }
 
 div.album_renombrar {
-	background-image: url("../imagenes/iconos3.png");
+	background-image: url("../css/iconos3.png");
 	background-position: -246px -185px;
 	display: inline-block;
 	height: 15px;
@@ -696,7 +678,7 @@ div.album_renombrar {
 	width: 15px;
 }
 div.album_borrar {
-	background-image: url("../imagenes/iconos3.png");
+	background-image: url("../css/iconos3.png");
 	background-position: -71px -342px;
 	background-repeat: no-repeat;
 	background-size: 395px 857px;
@@ -729,7 +711,12 @@ div#barra_navegacion > a {
 /*******************	FOTOS	***************/
 
 #foto_titulo {
-	width: 200px;
+	margin: 5px 0 15px 10px;
+}
+#foto_titulo > .original {
+	color: gray;
+	font-size: 16px;
+	font-style: italic;
 }
 
 #foto_titulo > .edicion {
@@ -783,6 +770,16 @@ div#barra_navegacion > a {
 	padding: 5px;
 }
 
+#barra_navegacion {
+	margin: 10px 0 0 0;
+}
+
+#barra_navegacion > .texto {
+	display: inline;
+	font-size: 16px;
+	margin: 20px;
+	vertical-align: super;
+}
 #lista_etiquetados li div {
 	background: url("icons1.png") repeat scroll -34px -194px transparent;
 	cursor: pointer;
@@ -790,6 +787,7 @@ div#barra_navegacion > a {
 	height: 12px;
 	margin-left: 5px;
 	width: 12px;
+	vertical-align: sub;
 }
 
 li.etiqueta_seleccionada {
@@ -914,4 +912,39 @@ input[type=radio] + label {
 }
 input[type=radio]:checked + label {
 	background: url(input-radio.png) 0px -16px no-repeat;
+}
+
+/***	JQUERY AUTOCOMPLETE	*/
+.autocomplete_img{
+	max-width:30px;
+	max-height:30px;
+	margin-right: 5px;
+	vertical-align: middle;
+}
+
+.autocomplete_label{
+	display: inline-block;
+	margin-left: 5px;
+}
+
+#ui-id-1{
+	width:auto !important;
+	max-width:300px;
+}
+
+.ui-autocomplete {
+	max-height: 200px;
+	overflow-y: auto;
+	/* prevent horizontal scrollbar */
+	overflow-x: hidden;
+}
+
+/* IE 6 doesn't support max-height we use height instead, but this forces the menu to always be this tall */
+* html .ui-autocomplete {
+	height: 500px;
+}
+#receptor-icon {
+	float: left;
+	height: 32px;
+	width: 32px;
 }

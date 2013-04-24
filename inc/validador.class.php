@@ -278,13 +278,15 @@ class Validador{
 							$('#valida_error').hide();
 							$('form').submit();
 						}else{
-							$('#valida_error').show();
+							$('#valida_error').css('display','inline-block');
 						}
 					}else{
 						if(form_ok == 1){
 							$('#valida_error').hide();
+							return 'form_ok';
 						}else{
-							$('#valida_error').show();
+							$('#valida_error').css('display','inline-block');
+							return 'form_fail';
 						}
 					}
 

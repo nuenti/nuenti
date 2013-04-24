@@ -10,19 +10,20 @@ function foto_cancelar_edicion() {
 	location.reload();
 }
 
-function etiqueta_borrar(label, value) {
+function etiqueta_borrar(label, value, icon) {
 	if (etiqueta_editar != 1)
 		return false;
 	//lo borramos del panel etiquetado
 	$("#lista_etiquetados").find("li").each(function() {
-		if ($(this).text() == label) {
+		if ($(this).text().search(label)!=-1) {
 			$(this).remove();
 		}
 	});
 
 	lista_amigos.push({
 		value : value,
-		label : label
+		label : label,
+		icon: icon
 	});
 
 	// buscamos el nombre del amigo seleccionado
@@ -114,8 +115,6 @@ function etiqueta_editar() {
 					"left" : x_centrado
 				});
 			}
-			//$("#coors1").text("DIV x: " + x + " y: " + y);
-			//$("#coors2").text("DIV CENTRADO x: " + x_centrado + " y: " + y_centrado);
 		});
 
 		$("#etiqueta").click(function(e) {
@@ -123,6 +122,7 @@ function etiqueta_editar() {
 			click = 1;
 			$(".ui-widget").find("*").show();
 			$(".ui-autocomplete-input").focus();
+			$( ".ui-autocomplete-input" ).autocomplete("search");
 
 		});
 
@@ -131,7 +131,8 @@ function etiqueta_editar() {
 				move = 1;
 				click = 0;
 				$("form input,label").show();
-				$("form #tags").focus();
+				//$("form #tags").focus();
+				//$( "form #tags" ).autocomplete("search");
 			}
 		});
 
@@ -173,6 +174,10 @@ function etiqueta_crear() {
 
 
 $(document).ready(function() {
+	$( "#tags" ).click(function(e){
+			$( "#tags" ).autocomplete("search");
+			$("#ui-id-1").show();
+	});
 });
 
 //elimina gente etiquetada del la lista_amigos
@@ -203,7 +208,6 @@ $(function() {
 		},
 		focus : function(event, ui) {
 			//al focus sobre un resultado
-			$("#tags").val(ui.item.label);
 			return false;
 		},
 		select : function(event, ui) {
@@ -212,10 +216,13 @@ $(function() {
 			lista_etiquetados.push({
 				value : ui.item.value,
 				label : ui.item.label,
+				icon : ui.item.icon,
 				x : x_centrado,
 				y : y_centrado
 			});
-			$("#lista_etiquetados").append("<li class='etiqueta_" + ui.item.value + "'>" + ui.item.label + "<div onclick=\"etiqueta_borrar('" + ui.item.label + "','" + ui.item.value + "')\" style='display:inline-block;'></div></li>");
+			$("#lista_etiquetados").append(
+				"<li class='etiqueta_" + ui.item.value + "'>"+
+				"<img src='"+ui.item.icon+"' class='autocomplete_img'>" + ui.item.label + "<div onclick=\"etiqueta_borrar('" + ui.item.label + "','" + ui.item.value + "')\" style='display:inline-block;'></div></li>");
 			$("#tags").val("");
 
 			// buscamos el nombre del amigo seleccionado
@@ -229,9 +236,19 @@ $(function() {
 
 			//efectos de raton y divs
 			etiqueta_fijar(ui.item.value, ui.item.label);
+			$(".ui-widget").find("*").hide();
 			return false;
 		}
-	}).data("autocomplete")._renderItem = function(ul, item) {
-		return $("<li>").data("item.autocomplete", item).append("<a>" + item.label + "</a>").appendTo(ul);
+	}) .data( "autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li>" ).append( 
+			"<a>"+
+				"<img src='"+ item.icon + "' class='autocomplete_img'>"+
+				"<div class='autocomplete_label'>" + item.label + "</div>"+
+			"</a>" ).appendTo( ul );
 	};
+	
+	
+	/*.data("autocomplete")._renderItem = function(ul, item) {
+		return $("<li>").data("item.autocomplete", item).append("<a>" + item.label + "</a>").appendTo(ul);
+	};*/
 });

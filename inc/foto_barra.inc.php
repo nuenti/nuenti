@@ -48,8 +48,13 @@
 		if (mysqli_num_rows($fotos)) {
 			if (mysqli_num_rows($etiquetados) > 0) {
 				mysqli_data_seek($etiquetados, 0);
-				while ($personas = mysqli_fetch_assoc($etiquetados)) {
-					echo "<li class='etiqueta_" . $personas['idusuarios'] . "'>" . $personas['nombre'] . " " . $personas['apellidos'] . "<div onclick=\"etiqueta_borrar('" . $personas['nombre'] . " " . $personas['apellidos'] . "','" . $personas['idusuarios'] . "')\"></div></li>";
+				while ($etiqueta = mysqli_fetch_assoc($etiquetados)) {
+					print "<li class='etiqueta_".$etiqueta['idusuarios']."'>
+						<img src='{$etiqueta['archivo']}' class='autocomplete_img'>
+						".$etiqueta['nombre']." ".$etiqueta['apellidos']."
+						<div onclick=\"etiqueta_borrar('" . $etiqueta['nombre'] . " " . $etiqueta['apellidos'] . "','" . $etiqueta['idusuarios'] . "','" . $etiqueta['archivo'] . "')\">
+						</div>
+						</li>";
 				}
 			} else {
 				echo "No hay nadie etiquetado todavia";
@@ -58,7 +63,13 @@
 		?>
 	</ul>
 	<?php
-	$query = mysqli_query($link, "SELECT idusuarios, nombre, apellidos FROM amigos, usuarios WHERE user1='" . $global_idusuarios . "' AND user2=idusuarios OR user2='" . $global_idusuarios . "' AND user1=idusuarios UNION SELECT idusuarios, nombre, apellidos FROM usuarios WHERE idusuarios='" . $global_idusuarios . "'");
+	$query=mysqli_query($link,"
+			SELECT idusuarios, nombre, apellidos, archivo
+			FROM amigos, usuarios
+			RIGHT JOIN fotos
+			ON idfotos_princi=idfotos
+			WHERE user1='".$global_idusuarios."' AND user2=idusuarios OR user2='".$global_idusuarios."' AND user1=idusuarios
+		");
 	?>
 	<script>
 		//Declarando variables
@@ -68,10 +79,15 @@ if (mysqli_num_rows($fotos)) {
 	if (mysqli_num_rows($etiquetados) > 0) {
 		mysqli_data_seek($etiquetados, 0);
 		$i_temp = 0;
-		while ($personas = mysqli_fetch_assoc($etiquetados)) {
+		while ($etiqueta = mysqli_fetch_assoc($etiquetados)) {
 			if ($i_temp != 0)
 				echo ",";
-			echo "{value: " . $personas['idusuarios'] . ", label: '" . $personas['nombre'] . " " . $personas['apellidos'] . "', x: " . $personas['x'] . ", y: " . $personas['y'] . "}";
+			print "{
+				value: " . $etiqueta['idusuarios'] . ",
+				label: '" . $etiqueta['nombre'] . " " . $etiqueta['apellidos'] . "',
+				 x: " . $etiqueta['x'] . ",
+				 y: " . $etiqueta['y'] . "
+			}";
 			$i_temp++;
 		}
 	}
@@ -85,7 +101,11 @@ $i_temp = 0;
 while ($row = mysqli_fetch_assoc($query)) {
 	if ($i_temp != 0)
 		echo ",";
-	echo "{value: '" . $row['idusuarios'] . "', label: '" . $row['nombre'] . " " . $row['apellidos'] . "'}";
+	echo "{
+		value: '" . $row['idusuarios'] . "',
+		label: '" . $row['nombre'] . " " . $row['apellidos'] . "',
+		icon: '".$row['archivo']."'
+	}";
 	$i_temp++;
 }
 ?>
