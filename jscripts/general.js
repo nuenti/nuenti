@@ -33,8 +33,6 @@ function ajax_post(p) {
 	});
 
 	var promise = ajax.done(function(msg) {
-		ajax_post_fail();
-		return false;
 		if (msg.length == 0 && !p.retrieve){
 			if(p.visible == true) {
 				$("#ajax_cargando").addClass("ajax_ok");

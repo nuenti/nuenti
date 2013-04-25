@@ -350,8 +350,10 @@ class Validador{
 									validador();
 									ayuda_toggle(this);
 								}
-								if (event.which == 13) {
-									validador('submit');
+								if(!$(this).is('textarea')){
+									if (event.which == 13) {
+										validador('submit');
+									}
 								}
 							},
 							focusout:function() {

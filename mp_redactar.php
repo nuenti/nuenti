@@ -7,8 +7,8 @@
 	<?php
 		require_once("inc/validador.class.php");
 		$Validador = new Validador();
-		$Validador->SetInput(array('name' => 'mensaje', 'alias' => 'Mensaje', 'obligatorio' => 'si'));
 		$Validador->SetInput(array('name' => 'receptor', 'alias' => 'Destinatario', 'obligatorio' => 'si'));
+		$Validador->SetInput(array('name' => 'mensaje', 'alias' => 'Mensaje', 'formato' => '[A-Za-z0-9]{1,}'));
 		$Validador->GeneraValidadorJS();
 	?>
 		function mp_enviar(){
@@ -28,19 +28,16 @@
 		<div class='marco'>
 			<h2>Mensajeria Privada</h2>
 <?php
+	//Si hay un destinatario preseleccionado
 	if($_GET['receptor']){
-		/*$query=mysqli_query($link,"SELECT * FROM usuarios WHERE idusuarios='".$_GET['receptor']."'");
+		$query=mysqli_query($link,"SELECT * FROM usuarios RIGHT JOIN fotos ON idfotos_princi=idfotos WHERE idusuarios='".$_GET['receptor']."'");
 		$usuario=mysqli_fetch_assoc($query);
-		?>
-		Destinatario: <?php echo $usuario['nombre']; ?>
 		
-		<form method="POST" action="post.php">
-			Mensaje:<br>
-			<textarea name="mensaje_privado" cols="60" rows="2"></textarea>
-			<input type="hidden" name="receptor" value="<?php echo $usuario['idusuarios']; ?>" /><br>
-			<button type="button" onclick="mp_enviar();">Enviar</button>
-		</form>
-		<?php*/
+		print "<form action='#' onsubmit='return false'>
+				Destinatario: 
+				<img id='receptor_icon' src='{$usuario['archivo']}' style='max-width:30px;max-height:30px;vertical-align: middle;'>
+				<input id='receptor' name='receptor' class='validable' value='{$usuario['nombre']} {$usuario['apellidos']}' disabled  size='40'>
+				<input id='receptor_id' name='receptor_id' style='visibility: hidden;' value='{$_GET['receptor']}'>";
 	}else{
 		$query=mysqli_query($link,"
 			SELECT idusuarios, nombre, apellidos, archivo
@@ -56,12 +53,13 @@
 				<div class="ui-widget">
 				    <label for="receptor">Destinatario: </label>
 				    <img id="receptor_icon" style='max-width:30px;max-height:30px;vertical-align: middle;'>
-				    <input id="receptor" name="receptor" class="validable" autofocus>
+				    <input id="receptor" name="receptor" class="validable" autofocus size='40'>
 				    <input id="receptor_id" name="receptor_id" style="visibility: hidden;" />
 				</div>
 
 
 					<script>
+					var receptor_seleccionado=false;
 				    $(function() {
 						var amigos = [
 							<?php
@@ -84,14 +82,12 @@
 							source: amigos,
 							minLength : 0,
 							focus : function(event, ui) {
-								//AL FOCUS UN RESULTADO
-								$("#receptor").val(ui.item.label);
-								$("#receptor_id").val(ui.item.value);
-								$( "#receptor_icon" ).attr( "src",ui.item.icon );
 								return false;
 							},
 							select : function(event, ui) {
 								//AL PULSAR UN RESULTADO
+								receptor_seleccionado=true;
+								$("#receptor").val("").addClass('input_ok').removeClass('input_error');
 								$("#receptor").val(ui.item.label);
 								$("#receptor_id").val(ui.item.value);
 								$( "#receptor_icon" ).attr( "src",ui.item.icon );
@@ -110,16 +106,26 @@
 					});
 					$(window).ready(function(){
 						$( "#receptor" ).autocomplete("search");
+						
+						//Aseguramos la seleccion del autocompletado
+						$("#receptor").blur(function(e){
+							if(!receptor_seleccionado){
+								$("#receptor").val("").addClass('input_error').removeClass('input_ok');
+							}
+						});
+						$("#receptor").focus(function(e){
+						$( "#receptor" ).autocomplete("search");
+						});
 					});
 					</script>
-				<br>
-				Mensaje:<br>
-				<textarea name="mensaje" class="validable" cols="60" rows="2"></textarea><br>
-			  	<button type="button" onclick="mp_enviar();">Enviar</button>
-			</form>
 		<?php
 		}else{
 			echo "No tienes amigos";
 		}
 	}
-?>
+	?>
+	<br>
+	Mensaje:<br>
+	<textarea name="mensaje" class="validable" cols="60" rows="2"></textarea><br>
+	<button type="button" onclick="mp_enviar();">Enviar</button>
+</form>
