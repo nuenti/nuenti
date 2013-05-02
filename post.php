@@ -37,15 +37,19 @@ if ($_POST['comentario_tablon'] != "") {
 
 
 
-if ($_GET['mensaje_leido'] != "") {
-	mysqli_query($link, "UPDATE mps SET estado='leido' WHERE idmps='" . $_GET['mensaje_leido'] . "'");
-	error_mysql();
-}
 
 ######## MENSAJERIA PRIVADA
+
 if ($_POST['mp_enviar']) {
 	//print_r($_POST);
 	mysqli_query($link, "INSERT INTO mps (emisor,receptor,mp,fecha) VALUES ('{$global_idusuarios}','{$_POST['receptor']}','{$_POST['mensaje']}',now())");
+	error_mysql("exit");
+	die();
+}
+
+
+if ($_POST['mp_leido'] != "") {
+	mysqli_query($link, "UPDATE mps SET estado='leido' WHERE idmps='" . $_POST['id'] . "' AND receptor='" . $global_idusuarios . "'");
 	error_mysql("exit");
 	die();
 }
@@ -293,7 +297,7 @@ if ($_POST['chat_contactos']) {
  die();
  }
  */
-/*echo "<pre>";
+echo "<pre>";
  if($_POST){
  echo "POST:<br>";
  print_r($_POST);
@@ -304,6 +308,6 @@ if ($_POST['chat_contactos']) {
  echo "GET:<br>";
  print_r($_GET);
  }
- echo "</pre>";*/
+ echo "</pre>";
 echo "ERROR";
 ?>

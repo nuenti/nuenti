@@ -16,28 +16,28 @@ body {
 }
 
 #ajax_cargando_padre {
-    left: 0;
-    position: fixed;
-    text-align: center;
-    top: 100px;
-    width: 100%;
-    z-index: 2147483647;
+	left: 0;
+	position: fixed;
+	text-align: center;
+	top: 100px;
+	width: 100%;
+	z-index: 2147483647;
 }
 
 #ajax_cargando {
-    background-color: white;
-    border: 3px solid #3869A0;
-    border-radius: 8px 8px 8px 8px;
-    color: black;
-    margin: 70px auto;
-    width: 300px;
+	background-color: white;
+	border: 3px solid #3869A0;
+	border-radius: 8px 8px 8px 8px;
+	color: black;
+	margin: 70px auto;
+	width: 300px;
 }
 
 #ajax_cargando img {
-    display: inline-block;
-    height: 100px;
-    vertical-align: middle;
-    width: 100px;
+	display: inline-block;
+	height: 100px;
+	vertical-align: middle;
+	width: 100px;
 }
 
 #ajax_cargando .texto {
@@ -834,6 +834,54 @@ div.etiqueta_seleccionada {
 .foto_come_men {
 	font-size: 13px;
 }
+
+/*******************	MENSAJES PRIVADOS	********/
+.mp_entrante {
+	margin: 10px 0;
+	padding: 5px 0;
+	border-bottom: 1px solid #E5E5E5;
+}
+.mp_entrante > .encabezado {
+	cursor: pointer;
+	display: inline-block;
+}
+.mp_entrante > .encabezado div, img {
+	color: black;
+	display: inline;
+}
+.mp_entrante > .encabezado > .icono {
+	color: black;
+}
+.mp_entrante > .encabezado > img {
+	max-width: 50px;
+	max-height: 50px;
+	vertical-align: top;
+	margin-right: 5px;
+}
+.mp_entrante > .encabezado > .nombre {
+	color: black;
+}
+.mp_entrante > .encabezado > .resumen {
+	font-style: italic;
+	margin: 0 10px;
+}
+.mp_entrante > .encabezado > .fecha {
+	vertical-align: top;
+	display: inline-block;
+	font-size: 10px;
+	font-weight: normal !important;
+	margin-left: 20px;
+}
+.mp_entrante > .cuerpo {
+	display: none;
+}
+.mp_entrante > .cuerpo > .texto {
+	font-size: 13px;
+}
+.mp_entrante > .cuerpo > form > textarea {
+	width: 90%;
+	margin: 15px 30px;
+}
 /*******************	VALIDACION	****************/
 
 .input_error {
@@ -915,21 +963,21 @@ input[type=radio]:checked + label {
 }
 
 /***	JQUERY AUTOCOMPLETE	*/
-.autocomplete_img{
-	max-width:30px;
-	max-height:30px;
+.autocomplete_img {
+	max-width: 30px;
+	max-height: 30px;
 	margin-right: 5px;
 	vertical-align: middle;
 }
 
-.autocomplete_label{
+.autocomplete_label {
 	display: inline-block;
 	margin-left: 5px;
 }
 
-#ui-id-1{
-	width:auto !important;
-	max-width:300px;
+#ui-id-1 {
+	width: auto !important;
+	max-width: 300px;
 }
 
 .ui-autocomplete {
