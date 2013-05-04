@@ -22,6 +22,7 @@
 		</script>
 		
 		<div class="barra_izq_centro" style="height: 600px !important;">
+			<div class="marco">
 		<?php
 		###### TITULO FOTO
 		echo "<div id='foto_titulo'>";
@@ -88,6 +89,7 @@
 		die();
 	}
 	?>
+	</div>
 	</div>
 </div>
 </div>

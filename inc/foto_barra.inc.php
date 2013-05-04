@@ -1,6 +1,7 @@
 <div class="barra_der">
-	<div id="foto_album">
-		<div class="original">
+	<div class="marco_small">
+		<div id="foto_album">
+			<div class="original">
 		Album
 		<?php
 		if ($row_fotos['album']) {
@@ -128,3 +129,4 @@ while ($row = mysqli_fetch_assoc($query)) {
 	</button>
 </div>
 </form>
+</div>

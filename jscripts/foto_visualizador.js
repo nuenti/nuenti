@@ -28,7 +28,8 @@ function foto_principal() {
 $(window).load(function() {
 	//Redimensiona el ancho y alto del div del fondo para centrar la imagen
 	$("#foto_marco_medio").width($("#foto").width());
-	$(".barra_izq_centro").eq(0).height($("#foto").height() + 85 + "px");
+	$(".barra_izq_centro").eq(0).height($("#foto").height() + 115 + "px");
+	$(".barra_izq_centro").find("div.marco").eq(0).height($("#foto").height() + 50 + "px");
 
 });
 $(document).ready(function() {
