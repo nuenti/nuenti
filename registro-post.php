@@ -32,8 +32,8 @@ if(	(!$_POST['Nombre'] OR !$_POST['Apellidos'] OR !$_POST['contrasenia'] OR
 			$img_princ=NULL;
 		}
 		
-		mysqli_query($link,"INSERT INTO usuarios (nombre, apellidos, fnac, password, email,fecha_reg, sexo, idfotos_princi)
-			values ('".$_POST['Nombre']."','".$_POST['Apellidos']."',STR_TO_DATE('".$_POST['nacimiento']."','%d/%m/%Y'),'".sha1($_POST['contrasenia'])."','".$_POST['Email']."',curdate(),'".$_POST['Sexo']."', '{$img_princ}')");
+		mysqli_query($link,"INSERT INTO usuarios (nombre, apellidos, fnac, password, email, fecha_reg, sexo, idfotos_princi, provincia)
+			values ('".$_POST['Nombre']."','".$_POST['Apellidos']."',STR_TO_DATE('".$_POST['nacimiento']."','%d/%m/%Y'),'".sha1($_POST['contrasenia'])."','".$_POST['Email']."',curdate(),'".$_POST['Sexo']."', '{$img_princ}','".$_POST['Provincia']."')");
 		//error_mysql('exit');
 		?>
 		<div class="centrar">
