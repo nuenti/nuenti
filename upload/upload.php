@@ -18,6 +18,7 @@ header("Pragma: no-cache");
 
 	//Obtenemos los datos del usuario
 	session_start();
+	$ruta="../"; //Evitamos problemas al cargar ficheros desde el config
 	require('../inc/config.php');
 	$login=mysqli_query($link,"SELECT * FROM usuarios WHERE idsesion='".$_SESSION['idsesion']."'");
 	$usuario=mysqli_fetch_assoc($login);
