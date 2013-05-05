@@ -36,7 +36,18 @@ if ($_POST['comentario_tablon'] != "") {
 }
 
 
-
+######## AMISTAD
+if ($_POST['peticion_amistad_enviar']) {
+		$query=mysqli_query($link,"SELECT * FROM amigos WHERE user1='".$_POST['idusuario']."' AND user2='".$global_idusuarios."' OR user1='".$global_idusuarios."' AND user2='".$_POST['idusuario']."'");
+		error_mysql("exit");
+		
+		if(mysqli_num_rows($query)>0){
+			die(); //evitamos enviar peticion
+		}
+		mysqli_query($link,"INSERT INTO peticiones (emisor, receptor) VALUES ('".$global_idusuarios."','".$_POST['idusuario']."')");
+		error_mysql("exit");
+		die();
+}
 
 ######## MENSAJERIA PRIVADA
 

@@ -8,7 +8,14 @@ require ("inc/estructura.inc.php");
 	<div class="marco_small">
 		<?php
 			########## NEWS ##############
-			
+			$query = mysqli_query($link, "SELECT * FROM peticiones, usuarios WHERE receptor = '" . $global_idusuarios . "' AND idusuarios = emisor");
+			if (mysqli_num_rows($query) > 0) {
+				echo "Tienes " . mysqli_num_rows($query) . " peticion(es) de amistad:<br>";
+				while ($row = mysqli_fetch_assoc($query)) {
+					//print_r($row);
+					echo $row['nombre'] . " " . $row['apellidos'] . " <a href='post.php?aceptaramistad=1&emisor=" . $row['idusuarios'] . "'>Aceptar peticion</a><br>";
+				}
+			}
 		?>
 	</div>
 	
@@ -60,26 +67,10 @@ require ("inc/estructura.inc.php");
 
 			}
 		}
-		?>
-	</div>
-	
-	<div class="marco" style="width: 717px;">
-		<h2>Peticiones de amistad</h2>
-		<?php
-		$query = mysqli_query($link, "SELECT * FROM peticiones, usuarios WHERE receptor = '" . $global_idusuarios . "' AND idusuarios = emisor");
-		if (mysqli_num_rows($query) > 0) {
-			echo "Tienes " . mysqli_num_rows($query) . " peticion(es) de amistad:<br>";
-			while ($row = mysqli_fetch_assoc($query)) {
-				//print_r($row);
-				echo $row['nombre'] . " " . $row['apellidos'] . " <a href='post.php?aceptaramistad=1&emisor=" . $row['idusuarios'] . "'>Aceptar peticion</a><br>";
-			}
-		}
-		?>
-
-		<?php
 		require ("inc/novedades.inc.php");
 		?>
 	</div>
+	
 </div>
 <?php
 require ("inc/chat.php");

@@ -3,90 +3,144 @@
 	head("Gente - Social");
 	require("inc/estructura.inc.php");
 ?>
-
-<div style="float: left;width: 600px;">
-<?php
-	$query=mysqli_query($link,"
-		SELECT *
-		FROM amigos, usuarios
-		LEFT JOIN fotos
-		ON idfotos=idfotos_princi
-		WHERE user1='".$global_idusuarios."' AND user2=idusuarios OR user2='".$global_idusuarios."' AND user1=idusuarios
-	");
-	if(mysqli_num_rows($query)>0){
-		while($row=mysqli_fetch_assoc($query)){
-			echo "<div class='barra_izq_centro' style='width: 600px;'>";
-				echo "<img alt='foto principal' height='200' width='200' src='".$row['archivo']."' />";
-				echo "<a href='gente.php?id=".$row['idusuarios']."'>".$row['nombre']." ".$row['apellidos']."</a><br>";
-			echo "</div>";
-		}
-	}else{
-		?>
-		<div class="barra_izq_centro" style="width: 590px;">No tienes amigos =(</div>
+<div class='barra_izq_centro' style="width: 710px;">
+	<div class="marco">
 		<?php
-	}
-echo "</div>";
-
-
-
-
-
-
-
-
-	if($_GET['agregar']){//ENVIAR PETICION AMISTAD
-		$query=mysqli_query($link,"SELECT * FROM amigos WHERE user1='".$_GET['agregar']."' AND user2='".$global_idusuarios."' OR user1='".$global_idusuarios."' AND user2='".$_GET['agregar']."'");
-		if(mysqli_errno()!=0){
-			error_mysql("exit");
-		}
-		if(mysqli_num_rows($query)>0){
-			header("Location: inicio.php?yasoisamigos");
-			die(); //evitamos enviar peticion
-		}
-		mysqli_query($link,"INSERT INTO peticiones (emisor, receptor) VALUES ('".$global_idusuarios."','".$_GET['agregar']."')");
-		if(mysqli_errno()!=0){
-			error_mysql("exit");
-		}
-	}
-	if($_GET['busqueda']){//REALIZAR BUSQUEDA
-		$query=mysqli_query($link,"
-		SELECT *,
-			(
-				SELECT count(*)
-				FROM amigos WHERE user1='".$global_idusuarios."' AND user2=idusuarios OR  user2='".$global_idusuarios."' AND user1=idusuarios
-				) AS amigo,
-			(
-				SELECT count(*)
-				FROM peticiones WHERE emisor='".$global_idusuarios."' AND receptor=idusuarios OR  receptor='".$global_idusuarios."' AND emisor=idusuarios
-				) AS enviada
-		FROM usuarios
-		WHERE idusuarios!='".$global_idusuarios."' AND
-			(nombre LIKE '%".$_GET['busqueda']."%' OR apellidos LIKE '%".$_GET['busqueda']."%')
-		");
-
-		if(mysqli_num_rows($query)>0){
-			while($row=mysqli_fetch_assoc($query)){
-				//print_r($row);
-				echo $row['nombre']." ".$row['apellidos']." -> ";
-				if($row['amigo']==0 AND $row['enviada']==0){
-					echo "<a href='gente.php?busqueda=".$_GET['busqueda']."&agregar=".$row['idusuarios']."'>Agregar</a>";
-				}elseif($row['amigo']==0 AND $row['enviada']==1){
-					echo "Peticion enviada";
-				}elseif($row['amigo']==1){
-					echo "Amigo!";
+			if($_POST['busqueda']){
+				?>
+				<script>
+					//ENVIAR PETICION AMISTAD
+					function peticion_enviar(idusuario){
+						ajax_post({
+							data: "peticion_amistad_enviar=1&idusuario="+idusuario
+						});
+						$("#resultado"+idusuario).find(".estado_amistad").html("Peticion enviada");
+					}
+					$(document).ready(function(){
+						// Marcar la opcion del select elegido
+						$("select[name='provincia']").find("option[value='<?php echo $_POST['provincia']; ?>']").attr("selected","true");
+					});
+				</script>
+				<?php			
+				$sql="SELECT *,
+					FLOOR(DATEDIFF(CURDATE(),fnac)/365) AS edad,
+						(SELECT count(*)
+						FROM amigos WHERE user1='".$global_idusuarios."' AND user2=idusuarios OR  user2='".$global_idusuarios."' AND user1=idusuarios
+						) AS amigo,
+						(SELECT count(*)
+						FROM peticiones WHERE emisor='".$global_idusuarios."' AND receptor=idusuarios OR  receptor='".$global_idusuarios."' AND emisor=idusuarios
+						) AS enviada
+					FROM usuarios LEFT JOIN fotos ON idfotos_princi=idfotos";
+				$where="";
+				if($_POST['nombre']){
+					$where.=" AND nombre LIKE '%{$_POST['nombre']}%'";
 				}
-				echo "<br />";
-
+				if($_POST['apellidos']){
+					$where.=" AND apellidos LIKE '%{$_POST['apellidos']}%'";
+				}
+				if($_POST['edad_menor']){
+					$where.=" AND fnac <= date_add(now(), INTERVAL -{$_POST['edad_menor']} YEAR)";
+				}
+				if($_POST['edad_mayor']){
+					$where.=" AND fnac >= date_add(now(), INTERVAL -{$_POST['edad_mayor']} YEAR)";
+				}
+				if($_POST['provincia']){
+					$where.=" AND provincia = '{$_POST['provincia']}'";
+				}
+				if($_POST['aaaaa']){
+					$where.=" AND campo = '{$_POST['aaaaa']}'";
+				}
+				if($where){
+					$where = " WHERE idusuarios!='".$global_idusuarios."'".$where;
+					$sql .= $where;
+				}else{
+					$sql .= " WHERE idusuarios!='".$global_idusuarios."'";
+				}
+				//DEBUG
+				/*echo "<pre>";
+				print_r($_POST);
+				echo "</pre>";
+				echo "$sql<br>";*/
+				
+				echo "<div class='busqueda'>";
+				$q_search = mysqli_query($link,$sql);
+				if(mysqli_num_rows($q_search)){
+					while($r_search = mysqli_fetch_assoc($q_search)){
+						//print_r($r_search);
+						
+						//Estado de la amistad
+						if($r_search['amigo']){
+							$estado_amistad="Amigo";
+						}elseif($r_search['enviada']){
+							$estado_amistad="Peticion enviada";
+						}else{
+							$estado_amistad="<div class='peticion_enviar' onclick=\"peticion_enviar('{$r_search['idusuarios']}')\">Agregar</div>";
+						}
+						
+						// Imprimimos los resultados
+						print "
+							<div class='resultado' id='resultado{$r_search['idusuarios']}'>
+								<div class='img'>
+									<img alt='foto principal' src='{$r_search['archivo']}' />
+								</div>
+								<div class='datos'>
+									<div class='nombre'><a href='gente.php?id={$r_search['idusuarios']}'>{$r_search['nombre']} {$r_search['apellidos']}</a></div>
+									<div class='info'>
+										{$r_search['edad']} Años<br>
+										".IdProvincia($r_search['provincia'])."<br>
+									</div>
+								</div>
+								<div class='estado_amistad'>{$estado_amistad}
+								</div>
+							</div><br>
+						";
+					}
+				}else{
+					print "No se han encontrado resultados";
+				}
+				echo "</div>";
+				
 			}
-		}
-	}
-?>
+		?>
+	</div>
 </div>
-<div class="barra_der" style="width: 360px;">
-	Buscador de personas
-	<hr>
-	<form method="GET" action="gente.php">
-		Nombre: <input type="text" name="busqueda" value="<?php echo $_GET['busqueda']; ?>"/><br>
-		<button type="submit">Buscar</button>
-	</form>
+<div class="barra_der" style="width: 270px;">
+	<div class="marco_small">
+		<h3>Busqueda</h3>
+		<form name="busqueda" method='post' action='gente.php'>
+				Nombre: <input type='text' size='15' maxlength='20' name='nombre' value="<?php echo $_POST['nombre']; ?>" /><br />
+				Apellidos: <input type='text' size='25' maxlength='40' name='apellidos' value="<?php echo $_POST['apellidos']; ?>" /><br />
+				Edad entre:
+				<select name="edad_menor">
+					<option value="">-</option>
+					<?php
+						for($i=18;$i<100;$i++){
+							echo "<option";
+							if($_POST['edad_menor']==$i){ echo " selected";}
+							echo ">{$i}</option>";
+						}
+					?>
+				</select> y 
+				<select name="edad_mayor">
+					<option value="">-</option>
+					<?php
+						for($i=18;$i<100;$i++){
+							echo "<option";
+							if($_POST['edad_mayor']==$i){ echo " selected";}
+							echo ">{$i}</option>";
+						}
+					?>
+				</select><br>
+				
+				Sexo: 
+				<input type="radio" name="sexo" value="hombre" style="display: inline;" /> Chico
+				<input type="radio" name="sexo" value="mujer" style="display: inline;" /> Chica<br>
+				Amigo
+				Amigo de amigos
+				Todos
+				
+				Provincia: <select name="provincia"><?php require("inc/select_provincias.html"); ?></select><br>
+				<button type='submit' name='busqueda' value='true' >Buscar</button>
+			</form>
+	</div>
 </div>

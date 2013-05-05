@@ -293,13 +293,13 @@ div.barra_izq {
 }
 
 div.barra_izq_centro {
-	width: 700px;
-	background-color: white;
-	border-radius: 7px 7px 7px 7px;
-	border-style: solid;
-	border-width: 0px;
-	box-shadow: 2px 2px 3px black;
-	padding: 15px;
+	width: 740px;
+	/*background-color: white;
+	 border-radius: 7px 7px 7px 7px;
+	 border-style: solid;
+	 border-width: 0px;
+	 box-shadow: 2px 2px 3px black;
+	 padding: 15px;*/
 	float: left;
 	margin: 0px 10px 10px 0px;
 }
@@ -314,12 +314,12 @@ div.barra_centro_der {
 div.barra_der {
 	float: right;
 	width: 230px;
-	background-color: white;
-	border-radius: 7px 7px 7px 7px;
-	border-style: solid;
-	border-width: 0px;
-	box-shadow: 2px 2px 3px black;
-	padding: 7px;
+	/*background-color: white;
+	 border-radius: 7px 7px 7px 7px;
+	 border-style: solid;
+	 border-width: 0px;
+	 box-shadow: 2px 2px 3px black;
+	 padding: 7px;*/
 	margin: 0 0 10px;
 }
 /*
@@ -845,7 +845,7 @@ div.etiqueta_seleccionada {
 	cursor: pointer;
 	display: inline-block;
 }
-.mp_entrante > .encabezado div, img {
+.mp_entrante > .encabezado div, .mp_entrante > .encabezado img {
 	color: black;
 	display: inline;
 }
@@ -881,6 +881,36 @@ div.etiqueta_seleccionada {
 .mp_entrante > .cuerpo > form > textarea {
 	width: 90%;
 	margin: 15px 30px;
+}
+
+/*******************	GENTE	****************/
+.resultado {
+	border-bottom: 1px solid gray;
+	margin: 20px 0;
+	padding: 10px 0;
+}
+.resultado .img {
+	display: inline-block;
+}
+.resultado img {
+	max-height: 150px;
+	max-width: 200px;
+}
+.resultado .datos {
+	display: inline-block;
+	vertical-align: top;
+}
+.resultado0 .nombre {
+	color: black;
+}
+.resultado .info {
+	color: black;
+}
+.resultado .estado_amistad {
+	float: right;
+}
+.resultado .peticion_enviar {
+	cursor: pointer;
 }
 /*******************	VALIDACION	****************/
 
@@ -995,4 +1025,7 @@ input[type=radio]:checked + label {
 	float: left;
 	height: 32px;
 	width: 32px;
+}
+.ui-menu .ui-menu-item {
+	width: 200px !important;
 }

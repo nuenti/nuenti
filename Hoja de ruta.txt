@@ -13,6 +13,8 @@ Albums
 		Etiquetas fotos
 		Comentarios & editar y borrar
 	Subida fotos
+		Cambio de formato
+		Cambio de resolucion
 Gente
 	Quizas conozcas
 	Buscador
