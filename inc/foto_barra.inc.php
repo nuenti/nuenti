@@ -70,6 +70,12 @@
 			RIGHT JOIN fotos
 			ON idfotos_princi=idfotos
 			WHERE user1='".$global_idusuarios."' AND user2=idusuarios OR user2='".$global_idusuarios."' AND user1=idusuarios
+			UNION
+			SELECT idusuarios, nombre, apellidos, archivo
+			FROM usuarios
+			RIGHT JOIN fotos
+			ON idfotos_princi=idfotos
+			WHERE idusuarios='" . $global_idusuarios . "'
 		");
 	?>
 	<script>
@@ -85,7 +91,7 @@ if (mysqli_num_rows($fotos)) {
 				echo ",";
 			print "{
 				value: " . $etiqueta['idusuarios'] . ",
-				label: '" . $etiqueta['nombre'] . " " . $etiqueta['apellidos'] . "',
+				label: '" . NombreApellido($etiqueta['nombre'] . " " . $etiqueta['apellidos']) . "',
 				 x: " . $etiqueta['x'] . ",
 				 y: " . $etiqueta['y'] . "
 			}";
@@ -104,7 +110,7 @@ while ($row = mysqli_fetch_assoc($query)) {
 		echo ",";
 	echo "{
 		value: '" . $row['idusuarios'] . "',
-		label: '" . $row['nombre'] . " " . $row['apellidos'] . "',
+		label: '" . NombreApellido($row['nombre'] . " " . $row['apellidos']) . "',
 		icon: '".$row['archivo']."'
 	}";
 	$i_temp++;

@@ -70,7 +70,7 @@
 								
 								print "{
 									value: '{$row['idusuarios']}',
-									label: '".$row['nombre']." ".$row['apellidos']."',
+									label: '".NombreApellido($row['nombre']." ".$row['apellidos'])."',
 									icon: '".$row['archivo']."'
 								}";
 								$i_temp++;
