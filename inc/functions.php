@@ -141,4 +141,169 @@ function head($title) {
 	print "</script>
 				<title>{$title}</title>";
 }
+
+// Pasamos el ID de la provincia y nos devuelve el nombre
+function IdProvincia($id){
+	switch ($id) {
+		case '0':
+			return "Sin provincia";
+			break;
+		case '2':
+			return "Álava";
+			break;
+		case '3':
+			return "Albacete";
+			break;
+		case '4':
+			return "Alicante";
+			break;
+		case '5':
+			return "Almería";
+			break;
+		case '6':
+			return "Asturias";
+			break;
+		case '7':
+			return "Ávila";
+			break;
+		case '8':
+			return "Badajoz";
+			break;
+		case '9':
+			return "Barcelona";
+			break;
+		case '10':
+			return "Burgos";
+			break;
+		case '11':
+			return "Cáceres";
+			break;
+		case '12':
+			return "Cádiz";
+			break;
+		case '13':
+			return "Cantabria";
+			break;
+		case '14':
+			return "Castellón";
+			break;
+		case '15':
+			return "Ceuta";
+			break;
+		case '16':
+			return "Ciudad Real";
+			break;
+		case '17':
+			return "Córdoba";
+			break;
+		case '18':
+			return "Cuenca";
+			break;
+		case '19':
+			return "Girona";
+			break;
+		case '20':
+			return "Las Palmas";
+			break;
+		case '21':
+			return "Granada";
+			break;
+		case '22':
+			return "Guadalajara";
+			break;
+		case '23':
+			return "Guipúzcoa";
+			break;
+		case '24':
+			return "Huelva";
+			break;
+		case '25':
+			return "Huesca";
+			break;
+		case '26':
+			return "Islas Baleares";
+			break;
+		case '27':
+			return "Jaén";
+			break;
+		case '28':
+			return "A Coruña";
+			break;
+		case '29':
+			return "La Rioja";
+			break;
+		case '30':
+			return "León";
+			break;
+		case '31':
+			return "Lleida";
+			break;
+		case '32':
+			return "Lugo";
+			break;
+		case '33':
+			return "Madrid";
+			break;
+		case '34':
+			return "Málaga";
+			break;
+		case '35':
+			return "Melilla";
+			break;
+		case '36':
+			return "Murcia";
+			break;
+		case '37':
+			return "Navarra";
+			break;
+		case '38':
+			return "Ourense";
+			break;
+		case '39':
+			return "Palencia";
+			break;
+		case '40':
+			return "Pontevedra";
+			break;
+		case '41':
+			return "Salamanca";
+			break;
+		case '42':
+			return "Segovia";
+			break;
+		case '43':
+			return "Sevilla";
+			break;
+		case '44':
+			return "Soria";
+			break;
+		case '45':
+			return "Tarragona";
+			break;
+		case '46':
+			return "Santa C. de Tenerife";
+			break;
+		case '47':
+			return "Teruel";
+			break;
+		case '48':
+			return "Toledo";
+			break;
+		case '49':
+			return "Valencia";
+			break;
+		case '50':
+			return "Valladolid";
+			break;
+		case '51':
+			return "Vizcaya";
+			break;
+		case '52':
+			return "Zamora";
+			break;
+		case '53':
+			return "Zaragoza";
+			break;
+	}
+}
 ?>
