@@ -40,8 +40,11 @@ NOVEDADES:
 		Subida fotos - (subida_fotos) - propietario, cantidad de imagenes
 		Etiquetacion de fotos - propietario, imagenes 
 
-SELECT DATEDIFF(now(),fecha) as a,
-ADDTIME(now(), '-7 0:0:0') as b
-				FROM sucesos
-				WHERE propietario = 2
-				ORDER BY fecha DESC
+NOTIFICACIONES:
+	Campos estandard tabla: ID, fecha, tipo
+	Campos especiales:
+		Peticion amistad
+		Etiquetas fotos
+		Mensaje privado
+		Comentario tablon
+	

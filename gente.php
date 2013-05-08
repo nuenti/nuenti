@@ -6,7 +6,7 @@
 <div class='barra_izq_centro' style="width: 710px;">
 	<div class="marco">
 		<?php
-			if($_POST['busqueda']){
+			//if($_POST['busqueda']){
 				?>
 				<script>
 					//ENVIAR PETICION AMISTAD
@@ -16,6 +16,12 @@
 						});
 						$("#resultado"+idusuario).find(".estado_amistad").html("Peticion enviada");
 					}
+					
+					function cambiar_pagina(number){
+						$("input[name='page']").val(number);
+						$("form[name='busqueda']").submit();
+					}
+					
 					$(document).ready(function(){
 						// Marcar la opcion del select elegido
 						$("select[name='provincia']").find("option[value='<?php echo $_POST['provincia']; ?>']").attr("selected","true");
@@ -50,12 +56,15 @@
 				if($_POST['aaaaa']){
 					$where.=" AND campo = '{$_POST['aaaaa']}'";
 				}
-				if($where){
-					$where = " WHERE idusuarios!='".$global_idusuarios."'".$where;
-					$sql .= $where;
-				}else{
-					$sql .= " WHERE idusuarios!='".$global_idusuarios."'";
-				}
+				
+				$where = " WHERE idusuarios!='$global_idusuarios'$where";
+				$where_backup = $where;
+				
+				if(!$_POST['page']) $_POST['page']=1;
+				$limit = ($_POST['page'] - 1) * 5;
+				$where .= " LIMIT $limit, 5";
+				$sql .= $where;
+				
 				//DEBUG
 				/*echo "<pre>";
 				print_r($_POST);
@@ -65,6 +74,8 @@
 				echo "<div class='busqueda'>";
 				$q_search = mysqli_query($link,$sql);
 				if(mysqli_num_rows($q_search)){
+					//echo mysqli_fetch_array($q_search_nums)['0'];
+					error_mysql();
 					while($r_search = mysqli_fetch_assoc($q_search)){
 						//print_r($r_search);
 						
@@ -95,12 +106,34 @@
 							</div><br>
 						";
 					}
+					
+					//Numeracion paginas
+					$q_search_nums = mysqli_query($link, "SELECT COUNT(*) AS total FROM usuarios $where_backup");
+					$r_search_nums = mysqli_fetch_assoc($q_search_nums);
+			
+					$siguiente = $_POST['page'] + 1;
+					$anterior = $_POST['page'] - 1;
+					$ultima = ceil($r_search_nums['total'] / 5);
+			
+					//BARRA NAVEGACION
+					echo "<div id='barra_navegacion'>";
+						if ($_POST['page'] > 1) {
+							echo "<img class='flecha_back_top' src='css/flechas/flecha_left_top.jpg' onclick=\"cambiar_pagina(1);\">";
+							echo "<img class='flecha_back' src='css/flechas/flecha_left.jpg' onclick=\"cambiar_pagina($anterior);\">";
+						}
+						echo "<div class='texto'>".$_POST['page']." de ".$ultima."</div>";
+						
+					if ($_POST['page'] < $ultima) {
+							echo "<img class='flecha_next' src='css/flechas/flecha_right.jpg' onclick=\"cambiar_pagina($siguiente);\">";
+							echo "<img class='flecha_next_top' src='css/flechas/flecha_right_top.jpg' onclick=\"cambiar_pagina($ultima);\">";
+						}
+					echo "</div>";
 				}else{
 					print "No se han encontrado resultados";
 				}
 				echo "</div>";
 				
-			}
+			//}
 		?>
 	</div>
 </div>
@@ -140,7 +173,9 @@
 				Todos
 				
 				Provincia: <select name="provincia"><?php require("inc/select_provincias.html"); ?></select><br>
-				<button type='submit' name='busqueda' value='true' >Buscar</button>
+				<input type="hidden" name='page' value="1">
+				<input type="hidden" name='busqueda' value="true">
+				<button type='submit'>Buscar</button>
 			</form>
 	</div>
 </div>

@@ -44,7 +44,7 @@ function limpia_texto($string) {
 }
 
 //ERROR MYSQL
-function error_mysql($p1) {
+function error_mysql($p1 = "exit") {
 	global $link;
 	if (mysqli_errno($link)) {
 		echo "No error: " . mysqli_errno($link) . " -> " . mysqli_error($link) . "<br>";
