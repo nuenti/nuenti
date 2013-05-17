@@ -39,10 +39,14 @@ while ($r_users = mysqli_fetch_assoc($q_users)) {
 		echo "<div class='novedad_novedad'>";
 
 		if ($r_novedades['tipo'] == "amistad") {
-			$q_novedad = mysqli_query($link, "SELECT * FROM usuarios WHERE idusuarios = {$r_novedades['visitante']}");
-			echo mysqli_error($link);
-			$r_novedad = mysqli_fetch_assoc($q_novedad);
-			echo "agreg&oacute; a " . $r_novedad['nombre'];
+			if($r_novedades['visitante'] != $global_idusuarios){
+				$q_novedad = mysqli_query($link, "SELECT * FROM usuarios WHERE idusuarios = {$r_novedades['visitante']}");
+				$r_novedad = mysqli_fetch_assoc($q_novedad);
+				echo "agreg&oacute; a " . $r_novedad['nombre'];
+			}else{
+				echo "es ahora tu amigo!";
+			}
+			
 			echo " <div class='fecha_novedad'>" . fecha($r_novedades['fecha'], "now") . "</div>";
 		}
 
