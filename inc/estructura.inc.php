@@ -1,14 +1,6 @@
 <ul id="menudrop">
 	<li><a href="inicio.php">Inicio</a></li>
-	<li><a href="perfil.php">Perfil
-
-			<?php
-				$query=mysqli_query($link,"SELECT * FROM tablon WHERE receptor='".$global_idusuarios."' AND estado='nuevo'");
-				if(mysqli_num_rows($query)>0){
-					echo " (".mysqli_num_rows($query).")";
-				}
-			?>
-		</a>
+	<li><a href="perfil.php">Perfil</a>
 	</li>
 	<li>
 		<a href="albums.php">Albums</a>
@@ -26,15 +18,7 @@
 		</ul>
 	</li>
 	<li>
-		<a href="mp_entrada.php">
-			Mensajes
-			<?php
-			$query=mysqli_query($link,"SELECT * FROM mps WHERE receptor='".$global_idusuarios."' AND estado='nuevo'");
-			if(mysqli_num_rows($query)>0){
-				echo " (".mysqli_num_rows($query).")";
-			}
-			?>
-		</a>
+		<a href="mp_entrada.php">Mensajes</a>
 		<ul>
 			<li><a href="mp_entrada.php">Mensajes Recibidos</a></li>
 			<li><a href="mp_salida.php">Mensajes Enviados</a></li>
@@ -44,5 +28,5 @@
 	<li><a href="gente.php">Gente</a></li>
 	<li><a href="subir_fotos.php">Subir fotos</a></li>
 	<li style="float:right;margin-right:10px;"><a href="logout.php">Salir</a></li>
-	<li style="float:right;"><a href=".php">Ajustes</a></li>
+	<li style="float:right;"><a href="ajustes.php">Ajustes</a></li>
 </ul>

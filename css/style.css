@@ -1,7 +1,7 @@
 /***************************	GENERICAS	********************/
 
 * {
-	font-family: Verdana;
+	font-family: Segoe UI;
 	/*font-weight: bold;*/
 	color: #333333;
 	font-size: 12px;
@@ -70,6 +70,7 @@ body {
 	z-index: 2147483647;
 }
 
+/************************	FLECHAS		***************/
 .flecha_back_top {
 	cursor: pointer;
 	height: 36px;
@@ -168,6 +169,7 @@ span.ayuda {
 
 #menudrop ul a {
 	white-space: nowrap; /* Separa los elementos en diferentes líneas */
+	border-radius: 7px;
 }
 
 #menudrop li:hover ul {
@@ -912,6 +914,71 @@ div.etiqueta_seleccionada {
 .resultado .peticion_enviar {
 	cursor: pointer;
 }
+
+/*******************	AJUSTES		****************/
+.lista_enlaces ul {
+	list-style: none outside none;
+	margin: 0;
+	padding: 0;
+}
+
+.lista_enlaces ul li {
+
+}
+
+.lista_enlaces ul li:hover {
+	background-color: #3869A0;
+}
+
+.lista_enlaces ul li a {
+	font-size: 15px;
+	text-decoration: none;
+	display: block;
+	padding: 5px;
+}
+
+.lista_enlaces ul li a:hover {
+	color: white;
+}
+
+/*******************	AJUSTES -> PETICIONES	********/
+.peticion_amistad {
+	margin: 10px 0;
+	padding: 5px 0;
+	border-bottom: 1px solid #E5E5E5;
+	display: inline-block;
+}
+.peticion_amistad > .encabezado {
+	display: inline-block;
+}
+.peticion_amistad > div, .peticion_amistad > .encabezado img {
+	display: inline;
+}
+
+.peticion_amistad > img {
+	max-width: 50px;
+	max-height: 50px;
+	vertical-align: top;
+	margin-right: 5px;
+	float: left;
+}
+.peticion_amistad > .nombre {
+}
+
+.peticion_amistad > .fecha {
+	font-size: 10px;
+	font-weight: normal !important;
+	margin-left: 20px;
+}
+.peticion_amistad > .acciones {
+}
+.peticion_amistad > .acciones > div {
+	display: inline;
+	font-size: 13px;
+	margin-left: 20px;
+	cursor: pointer;
+}
+
 /*******************	VALIDACION	****************/
 
 .input_error {

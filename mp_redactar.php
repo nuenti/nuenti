@@ -42,7 +42,7 @@
 		$query=mysqli_query($link,"
 			SELECT idusuarios, nombre, apellidos, archivo
 			FROM amigos, usuarios
-			RIGHT JOIN fotos
+			LEFT JOIN fotos
 			ON idfotos_princi=idfotos
 			WHERE user1='".$global_idusuarios."' AND user2=idusuarios OR user2='".$global_idusuarios."' AND user1=idusuarios
 		");

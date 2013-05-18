@@ -13,7 +13,11 @@ if($_POST['email']){
 	//LOGIN OK
 	if(mysqli_num_rows($login)==1){
 		$codigo_temp=rand(0, 99999999999);
-		mysqli_query($link,"UPDATE usuarios SET idsesion='".$codigo_temp."' WHERE email='".$_POST['email']."'");
+		$r_login=mysqli_fetch_assoc($login);
+		mysqli_query($link,"UPDATE usuarios SET idsesion='".$codigo_temp."' WHERE idusuarios='".$r_login['idusuarios']."'");
+		
+		// Log de acceso con IP & fecha
+		mysqli_query($link,"INSERT INTO accesos (usuarios_idusuarios, ip, fecha) VALUES ('{$r_login["idusuarios"]}','{$_SERVER["REMOTE_ADDR"]}',now())");
 		$_SESSION['idsesion']=$codigo_temp;
 		session_write_close();
 		header( "Location: inicio.php" );
@@ -42,7 +46,6 @@ if($_POST['email']){
 ?>
 
 
-		<script>$(document).ready(function(){  $("input").eq(0).focus();  })</script>
 		<h1 id="logo">Social</h1>
 		<?php	if($error==1){	?>
 				<div class="centrar">
@@ -52,7 +55,7 @@ if($_POST['email']){
 		<div class="centrar">
 			<div class="marco login_form">
 				<form id='form_login' method='POST' action='login.php'>
-					Email: <input type='text' class="validable" size='20' name='email' value="<?php echo $_POST['email']; ?>"><br>
+					Email: <input type='text' class="validable" size='20' name='email' value="<?php echo $_POST['email']; ?>" autofocus><br>
 					Clave: <input type='password' class="validable" size='20' name='password'><br>
 					<!--Recordar datos: <input name='logincookie' type='checkbox' value='true'>
 					<br>-->

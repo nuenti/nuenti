@@ -44,7 +44,7 @@ function limpia_texto($string) {
 }
 
 //ERROR MYSQL
-function error_mysql($p1) {
+function error_mysql($p1 = "exit") {
 	global $link;
 	if (mysqli_errno($link)) {
 		echo "No error: " . mysqli_errno($link) . " -> " . mysqli_error($link) . "<br>";
@@ -115,7 +115,7 @@ function head($title) {
 		<html lang='es'>
 			<head>
 				<!-- METAS -->
-				<meta charset='UTF-8'>
+				<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
 				<meta name='Keywords' content='Social,red social,gratuito,asir'>
 				<meta name='Description' content='Proyecto de Red Social de 2 ASIR'>
 				 <meta name='author' content='Javier Gonzalez Rastrojo'>

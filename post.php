@@ -11,21 +11,6 @@ if ($_POST['estado']) {
 	}
 }
 
-if ($_GET['aceptaramistad']) {
-	$query = mysqli_query($link, "SELECT * FROM amigos WHERE user1='" . $_GET['emisor'] . "' AND user2='" . $global_idusuarios . "' OR user1='" . $global_idusuarios . "' AND user2='" . $_GET['emisor'] . "'");
-	error_mysql("exit");
-	if (mysqli_num_rows($query) > 0) {
-		header("Location: inicio.php?yasoisamigos");
-		error_mysql("exit");
-	}
-
-	mysqli_query($link, "INSERT INTO amigos (user1,user2) VALUES ('" . $_GET['emisor'] . "','" . $global_idusuarios . "')");
-	mysqli_query($link, "DELETE FROM peticiones WHERE emisor='" . $_GET['emisor'] . "' AND receptor='" . $global_idusuarios . "'");
-	mysqli_query($link, "INSERT INTO novedades (fecha,tipo, propietario, visitante) VALUES (now(),'amistad','{$global_idusuarios}','{$_GET['emisor']}')");
-	mysqli_query($link, "INSERT INTO novedades (fecha,tipo, visitante,propietario) VALUES (now(),'amistad','{$global_idusuarios}','{$_GET['emisor']}')");
-	header("Location: inicio.php");
-}
-
 if ($_POST['comentario_tablon'] != "") {
 	mysqli_query($link, "INSERT INTO tablon (emisor,receptor,comentario,fecha) VALUES ('" . $global_idusuarios . "','" . $_POST['receptor'] . "','" . $_POST['comentario_tablon'] . "', now())");
 	if (mysqli_errno() != 0) {
@@ -36,43 +21,75 @@ if ($_POST['comentario_tablon'] != "") {
 }
 
 
-######## AMISTAD
+########	AMISTAD
+
 if ($_POST['peticion_amistad_enviar']) {
-		$query=mysqli_query($link,"SELECT * FROM amigos WHERE user1='".$_POST['idusuario']."' AND user2='".$global_idusuarios."' OR user1='".$global_idusuarios."' AND user2='".$_POST['idusuario']."'");
-		error_mysql("exit");
+		//Comprobar amistad
+		$query = mysqli_query($link,"SELECT COUNT(*) AS cuenta FROM amigos WHERE user1='".$_POST['idusuario']."' AND user2='".$global_idusuarios."' OR user1='".$global_idusuarios."' AND user2='".$_POST['idusuario']."'");
+		$row = mysqli_fetch_assoc($query);
+		if($row['cuenta']>0)
+			die("Ya es tu amigo!");
 		
-		if(mysqli_num_rows($query)>0){
-			die(); //evitamos enviar peticion
-		}
-		mysqli_query($link,"INSERT INTO peticiones (emisor, receptor) VALUES ('".$global_idusuarios."','".$_POST['idusuario']."')");
-		error_mysql("exit");
+		//Comprobar peticion
+		$query = mysqli_query($link,"SELECT COUNT(*) FROM peticiones WHERE emisor='".$_POST['idusuario']."' AND receptor='".$global_idusuarios."' OR emisor='".$global_idusuarios."' AND receptor='".$_POST['idusuario']."'");
+		$row = mysqli_fetch_assoc($query);
+		if($row['cuenta']>0)
+			die("Ya le enviastes una peticion de amistad!");
+		
+		//Insertar peticion
+		mysqli_query($link,"INSERT INTO peticiones (emisor, receptor, fecha) VALUES ('".$global_idusuarios."', '".$_POST['idusuario']."', now())");
+		
+		//Insertar notificacion
+		mysqli_query($link, "DELETE FROM notificaciones WHERE usuarios_idusuarios='".$_POST['idusuario']."' AND tipo='peticion'");
+		$query = mysqli_query($link,"SELECT COUNT(*) AS cuenta FROM peticiones WHERE receptor='".$_POST['idusuario']."' AND ignorada<>'1'");
+		$row = mysqli_fetch_assoc($query);
+		$num = $row['cuenta'] + 1;
+		mysqli_query($link,"INSERT INTO notificaciones (tipo, fecha, usuarios_idusuarios, datos) VALUES ('peticion', now(), '{$_POST['idusuario']}', '{$num}')");
 		die();
 }
 
-######## MENSAJERIA PRIVADA
+if ($_POST['peticion_amistad_aceptar']) {
+	$query = mysqli_query($link, "SELECT COUNT(*) AS cuenta FROM amigos WHERE user1='" . $_POST['emisor'] . "' AND user2='" . $global_idusuarios . "' OR user1='" . $global_idusuarios . "' AND user2='" . $_POST['emisor'] . "'");
+	$row = mysqli_fetch_assoc($query);
+	if($row['cuenta']>0)
+			die("Ya es tu amigo!");
+	
+	mysqli_query($link, "INSERT INTO amigos (user1,user2) VALUES ('" . $_POST['emisor'] . "','" . $global_idusuarios . "')");
+	mysqli_query($link, "DELETE FROM peticiones WHERE emisor='" . $_POST['emisor'] . "' AND receptor='" . $global_idusuarios . "'");
+	mysqli_query($link, "UPDATE notificaciones SET datos = datos - 1 WHERE usuarios_idusuarios='{$global_idusuarios}' AND tipo='peticion'");
+	//mysqli_query($link, "DELETE FROM notificaciones WHERE usuarios_idusuarios='".$_POST['idusuario']."' AND tipo='peticion'");	
+	mysqli_query($link, "INSERT INTO novedades (fecha,tipo, propietario, visitante) VALUES (now(),'amistad','{$global_idusuarios}','{$_POST['emisor']}')");
+	mysqli_query($link, "INSERT INTO novedades (fecha,tipo, visitante,propietario) VALUES (now(),'amistad','{$global_idusuarios}','{$_POST['emisor']}')");
+	die();
+}
+
+
+
+########	MENSAJERIA PRIVADA
 
 if ($_POST['mp_enviar']) {
-	//print_r($_POST);
+	// Insertar mensaje
 	mysqli_query($link, "INSERT INTO mps (emisor,receptor,mp,fecha) VALUES ('{$global_idusuarios}','{$_POST['receptor']}','{$_POST['mensaje']}',now())");
-	error_mysql("exit");
+	
+	//Insertar notificacion
+	mysqli_query($link, "DELETE FROM notificaciones WHERE usuarios_idusuarios='".$_POST['receptor']."' AND tipo='mp'");
+	$query = mysqli_query($link,"SELECT COUNT(*) AS cuenta FROM mps WHERE receptor='".$_POST['receptor']."' AND estado='nuevo'");
+	$row = mysqli_fetch_assoc($query);
+	$num = $row['cuenta'] + 1;
+	mysqli_query($link,"INSERT INTO notificaciones (tipo, fecha, usuarios_idusuarios, datos) VALUES ('mp', now(), '{$_POST['receptor']}', '{$num}')");
 	die();
 }
-
 
 if ($_POST['mp_leido'] != "") {
-	mysqli_query($link, "UPDATE mps SET estado='leido' WHERE idmps='" . $_POST['id'] . "' AND receptor='" . $global_idusuarios . "'");
-	error_mysql("exit");
+	mysqli_query($link, "UPDATE mps SET estado='leido' WHERE idmps='" . $_POST['id'] . "'");
+	mysqli_query($link, "UPDATE notificaciones SET datos = datos - 1 WHERE usuarios_idusuarios='{$global_idusuarios}' AND tipo='mp'");
 	die();
 }
-
-//TODO
-
-
-
 
 
 
 ########	ALBUM
+
 if ($_POST['album']) {
 	$result = mysqli_query($link, "SELECT * FROM albums WHERE usuarios_idusuarios='" . $global_idusuarios . "' AND album='" . $_POST['album'] . "'");
 	if (mysqli_num_rows($result) > 0) {
@@ -202,6 +219,7 @@ if ($_POST['foto_leer_comentarios']) {
 	die();
 }
 
+
 ########	CHAT
 if ($_POST['chat_estado']) {
 	$_SESSION['chat_estado'] = $_POST['chat_estado'];
@@ -274,6 +292,78 @@ if ($_POST['chat_contactos']) {
 		//echo "<p style='cursor:pointer;' onclick=\"chat_turn('off')\">Desactivar Chat</p>";
 	} else {
 		//echo "<p style='cursor:pointer;' onclick=\"chat_turn('on')\">Activar Chat</p>";
+	}
+	die();
+}
+
+
+
+########	AJUSTES -> DATOS
+if ($_POST['cambio_email']) {
+	//print_r($_POST);
+	if($_POST['email'] AND $_POST['email_new'] AND $_POST['pass']){
+		$patron = '/^[^0-9][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,4}$/';
+		if (preg_match($patron, $_POST['email_new'])) {
+			$password = sha1($_POST['pass']);
+			$sql = "UPDATE usuarios SET email='{$_POST['email_new']}' WHERE email='{$_POST['email']}' AND password='{$password}'";
+			$query = mysqli_query($link, $sql);
+			if(mysqli_affected_rows($link)!=1){
+				echo "Los datos introducidos no son correctos";
+			}
+		}else{
+			echo "El email nuevo no tiene un formato correcto";
+		}
+	}else{
+		echo "Rellena todos los campos";
+	}
+	die();
+}
+
+if ($_POST['cambio_pass']) {
+	//print_r($_POST);
+	if($_POST['pass'] AND $_POST['pass_new'] AND $_POST['pass_new2']){
+		if($_POST['pass_new'] == $_POST['pass_new2']){
+			$password_old = sha1($_POST['pass']);
+			$password_new = sha1($_POST['pass_new']);
+			
+			$sql = "UPDATE usuarios SET password='{$password_new}' WHERE password='{$password_old}'";
+			$query = mysqli_query($link, $sql);
+			
+			if(mysqli_affected_rows($link)!=1){
+				echo "La contraseña actual no es correcta";
+			}
+		}else{
+			echo "Las contraseñas nuevas no coinciden";
+		}
+	}else{
+		echo "Rellena todos los campos";
+	}
+	die();
+}
+
+if ($_POST['cambio_datos']) {
+	//print_r($_POST);
+	foreach($_POST as $nombre_campo => $valor)
+	{
+	  if(!$valor){
+		echo "Rellena todos los campos, incluido ".$nombre_campo;
+		die();
+		break;
+	  }
+	}
+	
+	$sql = "UPDATE usuarios
+			SET nombre='{$_POST['nombre']}', 
+			apellidos='{$_POST['apellidos']}', 
+			sexo='{$_POST['sexo']}', 
+			provincia='{$_POST['provincia']}', 
+			fnac='{$_POST['fecha_hidden']}'
+			 WHERE idusuarios='{$global_idusuarios}'";
+
+	$query = mysqli_query($link, $sql);
+	
+	if($query!=1){
+		echo "Se ha producido un error";
 	}
 	die();
 }

@@ -5,19 +5,22 @@ head("Inicio - Social");
 require ("inc/estructura.inc.php");
 ?>
 <div class="barra_izq">
-	<div class="marco_small">
-		<?php
-			########## NEWS ##############
-			$query = mysqli_query($link, "SELECT * FROM peticiones, usuarios WHERE receptor = '" . $global_idusuarios . "' AND idusuarios = emisor");
-			if (mysqli_num_rows($query) > 0) {
-				echo "Tienes " . mysqli_num_rows($query) . " peticion(es) de amistad:<br>";
-				while ($row = mysqli_fetch_assoc($query)) {
-					//print_r($row);
-					echo $row['nombre'] . " " . $row['apellidos'] . " <a href='post.php?aceptaramistad=1&emisor=" . $row['idusuarios'] . "'>Aceptar peticion</a><br>";
+	<?php
+		########## NEWS ##############
+		$sql = "SELECT * FROM notificaciones WHERE usuarios_idusuarios='{$global_idusuarios}' AND datos<>0";
+		$q_notifi = mysqli_query($link, $sql);
+		if(mysqli_num_rows($q_notifi)>0){
+			print "<div class='marco_small'>";
+			while($r_notifi = mysqli_fetch_assoc($q_notifi)){
+				if($r_notifi['tipo'] == "peticion"){
+					print "<a href='ajustes.php?seccion=peticiones'>Tienes {$r_notifi['datos']} peticiones de amistad</a><br>";
+				}elseif($r_notifi['tipo'] == "mp"){
+					print "<a href='mp_entrada.php'>Tienes {$r_notifi['datos']} mensaje privado</a><br>";
 				}
 			}
-		?>
-	</div>
+			print "</div>";
+		}
+	?>
 	
 	<!-- ########## CHAT #############-->
 	<div class="marco_small">

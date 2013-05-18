@@ -5,9 +5,17 @@ Registro de usuario
 	Crypt
 Login de usuario
 	Cifrado
-Inicio con novedades
-Perfil con comentarios y publicaciones
-Mensajeria privada (Escribir, Entrada, Salida)
+Inicio
+	Notificaciones
+	Novedades
+Perfil
+	Estado
+	Comentarios
+	Publicaciones
+Mensajeria privada
+	Escribir
+	Entrada
+	Salida
 Albums
 	Visualizacion fotos
 		Etiquetas fotos
@@ -19,15 +27,13 @@ Gente
 	Quizas conozcas
 	Buscador
 Panel de control
+	Peticiones amistad
 	Ips de acceso
 	Cambio de datos (Contrase�a, nombre, correo, localidad)
 Chat
 Logout
 
-Sucesos -> Novedades
 Aplicacion web para movil mediante jquery
-
-
 
 NOVEDADES:
 	Campos estandard tabla: ID, fecha, tipo evento
@@ -40,8 +46,6 @@ NOVEDADES:
 		Subida fotos - (subida_fotos) - propietario, cantidad de imagenes
 		Etiquetacion de fotos - propietario, imagenes 
 
-SELECT DATEDIFF(now(),fecha) as a,
-ADDTIME(now(), '-7 0:0:0') as b
-				FROM sucesos
-				WHERE propietario = 2
-				ORDER BY fecha DESC
+NOTIFICACIONES:
+	Campos estandard tabla: ID, usuario, fecha, tipo (peticion, mp)
+	
