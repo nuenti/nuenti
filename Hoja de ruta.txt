@@ -47,5 +47,4 @@ NOVEDADES:
 		Etiquetacion de fotos - propietario, imagenes 
 
 NOTIFICACIONES:
-	Campos estandard tabla: ID, usuario, fecha, tipo (peticion, mp)
-	
+	Campos estandard tabla: ID, usuario, fecha, tipo (peticion, mp)	
