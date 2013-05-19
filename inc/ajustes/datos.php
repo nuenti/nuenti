@@ -95,3 +95,18 @@
 		
 	<button onclick="cambio_datos()">Cambiar datos</button>
 </div>
+
+
+<?php
+/*
+ * //TODO: Pendiente de añadir
+		COLEGIOS
+		ESTADO CIVIL
+		INTERESES:
+			Aficiones
+			Grupos musicales, discos
+			Citas famosas
+			Libros, escritores, géneros
+			Películas, directores, actores
+	 */
+?>

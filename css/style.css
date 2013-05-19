@@ -15,6 +15,9 @@ body {
 	padding: 5px;
 }
 
+.link {
+	color: #3869A0;
+}
 #ajax_cargando_padre {
 	left: 0;
 	position: fixed;
@@ -910,6 +913,7 @@ div.etiqueta_seleccionada {
 }
 .resultado .estado_amistad {
 	float: right;
+	text-align: right;
 }
 .resultado .peticion_enviar {
 	cursor: pointer;

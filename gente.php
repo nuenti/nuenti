@@ -65,7 +65,7 @@
 				$where .= " LIMIT $limit, 5";
 				$sql .= $where;
 				
-				//DEBUG
+				//TODO: Debug
 				/*echo "<pre>";
 				print_r($_POST);
 				echo "</pre>";
@@ -81,11 +81,14 @@
 						
 						//Estado de la amistad
 						if($r_search['amigo']){
-							$estado_amistad="Amigo";
+							$estado_amistad="Amigo<br>";
+							$nombre = "<a href='perfil.php?id={$r_search['idusuarios']}' class='link'>{$r_search['nombre']} {$r_search['apellidos']}</a>";
 						}elseif($r_search['enviada']){
-							$estado_amistad="Peticion enviada";
+							$estado_amistad="Peticion enviada<br>";
+							$nombre = $r_search['nombre']." ".$r_search['apellidos'];
 						}else{
-							$estado_amistad="<div class='peticion_enviar' onclick=\"peticion_enviar('{$r_search['idusuarios']}')\">Agregar</div>";
+							$estado_amistad="<div class='peticion_enviar' onclick=\"peticion_enviar('{$r_search['idusuarios']}')\">Agregar</div><br>";
+							$nombre = $r_search['nombre']." ".$r_search['apellidos'];
 						}
 						
 						// Imprimimos los resultados
@@ -95,13 +98,15 @@
 									<img alt='foto principal' src='{$r_search['archivo']}' />
 								</div>
 								<div class='datos'>
-									<div class='nombre'><a href='gente.php?id={$r_search['idusuarios']}'>{$r_search['nombre']} {$r_search['apellidos']}</a></div>
+									<div class='nombre'>{$nombre}</div>
 									<div class='info'>
 										{$r_search['edad']} Años<br>
 										".IdProvincia($r_search['provincia'])."<br>
 									</div>
 								</div>
-								<div class='estado_amistad'>{$estado_amistad}
+								<div class='estado_amistad'>
+									{$estado_amistad}
+									<a href='mp_redactar.php?receptor={$r_search['idusuarios']}'>Enviar mensaje privado</a>
 								</div>
 							</div><br>
 						";
