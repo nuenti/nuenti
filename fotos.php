@@ -56,7 +56,7 @@ if ($_GET['idalbum'] == 'subidas') {
 	$fotos = mysqli_query($link,$query);
 	$row_fotos = mysqli_fetch_assoc($fotos);
 }
-require ("inc/foto_main.inc.php");
-require ("inc/foto_barra.inc.php");
-require ("inc/foto_comentarios.inc.php");
+require ("inc/fotos/main.inc.php");
+require ("inc/fotos/barra.inc.php");
+require ("inc/fotos/comentarios.inc.php");
 ?>
