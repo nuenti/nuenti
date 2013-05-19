@@ -48,4 +48,3 @@ NOVEDADES:
 
 NOTIFICACIONES:
 	Campos estandard tabla: ID, usuario, fecha, tipo (peticion, mp)
-	
