@@ -1,60 +1,39 @@
 chat_mode_home = false;
 $(window).ready(function() {
-	/*if(location.href.search(/(login.php|registro.php)/gi)!=-1){
-	 return;
-	 }*/
-	/*$("body").append("<div id='chat'></div>");
-	 $("#chat").append("<div id='chat_boton'></div>");
-	 $("#chat").append("<div id='chat_conv_tmp' style='display:none;'></div>");*/
-	if (chat_estado == true) {
-		chat_turn('on');
+	if (chat_estado == 1) {
+		chat_turn('1');
 	}
 });
 
 function chat_turn(modo) {
-	if (modo == "on") {
+	if (modo == "1") {
 		ajax_post({
-			data : "chat_estado=on",
+			data : "chat_estado=1",
 			visible : false
 		});
-		$("#chat_estado").html("<p style='cursor:pointer;' onclick=\"chat_turn('off')\">Desactivar Chat</p>");
+		$("#chat_estado").html("<p style='cursor:pointer;' onclick=\"chat_turn('0')\">Desactivar Chat</p>");
 
-		chat_online();
-		timeOutChatOnline = window.setInterval(chat_online, 30000);
 		chat_leer();
 		timeOutChatLeer = window.setInterval(chat_leer, 5000);
 		chat_contactos();
 		timeOutChatContactos = window.setInterval(chat_contactos, 10000);
 
-		chat_estado = true;
+		chat_estado = 1;
 	} else {
 		//Cerramos conversaciones activas
 		$(".chat_ventana,.chat_ventana_min").remove();
 		//Desactivamos el chat
 		ajax_post({
-			data : "chat_estado=off",
+			data : "chat_estado=0",
 			visible : false
 		});
 		$("#chat_contactos").html("");
-		$("#chat_estado").html("<p style='cursor:pointer;' onclick='chat_turn(\"on\")'>Activar Chat</p>");
+		$("#chat_estado").html("<p style='cursor:pointer;' onclick='chat_turn(\"1\")'>Activar Chat</p>");
 
-		timeOutChatOnline = window.clearInterval(timeOutChatOnline);
 		timeOutChatLeer = window.clearInterval(timeOutChatLeer);
 		timeOutChatContactos = window.clearInterval(timeOutChatContactos);
-		chat_estado = false;
+		chat_estado = 0;
 	}
-}
-
-function chat_online() {
-	$.ajax({
-		type : "POST",
-		url : "post.php",
-		data : {
-			chat_online : "1"
-		}
-	}).done(function(msg) {
-		//alert( "Data Saved: " + msg );*/
-	});
 }
 
 function chat_contactos() {
@@ -139,8 +118,7 @@ function chat_conv_max(emisor) {
 		$("#chat_conv_" + emisor).find("textarea").css({
 			"width" : "225px"
 		});
-	}
-	
+	}	
 }
 
 function chat_conv_show(emisor) {

@@ -104,8 +104,18 @@ function ajax_post_aceptar() {
 	});
 }
 
+function online_keep() {
+	ajax_post({
+		data : "online_keep=1",
+		visible : false
+	});
+}
 
 $(document).ready(function() {
+	//Actualizando la ultima conexion
+	online_keep();
+	timeOutOnlineKeep = window.setInterval(online_keep, 30000);
+	
 	// Muestra y oculta los menús
 	$('#menu-altern ul li:has(ul)').hover(function(e) {
 		$(this).find('ul').fadeIn();

@@ -382,6 +382,7 @@ img.imagen {
 	height: 40px;
 	vertical-align: bottom;
 	width: 40px;
+	cursor: pointer;
 }
 
 #chat_padre_contactos {

@@ -125,10 +125,10 @@ function head($title) {
 				<script type='text/javascript' src='jscripts/chat.js'></script>
 				<script  type='text/javascript'>";
 
-	if ($_SESSION['chat_estado'] == "on") {
-		echo "chat_estado=true;";
+	if ($_SESSION['chat_estado'] == "1") {
+		echo "chat_estado=1;";
 	} else {
-		echo "chat_estado=false;";
+		echo "chat_estado=0;";
 	}
 	print "</script>
 				<title>{$title}</title>";

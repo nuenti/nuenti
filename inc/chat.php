@@ -6,7 +6,7 @@
 				<div id="chat_opciones_lista" class="marco_small">
 					<div id="chat_estado">
 						<?php
-						if ($_SESSION['chat_estado'] != "on"){
+						if ($_SESSION['chat_estado'] != "1"){
 							echo "<p style='cursor:pointer;' onclick=\"chat_turn('on')\">Activar Chat</p>";
 						}else{
 							echo "<p style='cursor:pointer;' onclick=\"chat_turn('off')\">Desactivar Chat</p>";
@@ -17,7 +17,7 @@
 			</div>
 		<div id="chat_contactos" style="margin-top: -25px;">
 			<?php
-			if($_SESSION['chat_estado']!="on")
+			if($_SESSION['chat_estado']!="1")
 				echo "<p style='cursor:pointer;' onclick=\"chat_turn('on')\">Activar Chat</p>";
 			?>
 		</div>

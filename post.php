@@ -1,6 +1,11 @@
 <?php
 require ("inc/verify_login.php");
 
+########	GENERAL
+if($_POST['online_keep']){
+	mysqli_query($link, "UPDATE usuarios SET online = now() WHERE idusuarios='{$global_idusuarios}'");
+	die();
+}
 ########	PERFIL
 
 if ($_POST['estado_cambiar']) {
@@ -309,28 +314,24 @@ if ($_POST['chat_estado']) {
 	die();
 }
 
-if ($_POST['chat_online']) {
-	mysqli_query($link, "UPDATE usuarios SET online=now() WHERE idusuarios='" . $global_idusuarios . "'");
-}
-
 if ($_POST['chat_enviar']) {
 	mysqli_query($link, "INSERT INTO chat (emisor,receptor,mensaje,fecha) VALUES ('" . $global_idusuarios . "','" . $_POST['receptor'] . "','" . $_POST['mensaje'] . "',now())");
 }
 
 if ($_POST['chat_leer']) {
-	$result = mysqli_query($link, "SELECT *,(SELECT archivo FROM fotos WHERE idfotos=idfotos_princi) AS archivo from chat,usuarios WHERE  idusuarios=emisor AND receptor='" . $global_idusuarios . "' AND chat.estado='nuevo'");
+	$result = mysqli_query($link, "SELECT *,(SELECT archivo FROM fotos WHERE idfotos=idfotos_princi) AS archivo from chat,usuarios WHERE  idusuarios=emisor AND receptor='" . $global_idusuarios . "' AND chat.leido='0'");
 
 	if (mysqli_num_rows($result) > 0) {
 		while ($row = mysqli_fetch_assoc($result)) {
 			echo "<div iduser='" . $row['emisor'] . "' nombre='" . $row['nombre'] . " " . $row['apellidos'] . "' img='" . $row['archivo'] . "' >" . $row['nombre'] . " dijo: " . $row['mensaje'] . "</div>";
 		}
 	}
-	mysqli_query($link, "UPDATE chat SET estado='leido' WHERE receptor='" . $global_idusuarios . "'");
+	mysqli_query($link, "UPDATE chat SET leido='1' WHERE receptor='" . $global_idusuarios . "'");
 	die();
 }
 
 if ($_POST['chat_contactos']) {
-	if ($_SESSION['chat_estado'] == "on") {
+	if ($_SESSION['chat_estado'] == "1") {
 		//CONECTADOS
 		$result = mysqli_query($link, "
 								SELECT *,(@tiempo:=TIME_TO_SEC(TIMEDIFF(now(),online))) AS segundos_off,

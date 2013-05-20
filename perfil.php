@@ -16,12 +16,11 @@ if ($_GET['id']) {
 	$_GET['id'] = $global_idusuarios;
 	$perfil = "propio";
 }
-$sql = "SELECT *,(@tiempo:=TIME_TO_SEC(TIMEDIFF(now(),online))) AS segundos_off,
-				CASE
-				WHEN @tiempo<60 THEN 'conectado'
-				WHEN @tiempo<86000 THEN TIME_FORMAT(TIMEDIFF(now(),online), '%H:%i:%s')
-				ELSE DATE_FORMAT(online, '%d/%m/%Y %H:%i') END AS online
-				FROM `usuarios` LEFT JOIN fotos ON idfotos = idfotos_princi WHERE idusuarios='" . $_GET['id'] . "'";
+$sql = "SELECT *,
+			FLOOR(DATEDIFF(CURDATE(),fnac)/365) AS edad,
+			DATE_FORMAT(fecha_reg, '%d/%m/%Y') AS fecha_reg,
+			TIME_TO_SEC(TIMEDIFF(now(),online)) AS segundos_off
+		FROM `usuarios` LEFT JOIN fotos ON idfotos = idfotos_princi WHERE idusuarios='" . $_GET['id'] . "'";
 $q_user = mysqli_query($link, $sql);
 $r_user = mysqli_fetch_assoc($q_user);
 

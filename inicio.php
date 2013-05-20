@@ -38,10 +38,10 @@ require ("inc/estructura.inc.php");
 				<div id="chat_opciones_lista" class="marco_small">
 					<div id="chat_estado">
 						<?php
-						if ($_SESSION['chat_estado'] != "on") {
-							echo "<p style='cursor:pointer;' onclick=\"chat_turn('on')\">Activar Chat</p>";
+						if ($_SESSION['chat_estado'] != "1") {
+							echo "<p style='cursor:pointer;' onclick=\"chat_turn('1')\">Activar Chat</p>";
 						} else {
-							echo "<p style='cursor:pointer;' onclick=\"chat_turn('off')\">Desactivar Chat</p>";
+							echo "<p style='cursor:pointer;' onclick=\"chat_turn('0')\">Desactivar Chat</p>";
 						}
 						?>
 					</div>
