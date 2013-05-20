@@ -1,59 +1,60 @@
 <?php
-	require("inc/verify_login.php");
+require ("inc/verify_login.php");
 
+if ($_GET['id'] == $global_idusuarios)	$_GET['id']=NULL; //Si el id es el mio, se ve la pagina en modo normal
+
+if ($_GET['id']) {
+	//Comprueba amistad
+	$query = mysqli_query($link, "SELECT COUNT(*) AS cuenta FROM amigos WHERE user1='" . $_GET['id'] . "' AND user2='" . $global_idusuarios . "' OR user2='" . $_GET['id'] . "' AND user1='" . $global_idusuarios . "'");
+	$row = mysqli_fetch_assoc($query);
+	if ($row['cuenta'] != 1) {
+		header("Location: inicio.php?nosoisamigos");
+		die();
+	}
+	$perfil = "ajeno";
+} else {
+	$_GET['id'] = $global_idusuarios;
+	$perfil = "propio";
+}
+$sql = "SELECT *,(@tiempo:=TIME_TO_SEC(TIMEDIFF(now(),online))) AS segundos_off,
+				CASE
+				WHEN @tiempo<60 THEN 'conectado'
+				WHEN @tiempo<86000 THEN TIME_FORMAT(TIMEDIFF(now(),online), '%H:%i:%s')
+				ELSE DATE_FORMAT(online, '%d/%m/%Y %H:%i') END AS online
+				FROM `usuarios` LEFT JOIN fotos ON idfotos = idfotos_princi WHERE idusuarios='" . $_GET['id'] . "'";
+$q_user = mysqli_query($link, $sql);
+$r_user = mysqli_fetch_assoc($q_user);
+
+if ($perfil == "ajeno") {
+	head(NombreApellido($r_user['nombre'] . " " . $r_user['apellidos']) . " - Social");
+} else {
 	head("Perfil - Social");
-	require("inc/estructura.inc.php");
+}
+require ("inc/estructura.inc.php");
 ?>
+
 <div class="barra_izq">
-	<div class="marco_small">
 	<?php
-		if($usuario['idfotos_princi']){
-			$foto=mysqli_query($link,"SELECT * from fotos WHERE idfotos='".$usuario['idfotos_princi']."'");
-			$foto=mysqli_fetch_assoc($foto);
-			echo "<img alt='foto principal' style='max-height:200px;max-width:180px;' src='".$foto['archivo']."' />";
-		}
-		echo $global_nombre." ".$global_apellidos;
-		echo "<br>Edad: ".$usuario['edad'];
+	require 'inc/perfil/datos.php';
 	?>
-	</div>
 </div>
+
 <div class="barra_centro_der" >
-	<div class="marco">
-		<form method="POST" action="post.php" id="cambio_estado">
-	
-			<?php
-				if($usuario['estado']){
-					$estado=$usuario['estado'];
-				}else{
-					$estado="Actualiza tu estado";
-				}
-					echo "<input type='text' name='estado' size='92' value='{$estado}' />";
-			?>
-			<button type="submit" value="Submit">Cambiar</button>
-		</form>
-	</div>
-	
-	<div class="marco" >
-		<h2>Comentarios</h2>
-		<?php
-		$query=mysqli_query($link,"SELECT *, DATE_FORMAT(fecha, '%d/%m/%Y %H:%i') AS fechaf FROM tablon,usuarios WHERE receptor='".$global_idusuarios."' AND idusuarios=emisor ORDER BY idtablon DESC");
-		if(mysqli_num_rows($query)>0){
-			while($comentarios=mysqli_fetch_assoc($query)){
-				$div = (($comentarios['estado']=='nuevo') ? "<div style='background-color:yellow'>" : "<div>");
-				echo $div.$comentarios['nombre']." dijo: ".$comentarios['comentario']." ".$comentarios['fechaf']."</div>";
-			}
-		}else{
-			echo "<div>Aun no tienes comentarios en tu tablon</div>";
-		}
-		?>
-	</div>
+	<?php
+	require 'inc/perfil/tablon.php';
+	?>
+	<?php
+	require 'inc/perfil/comentarios.php';
+	?>
 </div>
-
-		<?php
-			require ("inc/chat.php");
-		?>
-
 
 <?php
-	mysqli_query($link,"UPDATE tablon SET estado='leido' WHERE receptor='".$global_idusuarios."' AND estado='nuevo'");
+require ("inc/chat.php");
+//TODO: Debug time
+$tiempo_fin = microtime(true);
+echo "<br>Tiempo de ejecución redondeado: " . round($tiempo_fin - $tiempo_inicio, 4) . "<br>";
+$q_querys = mysqli_query($link, "SHOW SESSION STATUS LIKE 'Questions'");
+$r_querys = mysqli_fetch_array($q_querys);
+define("STOP_QUERIES", $r_querys['Value']);
+echo "No of queries: " . (STOP_QUERIES - START_QUERIES - 1);
 ?>
