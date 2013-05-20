@@ -1,19 +1,5 @@
 <h2>Novedades</h2>
 <?php
-/*$sql = "SELECT novedades.*, DATE_FORMAT(fecha, '%d/%m/%Y %H:%i') AS fecha
- FROM amigos, usuarios, novedades
- WHERE {$global_idusuarios} = user1 AND user2 = idusuarios AND user2 = propietario
- OR {$global_idusuarios} = user2 AND user1 = idusuarios AND user1 = propietario
- ORDER BY fecha DESC";
- $query=mysqli_query($link, $sql);*/
-
-//echo mysqli_error($link);
-
-//CONTADOR DE CONSULTAS
-/*$res = mysqli_query($link, "SHOW SESSION STATUS LIKE 'Questions'");
- $row = mysqli_fetch_array($res);
- define("START_QUERIES", $row['Value']);*/
-
 // USUARIOS CON NOVEDADES
 $q_users = mysqli_query($link, "SELECT MAX(novedades.fecha) as fecha,propietario, idusuarios, nombre, apellidos, archivo
 									FROM novedades, amigos, usuarios
@@ -89,10 +75,4 @@ while ($r_users = mysqli_fetch_assoc($q_users)) {
 	}
 	echo "</div></div>";
 }
-/*
- $res = mysqli_query($link, "SHOW SESSION STATUS LIKE 'Questions'");
- $row = mysqli_fetch_array($res);
- define("STOP_QUERIES", $row['Value']);
-
- echo "No of queries: " . (STOP_QUERIES - START_QUERIES - 1);*/
 ?>
