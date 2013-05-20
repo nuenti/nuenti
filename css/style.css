@@ -249,8 +249,6 @@ div.login_form {
 
 /************	NOVEDADES	*****************/
 div.novedad_user {
-	/*display: inline-block;*/
-	/*max-width: 900px;*/
 	border-bottom: 1px solid #E5E5E5;
 	border-top: 1px solid #E5E5E5;
 	padding: 10px 0;
@@ -272,18 +270,6 @@ h2.encabezado {
 	text-shadow: 2px 5px 20px black;
 	margin: 10px;
 }
-/*
- div.barra_izq {
- width: 200px;
- background-color: white;
- border-radius: 7px 7px 7px 7px;
- border-style: solid;
- border-width: 0px;
- box-shadow: 2px 2px 3px black;
- padding: 7px;
- float: left;
- margin: 0 0 10px;
- }*/
 
 div.barra_full {
 	float: left;
@@ -299,12 +285,6 @@ div.barra_izq {
 
 div.barra_izq_centro {
 	width: 740px;
-	/*background-color: white;
-	 border-radius: 7px 7px 7px 7px;
-	 border-style: solid;
-	 border-width: 0px;
-	 box-shadow: 2px 2px 3px black;
-	 padding: 15px;*/
 	float: left;
 	margin: 0px 10px 10px 0px;
 }
@@ -312,33 +292,14 @@ div.barra_izq_centro {
 div.barra_centro_der {
 	float: left;
 	width: 740px;
-	/*padding: 15px;*/
 	margin: 10px 0px 10px 10px;
 }
 
 div.barra_der {
 	float: right;
 	width: 230px;
-	/*background-color: white;
-	 border-radius: 7px 7px 7px 7px;
-	 border-style: solid;
-	 border-width: 0px;
-	 box-shadow: 2px 2px 3px black;
-	 padding: 7px;*/
 	margin: 0 0 10px;
 }
-/*
- div.barra_der{
- float:right;
- width:780px;
- background-color:white;
- border-radius: 7px 7px 7px 7px;
- border-style: solid;
- border-width: 0px;
- box-shadow:2px 2px 3px black;
- padding:7px;
- margin:0 0 10px;
- }*/
 
 div.centrar {
 	text-align: center;
@@ -364,31 +325,6 @@ div.marco_small {
 	margin: 0 auto 30px auto;
 }
 
-/*
- div.cuerpo_full {
- float: left;
- background-color: white;
- border-radius: 7px 7px 7px 7px;
- border-style: solid;
- border-width: 0px;
- box-shadow: 2px 2px 3px black;
- padding: 7px;
- margin: 0 0 10px;
- width: 1000px;
- }*/
-/*
- div.cuerpo_centro{
- float:left;
- width:1010px;
- background-color:white;
- border-radius: 7px 7px 7px 7px;
- border-style: solid;
- border-width: 0px;
- box-shadow:2px 2px 3px black;
- padding:7px;
- margin:0 0 10px;
- }*/
-
 div.error_ajustable {
 	text-align: left;
 	display: inline-block; /*	indispensable para centrar*/
@@ -399,21 +335,6 @@ div.error_ajustable {
 	vertical-align: middle;
 	border-radius: 10px;
 	box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.2), 0 6px 5px -5px rgba(0, 0, 0, 0.5) inset;
-}
-
-/*
- #encabezado {
- font-family: Arial, Helvetica, sans-serif;
- font-size: 56px;
- font-weight: bold;
- letter-spacing: 10px;
- color: white;
- text-shadow: 2px 2px 4px #000000;
- font-style: normal;
- }*/
-
-#estado {
-	margin-left: 210px;
 }
 
 button {
