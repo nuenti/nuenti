@@ -1,36 +1,110 @@
 <?php
 require ("inc/verify_login.php");
 
-if ($_POST['estado']) {
+########	PERFIL
+
+if ($_POST['estado_cambiar']) {
 	mysqli_query($link, "UPDATE usuarios SET estado='" . $_POST['estado'] . "' WHERE idusuarios='" . $global_idusuarios . "'");
-	mysqli_query($link, "INSERT INTO novedades (fecha,tipo, propietario,datos) VALUES (now(),'estado','{$global_idusuarios}','{$_POST['estado']}')");
-	if (mysqli_errno() == 0) {
-		header("Location: perfil.php?estado_cambiado");
+	
+	// Novedad
+	$novedad = array("propietario" => $global_idusuarios, "tipo" => 'estado', "datos" => $_POST['estado']);
+	novedades($novedad);
+	die();
+}
+
+
+if ($_POST['tablon_leer_comentarios']) {
+	if ($_POST['page']) {
+		$limit = ($_POST['page'] - 1) * 10;
 	} else {
+		$limit = 0;
+	}
+	
+	$sql = "SELECT idusuarios, nombre, apellidos, comentario, archivo, 
+				 DATE_FORMAT(tablon.fecha, '%d/%m/%Y %H:%i') AS fecha2
+				 FROM tablon, usuarios LEFT JOIN fotos ON idfotos = idfotos_princi
+				 WHERE receptor='" . $_POST['idusuarios'] . "' AND emisor=idusuarios ORDER BY tablon.fecha DESC LIMIT {$limit}, 10";
+	$q_comentarios = mysqli_query($link, $sql);
+	
+	
+	if($_POST['idusuarios'] == $global_idusuarios){//TODO: marcar comentarios leidos
+		//El visitante es el propietario del tablon
+		$sql = "UPDATE tablon SET ledio='1' WHERE idtablon IN (
+				     SELECT idtablon FROM tablon WHERE receptor='{$_POST['idusuarios']}' ORDER BY fecha DESC LIMIT {$limit}, 10) tmp";
+		mysqli_query($link, $sql);
 		error_mysql();
 	}
-}
+	
+	if (mysqli_num_rows($q_comentarios) > 0) {
+		while ($r_comentarios = mysqli_fetch_assoc($q_comentarios)) {
+			print "<div class='foto_comentario'> 
+					 <img src='{$r_comentarios['archivo']}' class='imagen_perfil'> 
+					 <div> 
+						<div> 
+							<div class='foto_come_titu'><a class='link' href='perfil.php?id={$r_comentarios['idusuarios']}'>{$r_comentarios['nombre']} {$r_comentarios['apellidos']}</a></div> 
+							<div class='foto_come_fecha'>{$r_comentarios['fecha2']}</div> 
+						</div> 
+						<div class='foto_come_men'>{$r_comentarios['comentario']}</div> 
+					</div> 
+				</div>";
+		}
 
-if ($_POST['comentario_tablon'] != "") {
-	mysqli_query($link, "INSERT INTO tablon (emisor,receptor,comentario,fecha) VALUES ('" . $global_idusuarios . "','" . $_POST['receptor'] . "','" . $_POST['comentario_tablon'] . "', now())");
-	if (mysqli_errno() != 0) {
-		error_mysql("exit");
+		//Numeracion paginas
+		$q_numeracion = mysqli_query($link, "
+			SELECT count(*) AS total
+			FROM tablon WHERE receptor='" . $_POST['idusuarios'] . "' ORDER BY fecha DESC");
+		$r_numeracion = mysqli_fetch_assoc($q_numeracion);
+
+		$siguiente = $_POST['page'] + 1;
+		$anterior = $_POST['page'] - 1;
+		$ultima = ceil($r_numeracion['total'] / 10);
+
+		//BARRA NAVEGACION
+		echo "<div id='barra_navegacion'>";
+			if ($_POST['page'] > 1) {
+				echo "<img class='flecha_back_top' src='css/flechas/flecha_left_top.jpg' onclick=\"tablon_leer_comentarios(idusuarios, 1);\">";
+				echo "<img class='flecha_back' src='css/flechas/flecha_left.jpg' onclick=\"tablon_leer_comentarios(idusuarios, {$anterior});\">";
+			}
+			echo "<div class='texto'>".$_POST['page']." de ".$ultima."</div>";
+			
+		if ($_POST['page'] < $ultima) {
+				echo "<img class='flecha_next' src='css/flechas/flecha_right.jpg' onclick=\"tablon_leer_comentarios(idusuarios, {$siguiente});\">";
+				echo "<img class='flecha_next_top' src='css/flechas/flecha_right_top.jpg' onclick=\"tablon_leer_comentarios(idusuarios, " . $ultima . ");\">";
+			}
+		
 	} else {
-		header("Location: gente.php?id=" . $_POST['receptor']);
+		echo "<div>Todavia nadie ha comentado el tablon</div>";
 	}
+	die();
 }
 
+
+if ($_POST['tablon_enviar_comentario'] != "") {
+	// Comentario
+	mysqli_query($link, "INSERT INTO tablon (emisor,receptor,comentario,fecha) VALUES ('" . $global_idusuarios . "','" . $_POST['receptor'] . "','" . $_POST['comentario'] . "', now())");
+
+	// Notificacion
+	$notificacion = array("propietario" => $_POST['receptor'], "tipo" => 'tablon');
+	notificacion($notificacion);
+
+	// Novedad
+	$novedad = array("propietario" => $_POST['receptor'], "visitante" => $global_idusuarios, "tipo" => 'tablon', "datos" => $_POST['comentario']);
+	novedades($novedad);
+	die();
+}
+
+	//TODO: Tablon leido, notificaciones y novedades
 
 ########	AMISTAD
 
 if ($_POST['peticion_amistad_enviar']) {
-		//Comprobar amistad
+		//Comprobar no amistad
 		$query = mysqli_query($link,"SELECT COUNT(*) AS cuenta FROM amigos WHERE user1='".$_POST['idusuario']."' AND user2='".$global_idusuarios."' OR user1='".$global_idusuarios."' AND user2='".$_POST['idusuario']."'");
 		$row = mysqli_fetch_assoc($query);
 		if($row['cuenta']>0)
 			die("Ya es tu amigo!");
 		
-		//Comprobar peticion
+		//Comprobar no peticion
 		$query = mysqli_query($link,"SELECT COUNT(*) FROM peticiones WHERE emisor='".$_POST['idusuario']."' AND receptor='".$global_idusuarios."' OR emisor='".$global_idusuarios."' AND receptor='".$_POST['idusuario']."'");
 		$row = mysqli_fetch_assoc($query);
 		if($row['cuenta']>0)
@@ -39,12 +113,9 @@ if ($_POST['peticion_amistad_enviar']) {
 		//Insertar peticion
 		mysqli_query($link,"INSERT INTO peticiones (emisor, receptor, fecha) VALUES ('".$global_idusuarios."', '".$_POST['idusuario']."', now())");
 		
-		//Insertar notificacion
-		mysqli_query($link, "DELETE FROM notificaciones WHERE usuarios_idusuarios='".$_POST['idusuario']."' AND tipo='peticion'");
-		$query = mysqli_query($link,"SELECT COUNT(*) AS cuenta FROM peticiones WHERE receptor='".$_POST['idusuario']."' AND ignorada<>'1'");
-		$row = mysqli_fetch_assoc($query);
-		$num = $row['cuenta'] + 1;
-		mysqli_query($link,"INSERT INTO notificaciones (tipo, fecha, usuarios_idusuarios, datos) VALUES ('peticion', now(), '{$_POST['idusuario']}', '{$num}')");
+		// Notificacion
+		$notificacion = array("propietario" => $_POST['idusuario'], "tipo" => 'peticion');
+		notificacion($notificacion);
 		die();
 }
 
@@ -56,10 +127,18 @@ if ($_POST['peticion_amistad_aceptar']) {
 	
 	mysqli_query($link, "INSERT INTO amigos (user1,user2) VALUES ('" . $_POST['emisor'] . "','" . $global_idusuarios . "')");
 	mysqli_query($link, "DELETE FROM peticiones WHERE emisor='" . $_POST['emisor'] . "' AND receptor='" . $global_idusuarios . "'");
-	mysqli_query($link, "UPDATE notificaciones SET datos = datos - 1 WHERE usuarios_idusuarios='{$global_idusuarios}' AND tipo='peticion'");
-	//mysqli_query($link, "DELETE FROM notificaciones WHERE usuarios_idusuarios='".$_POST['idusuario']."' AND tipo='peticion'");	
-	mysqli_query($link, "INSERT INTO novedades (fecha,tipo, propietario, visitante) VALUES (now(),'amistad','{$global_idusuarios}','{$_POST['emisor']}')");
-	mysqli_query($link, "INSERT INTO novedades (fecha,tipo, visitante,propietario) VALUES (now(),'amistad','{$global_idusuarios}','{$_POST['emisor']}')");
+	
+	
+	// Notificacion
+	$notificacion = array("propietario" => $global_idusuarios, "tipo" => 'peticion');
+	notificacion($notificacion);
+	
+	// Novedad
+	$novedad = array("propietario" => $global_idusuarios, "visitante" => $_POST['emisor'], "tipo" => 'amistad');
+	novedades($novedad);
+	
+	$novedad = array("visitante" => $global_idusuarios, "propietario" => $_POST['emisor'], "tipo" => 'amistad');
+	novedades($novedad);
 	die();
 }
 
@@ -71,18 +150,19 @@ if ($_POST['mp_enviar']) {
 	// Insertar mensaje
 	mysqli_query($link, "INSERT INTO mps (emisor,receptor,mp,fecha) VALUES ('{$global_idusuarios}','{$_POST['receptor']}','{$_POST['mensaje']}',now())");
 	
-	//Insertar notificacion
-	mysqli_query($link, "DELETE FROM notificaciones WHERE usuarios_idusuarios='".$_POST['receptor']."' AND tipo='mp'");
-	$query = mysqli_query($link,"SELECT COUNT(*) AS cuenta FROM mps WHERE receptor='".$_POST['receptor']."' AND estado='nuevo'");
-	$row = mysqli_fetch_assoc($query);
-	$num = $row['cuenta'] + 1;
-	mysqli_query($link,"INSERT INTO notificaciones (tipo, fecha, usuarios_idusuarios, datos) VALUES ('mp', now(), '{$_POST['receptor']}', '{$num}')");
+	// Notificacion
+	$notificacion = array("propietario" => $_POST['receptor'], "tipo" => 'mp');
+	notificacion($notificacion);
 	die();
 }
 
 if ($_POST['mp_leido'] != "") {
-	mysqli_query($link, "UPDATE mps SET estado='leido' WHERE idmps='" . $_POST['id'] . "'");
-	mysqli_query($link, "UPDATE notificaciones SET datos = datos - 1 WHERE usuarios_idusuarios='{$global_idusuarios}' AND tipo='mp'");
+	// Marcar como leido
+	mysqli_query($link, "UPDATE mps SET leido='1' WHERE idmps='" . $_POST['id'] . "'");
+	
+	// Notificacion
+	$notificacion = array("propietario" => $global_idusuarios, "tipo" => 'mp');
+	notificacion($notificacion);
 	die();
 }
 
@@ -136,15 +216,16 @@ if ($_POST['foto_edicion']) {
 	$sql = "UPDATE fotos SET titulo = '" . $_POST['titulo'] . "', albums_idalbums = '" . $_POST['idalbum'] . "' WHERE idfotos='" . $_POST['idfotos'] . "'";
 	mysqli_query($link, $sql);
 
-	echo mysqli_error($link);
+	error_mysql();
 	die();
 }
 
 if ($_POST['foto_principal']) {
 	mysqli_query($link, "UPDATE usuarios SET idfotos_princi='" . $_POST['foto_principal'] . "' WHERE idusuarios='" . $global_idusuarios . "'");
-	//echo mysqli_error($link);
-	mysqli_query($link, "INSERT INTO novedades (fecha, tipo, propietario, datos) VALUES (now(),'foto','{$global_idusuarios}','{$_POST['foto_principal']}')");
-	//echo mysqli_error($link);
+	
+	// Novedad
+	$novedad = array("propietario" => $global_idusuarios, "tipo" => 'foto_principal', "datos" => $_POST['foto_principal']);
+	novedades($novedad);
 	die();
 }
 
@@ -156,16 +237,17 @@ if ($_GET['foto_borrar']) {
 
 		mysqli_query($link, "DELETE FROM fotos WHERE uploader='" . $global_idusuarios . "' AND idfotos='" . $_GET['foto_borrar'] . "'");
 	}
-	//header("location:fotos.php");
+	die();
 }
 
 if ($_POST['foto_comentario']) {
 	mysqli_query($link, "INSERT INTO fotos_comentarios (fotos_idfotos,emisor,comentario,fecha) VALUES ('" . $_POST['idfotos'] . "','" . $global_idusuarios . "','" . $_POST['foto_comentario'] . "',now())");
-	header($_SERVER['referer']);
+	//TODO: Novedad/Notificar comentario a dueño & etiquetados
 	die();
 }
 
 if ($_POST['foto_leer_comentarios']) {
+	//TODO: Notificaciones, marcar comentarios como leidos
 	if ($_POST['page']) {
 		$limit = ($_POST['page'] - 1) * 10;
 	} else {

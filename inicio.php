@@ -16,6 +16,8 @@ require ("inc/estructura.inc.php");
 					print "<a href='ajustes.php?seccion=peticiones'>Tienes {$r_notifi['datos']} peticiones de amistad</a><br>";
 				}elseif($r_notifi['tipo'] == "mp"){
 					print "<a href='mp_entrada.php'>Tienes {$r_notifi['datos']} mensaje privado</a><br>";
+				}elseif($r_notifi['tipo'] == "tablon"){
+					print "<a href='perfil.php'>Tienes {$r_notifi['datos']} comentarios en tu tablon</a><br>";
 				}
 			}
 			print "</div>";
@@ -79,7 +81,8 @@ require ("inc/estructura.inc.php");
 require ("inc/chat.php");
 $tiempo_fin = microtime(true);
 echo "<br>Tiempo de ejecución redondeado: " . round($tiempo_fin - $tiempo_inicio, 4) . "<br>";
+$q_querys = mysqli_query($link, "SHOW SESSION STATUS LIKE 'Questions'");
+$r_querys = mysqli_fetch_array($q_querys);
+define("STOP_QUERIES", $r_querys['Value']);
+echo "No of queries: " . (STOP_QUERIES - START_QUERIES - 1);
 ?>
-Sin novedades: 0.02 max
-<br>
-Con consulta principal: 0.02 max
