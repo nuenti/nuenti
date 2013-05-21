@@ -314,7 +314,7 @@ if ($_POST['foto_leer_comentarios']) {
 
 
 ########	CHAT
-if ($_POST['chat_estado']) {
+if ($_POST['chat_estado']!="") {
 	$_SESSION['chat_estado'] = $_POST['chat_estado'];
 	mysqli_query($link, "UPDATE usuarios SET chat_estado='{$_POST['chat_estado']}' WHERE idusuarios='" . $global_idusuarios . "'");
 	die();

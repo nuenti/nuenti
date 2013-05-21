@@ -1,7 +1,10 @@
 chat_mode_home = false;
 $(window).ready(function() {
 	if (chat_estado == 1) {
-		chat_turn('1');
+		chat_leer();
+		timeOutChatLeer = window.setInterval(chat_leer, 5000);
+		chat_contactos();
+		timeOutChatContactos = window.setInterval(chat_contactos, 10000);
 	}
 });
 
