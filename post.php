@@ -32,12 +32,14 @@ if ($_POST['tablon_leer_comentarios']) {
 	$q_comentarios = mysqli_query($link, $sql);
 	
 	
-	if($_POST['idusuarios'] == $global_idusuarios){//TODO: marcar comentarios leidos
-		//El visitante es el propietario del tablon
-		$sql = "UPDATE tablon SET ledio='1' WHERE idtablon IN (
-				     SELECT idtablon FROM tablon WHERE receptor='{$_POST['idusuarios']}' ORDER BY fecha DESC LIMIT {$limit}, 10) tmp";
+	if($_POST['idusuarios'] == $global_idusuarios){
+		//El visitante es == propietario del tablon
+		$sql = "UPDATE tablon SET leido='1' WHERE receptor='{$global_idusuarios}'"; //TODO: marcar solo los comentarios visualizados como leidos
 		mysqli_query($link, $sql);
-		error_mysql();
+		
+		// Notificacion
+		$notificacion = array("propietario" => $global_idusuarios, "tipo" => 'tablon');
+		notificacion($notificacion);
 	}
 	
 	if (mysqli_num_rows($q_comentarios) > 0) {
@@ -97,8 +99,6 @@ if ($_POST['tablon_enviar_comentario'] != "") {
 	novedades($novedad);
 	die();
 }
-
-	//TODO: Tablon leido, notificaciones y novedades
 
 ########	AMISTAD
 
@@ -197,8 +197,15 @@ if ($_POST['album_borrar']) {
 
 ########	FOTOS
 if ($_POST['foto_edicion']) {
-	mysqli_query($link, "DELETE FROM etiquetas WHERE fotos_idfotos='" . $_POST['idfotos'] . "'");
+	if($_POST['idalbum']){
+		$_POST['idalbum'] = "'".$_POST['idalbum']."'";
+	}else{
+		$_POST['idalbum'] = "NULL";
+	}
 
+	mysqli_query($link, "DELETE FROM etiquetas WHERE fotos_idfotos='" . $_POST['idfotos'] . "'");
+	error_mysql();
+	
 	preg_match_all("/[0-9]{1,}/", $_POST['etiquetas'], $salida, PREG_PATTERN_ORDER);
 	$i2 = 0;
 	for ($i = 0; $i < count($salida[0]); $i++) {
@@ -212,15 +219,14 @@ if ($_POST['foto_edicion']) {
 			//echo "Y: ".$salida[0][$i]."<br>";
 			$y = $salida[0][$i];
 			mysqli_query($link, "INSERT INTO etiquetas (fotos_idfotos, usuarios_idusuarios, x, y) VALUES ('" . $_POST['idfotos'] . "','" . $id . "','" . $x . "','" . $y . "')");
-			echo mysqli_error($link);
+			error_mysql();
 			$i2 = -1;
 		}
 		$i2++;
 	}
 
-	$sql = "UPDATE fotos SET titulo = '" . $_POST['titulo'] . "', albums_idalbums = '" . $_POST['idalbum'] . "' WHERE idfotos='" . $_POST['idfotos'] . "'";
+	$sql = "UPDATE fotos SET titulo = '" . $_POST['titulo'] . "', albums_idalbums = {$_POST['idalbum']} WHERE idfotos='" . $_POST['idfotos'] . "'";
 	mysqli_query($link, $sql);
-
 	error_mysql();
 	die();
 }

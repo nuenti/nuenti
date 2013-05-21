@@ -25,15 +25,16 @@ function etiqueta_borrar(label, value, icon) {
 		label : label,
 		icon: icon
 	});
-
+	
 	// buscamos el nombre del amigo seleccionado
 	for ( i = 0; i < lista_etiquetados.length; i++) {
-		if (lista_etiquetados[i].label == label) {
+		if (lista_etiquetados[i].value == value) {
 			lista_etiquetados.splice(i, 1);
 			// y lo quitamos del array
 			break;
 		}
 	}
+	
 	$("#etiqueta_" + value).remove();
 
 }
@@ -63,7 +64,6 @@ function fotos_post() {
 		nextUrl = false;
 		reload = true;
 	}
-	//ajax_post("foto_edicion=1&idfotos=" + idfoto + "&etiquetas=" + string_envio + "&titulo=" + titulo + "&idalbum=" + album, recarga, nextUrl);
 	ajax_post({
 		data : "foto_edicion=1&idfotos=" + idfoto + "&etiquetas=" + string_envio + "&titulo=" + titulo + "&idalbum=" + album,
 		reload : reload,
@@ -246,9 +246,4 @@ $(function() {
 				"<div class='autocomplete_label'>" + item.label + "</div>"+
 			"</a>" ).appendTo( ul );
 	};
-	
-	
-	/*.data("autocomplete")._renderItem = function(ul, item) {
-		return $("<li>").data("item.autocomplete", item).append("<a>" + item.label + "</a>").appendTo(ul);
-	};*/
 });

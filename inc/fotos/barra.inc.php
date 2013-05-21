@@ -13,7 +13,7 @@
 		echo "<div class='edicion'>";
 		$albums = mysqli_query($link, "SELECT * FROM `albums` WHERE usuarios_idusuarios='" . $_GET['iduser'] . "'");
 		if (mysqli_num_rows($albums) > 0) {
-			echo "Album: <select name='foto_album'><option value='NULL'>Ninguno</option>";
+			echo "Album: <select name='foto_album'><option value=''>Ninguno</option>";
 			while ($row = mysqli_fetch_assoc($albums)) {
 				echo "<option value='" . $row['idalbums'] . "'";
 				if ($row_fotos['albums_idalbums'] == $row['idalbums'])
@@ -52,8 +52,8 @@
 				while ($etiqueta = mysqli_fetch_assoc($etiquetados)) {
 					print "<li class='etiqueta_".$etiqueta['idusuarios']."'>
 						<img src='{$etiqueta['archivo']}' class='autocomplete_img'>
-						".$etiqueta['nombre']." ".$etiqueta['apellidos']."
-						<div onclick=\"etiqueta_borrar('" . $etiqueta['nombre'] . " " . $etiqueta['apellidos'] . "','" . $etiqueta['idusuarios'] . "','" . $etiqueta['archivo'] . "')\">
+						".NombreApellido($etiqueta['nombre']." ".$etiqueta['apellidos'])."
+						<div onclick=\"etiqueta_borrar('" . NombreApellido($etiqueta['nombre'] . " " . $etiqueta['apellidos']) . "','" . $etiqueta['idusuarios'] . "','" . $etiqueta['archivo'] . "')\">
 						</div>
 						</li>";
 				}
@@ -67,13 +67,13 @@
 	$query=mysqli_query($link,"
 			SELECT idusuarios, nombre, apellidos, archivo
 			FROM amigos, usuarios
-			RIGHT JOIN fotos
+			LEFT JOIN fotos
 			ON idfotos_princi=idfotos
 			WHERE user1='".$global_idusuarios."' AND user2=idusuarios OR user2='".$global_idusuarios."' AND user1=idusuarios
 			UNION
 			SELECT idusuarios, nombre, apellidos, archivo
 			FROM usuarios
-			RIGHT JOIN fotos
+			LEFT JOIN fotos
 			ON idfotos_princi=idfotos
 			WHERE idusuarios='" . $global_idusuarios . "'
 		");

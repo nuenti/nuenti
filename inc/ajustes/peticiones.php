@@ -10,7 +10,7 @@
 <?php
 $sql = "SELECT *, archivo, DATE_FORMAT(peticiones.fecha, '%d/%m/%Y %H:%i') AS fechaf
 		FROM peticiones, usuarios
-		RIGHT JOIN fotos
+		LEFT JOIN fotos
 		ON idfotos=idfotos_princi
 		WHERE receptor = '" . $global_idusuarios . "' AND idusuarios = emisor";
 
