@@ -317,22 +317,35 @@ if ($_POST['foto_leer_comentarios']) {
 if ($_POST['chat_estado']!="") {
 	$_SESSION['chat_estado'] = $_POST['chat_estado'];
 	mysqli_query($link, "UPDATE usuarios SET chat_estado='{$_POST['chat_estado']}' WHERE idusuarios='" . $global_idusuarios . "'");
+	error_mysql();
 	die();
 }
 
 if ($_POST['chat_enviar']) {
 	mysqli_query($link, "INSERT INTO chat (emisor,receptor,mensaje,fecha) VALUES ('" . $global_idusuarios . "','" . $_POST['receptor'] . "','" . $_POST['mensaje'] . "',now())");
+	error_mysql();
+	die();
 }
 
 if ($_POST['chat_leer']) {
-	$result = mysqli_query($link, "SELECT *,(SELECT archivo FROM fotos WHERE idfotos=idfotos_princi) AS archivo from chat,usuarios WHERE  idusuarios=emisor AND receptor='" . $global_idusuarios . "' AND chat.leido='0'");
+	$result = mysqli_query($link, "SELECT *, archivo, chat.fecha AS fecha, DATE_FORMAT(chat.fecha, '%H:%i') AS fecha_corta, DATE_FORMAT(chat.fecha, '%d/%m %H:%i') AS fecha_larga FROM chat, usuarios LEFT JOIN fotos ON idfotos = idfotos_princi WHERE idusuarios=emisor AND receptor='" . $global_idusuarios . "' AND chat.leido='0'");
 
 	if (mysqli_num_rows($result) > 0) {
 		while ($row = mysqli_fetch_assoc($result)) {
-			echo "<div iduser='" . $row['emisor'] . "' nombre='" . $row['nombre'] . " " . $row['apellidos'] . "' img='" . $row['archivo'] . "' >" . $row['nombre'] . " dijo: " . $row['mensaje'] . "</div>";
+			//print_r($row);
+			$intervalo = fecha_intervalo($row['fecha']);
+			$segundos = fecha_a_segundos($intervalo);
+			echo $segundos;
+			if($segundos > 86400){
+				$fecha = $row['fecha_larga'];
+			}else{
+				$fecha = $row['fecha_corta'];
+			}
+			echo "<div iduser='" . $row['emisor'] . "' nombre='" . $row['nombre'] . " " . $row['apellidos'] . "' img='" . $row['archivo'] . "' fecha='" . $fecha . "' >" . $row['mensaje'] . "</div>";
 		}
 	}
 	mysqli_query($link, "UPDATE chat SET leido='1' WHERE receptor='" . $global_idusuarios . "'");
+	error_mysql();
 	die();
 }
 
@@ -347,7 +360,7 @@ if ($_POST['chat_contactos']) {
 								ELSE DATE_FORMAT(online, '%d/%m/%Y %H:%i') END AS online,
 								(SELECT archivo FROM fotos WHERE idfotos=idfotos_princi) AS archivo
 								FROM amigos, usuarios
-								WHERE TIME_TO_SEC(TIMEDIFF(now(),online))<95 AND
+								WHERE TIME_TO_SEC(TIMEDIFF(now(),online))<95 AND chat_estado='1' AND
 								(user1='" . $global_idusuarios . "' AND user2=idusuarios OR user2='" . $global_idusuarios . "' AND user1=idusuarios)
 								ORDER BY nombre
 			");
@@ -367,7 +380,7 @@ if ($_POST['chat_contactos']) {
 								ELSE DATE_FORMAT(online, '%d/%m/%Y %H:%i') END AS online,
 								(SELECT archivo FROM fotos WHERE idfotos=idfotos_princi) AS archivo
 								FROM amigos, usuarios
-								WHERE TIME_TO_SEC(TIMEDIFF(now(),online))>95 AND
+								WHERE (TIME_TO_SEC(TIMEDIFF(now(),online))>95 OR chat_estado='0') AND
 								(user1='" . $global_idusuarios . "' AND user2=idusuarios OR user2='" . $global_idusuarios . "' AND user1=idusuarios)
 								ORDER BY nombre
 			");
@@ -382,6 +395,7 @@ if ($_POST['chat_contactos']) {
 	} else {
 		//echo "<p style='cursor:pointer;' onclick=\"chat_turn('on')\">Activar Chat</p>";
 	}
+	error_mysql();
 	die();
 }
 

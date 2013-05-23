@@ -1,10 +1,20 @@
 chat_mode_home = false;
+
 $(window).ready(function() {
 	if (chat_estado == 1) {
 		chat_leer();
 		timeOutChatLeer = window.setInterval(chat_leer, 5000);
 		chat_contactos();
 		timeOutChatContactos = window.setInterval(chat_contactos, 10000);
+	}
+});
+
+$("#mensajes").find(".texto").live({
+	mouseenter: function() {
+		$(this).find(".fecha").css("visibility","visible");
+	},
+	mouseleave: function() {
+		$(this).find(".fecha").css("visibility","hidden");
 	}
 });
 
@@ -141,8 +151,11 @@ function chat_conv_show(emisor) {
 
 function chat_press_enter(e, t, iduser) {
 	tecla = (document.all) ? e.keyCode : e.which;
+	//alert(tecla);
 	if (tecla == 13) {
+		e.preventDefault();
 		chat_enviar(iduser);
+		$("#chat_conv_" + iduser).find("textarea").val("");
 	}
 }
 
@@ -157,26 +170,30 @@ function chat_opciones() {
 }
 
 function chat_enviar(iduser) {
+	var fecha = new Date()
+	var hora = fecha.getHours()
+	var minuto = fecha.getMinutes()
+
+	if (hora < 10) {hora = "0" + hora}
+	if (minuto < 10) {minuto = "0" + minuto}
+
+	fecha = hora + ":" + minuto;
+	
 	mensaje = $("#chat_conv_" + iduser).find("textarea").val();
-	if (mensaje.length == 0)
-		return false;
+	if (mensaje.length == 0)	return false;
+	
+	mensaje_f = "<div class='mensaje_propio'><div class='texto'>" + mensaje + "<div class='fecha'>" + fecha + "</div></div></div>";
+
 	$("#chat_conv_" + iduser).find("textarea").val("");
-	$("#chat_conv_" + iduser).find("#mensajes").append("<div class='mensaje'>Yo: " + mensaje + '</div>');
-	$.ajax({
-		type : "POST",
-		url : "post.php",
-		data : {
-			chat_enviar : "1",
-			receptor : iduser,
-			mensaje : mensaje
-		}
-	}).done(function(msg) {
-		//alert( msg );
+	$("#chat_conv_" + iduser).find("#mensajes").append(mensaje_f);
+	
+	ajax_post({
+		data : "chat_enviar=1&receptor="+iduser+"&mensaje="+mensaje,
+		visible : false
 	});
 }
 
 function chat_leer() {
-
 	$.ajax({
 		type : "POST",
 		cache : false,
@@ -190,30 +207,34 @@ function chat_leer() {
 		$("#chat_conv_tmp").find("div").each(function() {
 			emisor = $(this).attr("iduser");
 			nombre = $(this).attr("nombre");
+			fecha = $(this).attr("fecha");
 			img = $(this).attr("img");
-
+			
+			mensaje = $(this).html();
+			mensaje_f = "<div class='mensaje_ajeno'><div class='texto'>" + $(this).html() + "<div class='fecha'>" + fecha + "</div></div></div>";
+			
+			
+			
 			if ($("#chat_conv_" + emisor).css("display") == "none") {
 				//minimizada
-				$("#chat_conv_" + emisor + "_min").find(".mensajes").css({
-					"display" : "inline-block"
-				});
-				$("#chat_conv_" + emisor).find("#mensajes").append("<div class='mensaje'>" + $(this).html() + '</div>');
+				$("#chat_conv_" + emisor + "_min").find(".mensajes").css("display","inline-block");
+				$("#chat_conv_" + emisor).find("#mensajes").append(mensaje_f);
 			} else if ($("#chat_conv_" + emisor).length > 0) {
 				//maximizada
-				$("#chat_conv_" + emisor).find("#mensajes").append("<div class='mensaje'>" + $(this).html() + '</div>');
+				$("#chat_conv_" + emisor).find("#mensajes").append(mensaje_f);
 			} else {
 				//sin iniciar
 				chat_conv_init(emisor, nombre, img);
 				chat_toggle();
 				//minimizar lista contactos
-				$("#chat_conv_" + emisor).find("#mensajes").append("<div class='mensaje'>" + $(this).html() + '</div>');
-				chat_conv_mini(emisor);
+				$("#chat_conv_" + emisor).find("#mensajes").append(mensaje_f);
 				//minimizar conversa
-				$("#chat_conv_" + emisor + "_min").find(".mensajes").css({
-					"display" : "inline-block"
-				});
+				chat_conv_mini(emisor);
 				//mostrar simbolo mensajes
+				$("#chat_conv_" + emisor + "_min").find(".mensajes").css("display","inline-block");
 			}
+			
+			// Deslizando verticalmente la conversacion
 			//$("#chat_conv_"+emisor).find("#mensajes").scrollTop($("#chat_conv_"+emisor).find("#mensajes").prop("scrollHeight"))
 			$("#chat_conv_" + emisor).find("#mensajes").animate({
 				scrollTop : $("#chat_conv_" + emisor).find("#mensajes").prop("scrollHeight")

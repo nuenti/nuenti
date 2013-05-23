@@ -417,27 +417,7 @@ img.imagen {
 	width: 100px;
 	z-index: 99999999;
 }
-/*
- #chat {
- margin: 0 0 5px;
- position: fixed;
- bottom: 0px;
- }
 
- #chat_boton {
- vertical-align: bottom;
- display: inline-block;
- height: 40px;
- width: 40px;
- background-image: url('../css/chat.png');
- background-size: 40px 40px;
- background-repeat: no-repeat;
- background-color: white;
- border-radius: 10px 10px 10px 10px;
- box-shadow: 1px 1px 3px black;
- }
-
- */
 #chat_contactos ul {
 	list-style: none outside none;
 	padding: 0;
@@ -470,7 +450,7 @@ img.imagen {
 	width: 300px;
 	background-color: white;
 	border-radius: 10px 10px 10px 10px;
-	box-shadow: 5px 5px 5px black;
+	box-shadow: 2px -1px 3px black;
 	padding: 5px;
 	margin-left: 10px;
 }
@@ -525,7 +505,40 @@ img.imagen {
 	height: 70px;
 }
 
-.chat_ventana .mensaje {
+#chat_anclaje .mensaje_propio, #chat_anclaje .mensaje_ajeno {
+	padding: 6px;
+}
+
+#chat_anclaje .mensaje_propio > div, #chat_anclaje .mensaje_ajeno > div {
+	display: inline-block;
+	border-radius: 5px 5px 5px 5px;
+	box-shadow: 0.3px 0.3px 1px black;
+	color: black;
+	display: inline;
+	padding: 4px;
+}
+
+#chat_anclaje .mensaje_propio > div > .fecha, #chat_anclaje .mensaje_ajeno > div > .fecha {
+	display: inline-block;
+	font-size: 10px;
+	font-style: italic;
+	visibility: hidden;
+}
+
+#chat_anclaje .mensaje_propio {
+	text-align: left;
+}
+
+#chat_anclaje .mensaje_propio > div {
+	background-color: white;
+}
+
+#chat_anclaje .mensaje_ajeno {
+	text-align: right;
+}
+
+#chat_anclaje .mensaje_ajeno > div {
+	background-color: #9DDC5A;
 }
 
 .chat_ventana_min {
