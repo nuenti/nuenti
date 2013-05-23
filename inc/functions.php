@@ -46,25 +46,36 @@ function error_mysql($p1 = "exit") {
 	}
 }
 
-//DATETIME a segundos
-function fecha($fecha) {
-	$oldDate = new DateTime($fecha);
-	$newDate = new DateTime("now");
-	$intervalo = date_diff($oldDate, $newDate);
-
-	$segundos = $intervalo -> format('%y') * 365 * 24 * 60 * 60;
-	$segundos += $intervalo -> format('%m') * 31 * 24 * 60 * 60;
-	$segundos += $intervalo -> format('%d') * 24 * 60 * 60;
-	$segundos += $intervalo -> format('%h') * 60 * 60;
-	$segundos += $intervalo -> format('%i') * 60;
-	$segundos += $intervalo -> format('%s');
-
+function fecha_a_segundos($input) {
+	$segundos = $input -> format('%y') * 365 * 24 * 60 * 60;
+	$segundos += $input -> format('%m') * 31 * 24 * 60 * 60;
+	$segundos += $input -> format('%d') * 24 * 60 * 60;
+	$segundos += $input -> format('%h') * 60 * 60;
+	$segundos += $input -> format('%i') * 60;
+	$segundos += $input -> format('%s');
+	
 	//60 minuto
 	//3600 hora
 	//86.400 dia
 	//604.800 semana
 	//2.592.000 mes
 	//31.104.000 año
+	return $segundos;
+}
+
+function fecha_intervalo($oldDate, $newDate = "default") {
+	if($newDate == "default") $newDate = new DateTime("now");
+	$oldDate = new DateTime($oldDate);
+	$intervalo = date_diff($oldDate, $newDate);
+	
+	return $intervalo;
+}
+
+function fecha($fecha) {
+	
+	$intervalo = fecha_intervalo($fecha);
+	$segundos = fecha_a_segundos($intervalo);
+
 
 	$buffer = "";
 	if ($segundos < 60) {
