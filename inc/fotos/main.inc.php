@@ -42,7 +42,7 @@
 			echo "/>";
 			$etiquetados = mysqli_query($link,"SELECT idusuarios, nombre, apellidos, archivo, x, y
 												FROM etiquetas, usuarios
-												RIGHT JOIN fotos ON idfotos_princi = idfotos
+												LEFT JOIN fotos ON idfotos_princi = idfotos
 												WHERE fotos_idfotos = '{$row_fotos['idfotos']}'
 												AND usuarios_idusuarios = idusuarios");
 			while($p = mysqli_fetch_assoc($etiquetados)){
