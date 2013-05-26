@@ -26,11 +26,11 @@
 	
 	<div class='barra_full'>
 		<div class='marco'>
-			<h2>Mensajeria Privada</h2>
+			<h2>Mensajeria Privada: Redactar</h2>
 <?php
 	//Si hay un destinatario preseleccionado
 	if($_GET['receptor']){
-		$query=mysqli_query($link,"SELECT * FROM usuarios RIGHT JOIN fotos ON idfotos_princi=idfotos WHERE idusuarios='".$_GET['receptor']."'");
+		$query=mysqli_query($link,"SELECT * FROM usuarios LEFT JOIN fotos ON idfotos_princi = idfotos WHERE idusuarios='".$_GET['receptor']."'");
 		$usuario=mysqli_fetch_assoc($query);
 		
 		print "<form action='#' onsubmit='return false'>

@@ -5,7 +5,7 @@
 
 	print "<div class='barra_full'>
 			<div class='marco'>
-				<h2>Mensajeria Privada</h2>";
+				<h2>Mensajeria Privada: Recibidos</h2>";
 
 	$sql = "SELECT *, DATE_FORMAT(mps.fecha, '%d/%m/%Y %H:%i') AS fechaf FROM mps,usuarios LEFT JOIN fotos ON idfotos=idfotos_princi WHERE receptor='".$global_idusuarios."' AND idusuarios=emisor ORDER BY idmps DESC";
 	$q_mensajes=mysqli_query($link,$sql);

@@ -3,53 +3,56 @@
 	head("Mensajeria Privada - Social");
 	require("inc/estructura.inc.php");
 
-	echo "<h2>Mensajeria Privada</h2>";
+	print "<div class='barra_full'>
+			<div class='marco'>
+				<h2>Mensajeria Privada: Enviados</h2>";
 
-
-
-
-	$query=mysqli_query($link,"
-		SELECT *
-		FROM amigos, usuarios
-		WHERE user1='".$global_idusuarios."' AND user2=idusuarios OR user2='".$global_idusuarios."' AND user1=idusuarios
-	");
-	if(mysqli_num_rows($query)>0){
-		echo "<h3>Enviar Mensaje</h3>";
-		echo "Destinatario: <select name='receptor'>";
-		while($row=mysqli_fetch_assoc($query)){
-			echo "<option value='".$row['idusuarios']."'>".$row['nombre']." ".$row['apellidos']."</option>";
-			//echo $row['nombre']." ".$row['apellidos']." <a href='gente.php?id=".$row['idusuarios']."'>Ver perfil</a><br>";
+	$sql = "SELECT *, DATE_FORMAT(mps.fecha, '%d/%m/%Y %H:%i') AS fechaf FROM mps,usuarios LEFT JOIN fotos ON idfotos=idfotos_princi WHERE emisor='".$global_idusuarios."' AND idusuarios=receptor ORDER BY idmps DESC";
+	$q_mensajes=mysqli_query($link,$sql);
+	
+	echo "<div style='border-top: 1px solid #E5E5E5;'>";
+	while($r_mensajes=mysqli_fetch_assoc($q_mensajes)){
+		
+		$nombre_apellido = NombreApellido($r_mensajes['nombre']." ".$r_mensajes['apellidos']);
+		
+		if(strlen($r_mensajes['mp'])>20){
+			$resumen_mp = substr($r_mensajes['mp'], 0, 20)."...";
+		}else{
+			$resumen_mp = $r_mensajes['mp'];
 		}
-		?>
-		</select>
-		<form method="POST" action="post.php">
-			<textarea name="mensaje_privado" cols="60" rows="2"></textarea>
-			<input type="hidden" name="receptor" value="<?php echo $usuario['idusuarios']; ?>" />
-			<input type="submit" value="Submit">
-		</form>
-	<?php
+		
+		 print "
+			<div id='{$r_mensajes['idmps']}' class='mp_entrante'>
+				<div class='encabezado' onclick='MP_toggle(this)'>
+					<img src='{$r_mensajes['archivo']}'>
+					
+				<div class='45'>
+					<div class='45'>
+						<div class='nombre'>{$nombre_apellido}</div>
+						<div class='resumen'>{$resumen_mp}</div>
+						<div class='fecha'>{$r_mensajes['fechaf']}</div>
+					</div><br>
+					<div class='texto'>{$r_mensajes['mp']}</div>
+					</div>
+				</div>
+			</div>
+		";
 	}
-
-
-
-
-
-
-	if($_GET['receptor']){
-		$query=mysqli_query($link,"SELECT * FROM usuarios WHERE idusuarios='".$_GET['receptor']."'");
-		$usuario=mysqli_fetch_assoc($query);
-		?>
-		Enviar mensaje a <?php echo $usuario['nombre']; ?></h2>
-		<form method="POST" action="post.php">
-			<textarea name="mensaje_privado" cols="60" rows="2"></textarea>
-			<input type="hidden" name="receptor" value="<?php echo $usuario['idusuarios']; ?>" />
-			<input type="submit" value="Submit">
-		</form>
-		<?php
-	}
-
-	$query=mysqli_query($link,"SELECT * FROM mps,usuarios WHERE emisor='".$global_idusuarios."' AND idusuarios=receptor");
-	while($mps=mysqli_fetch_assoc($query)){
-		echo "<div class='mp'>".$mps['nombre']." te dijo: ".$mps['mp']."</div>";
-	}
+	echo "</div>";
 ?>
+
+
+	<script>
+		function MP_toggle(t){
+			//Mostrar u ocultar
+			$(t).parent().find(".cuerpo").toggle();
+			
+			//Marcar como leido
+			id=$(t).parent().attr("id");
+			ajax_post({
+				data : "mp_leido=1&id=" + id,
+				retrieve: true
+			});
+			
+		}
+	</script>
