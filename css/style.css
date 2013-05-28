@@ -196,6 +196,8 @@ span.ayuda {
 /************	REGISTRO	***************/
 form[name='registro'] {
 	line-height: 28px;
+	text-align: left;
+	display: inline-block;
 }
 /************	LOGIN	**********************/
 
