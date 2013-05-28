@@ -112,7 +112,7 @@ function fecha($fecha) {
 }
 
 //CABECERA
-function head($title) {
+function head($title = Sitio) {
 	print "
 		<!DOCTYPE html>
 		<html lang='es'>
@@ -240,5 +240,47 @@ function novedades($novedad){
 	
 	mysqli_query($link, "INSERT INTO novedades (fecha, tipo, propietario, visitante, datos) VALUES (now(), '{$novedad['tipo']}', '{$novedad['propietario']}', {$novedad['visitante']}, '{$novedad['datos']}')");
 	error_mysql("exit");
+}
+
+function email_send($destinatario_name, $destinatario_email, $titulo, $mensaje){
+	 $TextMessage = strip_tags(nl2br($mensaje), "<br>");
+	 $HTMLMessage = $mensaje;
+	 
+	/*$To = strip_tags($to);
+	 $TextMessage = strip_tags(nl2br($comment), "<br>");
+	 $HTMLMessage = nl2br($comment);
+	 $FromName = strip_tags($name);
+	 $FromEmail = strip_tags($email);
+	 $Subject = strip_tags($subject);*/
+	
+	$boundary = rand(0, 9) . "-" . rand(10000000000, 9999999999) . "-" . rand(10000000000, 9999999999) . "=:" . rand(10000, 99999);
+	
+	//CABECERAS
+	$Headers = "MIME-Version: 1.0\r\n";
+	$Headers .= "To: {$destinatario_name} <{$destinatario_email}>\r\n";
+	$Headers .= "From: ".Sitio." <".Email_Address.">\r\n";
+	$Headers .= "Reply-To: ".Email_Address."\r\n";
+	$Headers .= "Content-Type: multipart/alternative; boundary=$boundary\r\n";
+	
+
+//CUERPO DEL MENSAJE (DEBE IR PEGADO A LA IZQ)
+$Body = "MIME-Version: 1.0
+Content-Type: multipart/alternative; boundary=$boundary
+
+--$boundary
+Content-Type: text/plain; charset=ISO-8859-1
+	
+$TextMessage
+
+--$boundary
+Content-Type: text/html; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
+	
+$HTMLMessage
+
+--$boundary--";
+
+	$ok = mail($destinatario_email, $titulo, $Body, $Headers);
+	return $ok ? TRUE : FALSE;
 }
 ?>
