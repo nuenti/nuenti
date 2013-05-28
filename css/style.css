@@ -455,6 +455,7 @@ img.imagen {
 	margin-left: 10px;
 }
 
+
 .chat_ventana .boton {
 	cursor: pointer;
 	float: right;
@@ -492,17 +493,6 @@ img.imagen {
 	height: 65px;
 	resize: none;
 	width: 225px;
-}
-.chat_ventana button {
-	background-color: #59A5E3;
-	border: 0 none;
-	border-radius: 5px;
-	color: #FFFFFF;
-	cursor: pointer;
-	float: right;
-	font-family: "Lucida Grande", Arial, Helvetica, sans-serif;
-	font-size: 14px;
-	height: 70px;
 }
 
 #chat_anclaje .mensaje_propio, #chat_anclaje .mensaje_ajeno {

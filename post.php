@@ -324,11 +324,13 @@ if ($_POST['chat_estado']!="") {
 if ($_POST['chat_enviar']) {
 	mysqli_query($link, "INSERT INTO chat (emisor,receptor,mensaje,fecha) VALUES ('" . $global_idusuarios . "','" . $_POST['receptor'] . "','" . $_POST['mensaje'] . "',now())");
 	error_mysql();
+	$idchat = mysqli_insert_id($link);
+	echo $idchat;
 	die();
 }
 
 if ($_POST['chat_leer']) {
-	$result = mysqli_query($link, "SELECT *, archivo, chat.fecha AS fecha, DATE_FORMAT(chat.fecha, '%H:%i') AS fecha_corta, DATE_FORMAT(chat.fecha, '%d/%m %H:%i') AS fecha_larga FROM chat, usuarios LEFT JOIN fotos ON idfotos = idfotos_princi WHERE idusuarios=emisor AND receptor='" . $global_idusuarios . "' AND chat.leido='0'");
+	$result = mysqli_query($link, "SELECT *, archivo, chat.fecha AS fecha, DATE_FORMAT(chat.fecha, '%H:%i') AS fecha_corta, DATE_FORMAT(chat.fecha, '%d/%m %H:%i') AS fecha_larga FROM chat, usuarios LEFT JOIN fotos ON idfotos = idfotos_princi WHERE idusuarios=emisor AND receptor='" . $global_idusuarios . "' AND chat.leido='0' ORDER BY idchat");
 
 	if (mysqli_num_rows($result) > 0) {
 		while ($row = mysqli_fetch_assoc($result)) {
@@ -341,10 +343,52 @@ if ($_POST['chat_leer']) {
 			}else{
 				$fecha = $row['fecha_corta'];
 			}
-			echo "<div iduser='" . $row['emisor'] . "' nombre='" . $row['nombre'] . " " . $row['apellidos'] . "' img='" . $row['archivo'] . "' fecha='" . $fecha . "' >" . $row['mensaje'] . "</div>";
+			echo "<div iduser='" . $row['emisor'] . "' idchat='" . $row['idchat'] . "' nombre='" . $row['nombre'] . " " . $row['apellidos'] . "' img='" . $row['archivo'] . "' fecha='" . $fecha . "' >" . $row['mensaje'] . "</div>";
 		}
 	}
 	mysqli_query($link, "UPDATE chat SET leido='1' WHERE receptor='" . $global_idusuarios . "'");
+	error_mysql();
+	die();
+}
+
+if ($_POST['chat_leer_prev']) {
+	//Sacamos los msg antiguos en orden inverso a proposito
+	$sql = "SELECT *, DATE_FORMAT(fecha, '%H:%i') AS fecha_corta, DATE_FORMAT(fecha, '%d/%m %H:%i') AS fecha_larga
+			FROM chat
+			WHERE ((emisor = '{$_POST['iduser']}' AND receptor='" . $global_idusuarios . "') OR (receptor = '{$_POST['iduser']}' AND emisor='" . $global_idusuarios . "'))";
+	
+	if($_POST['idchat']){
+		$sql .= " AND idchat < '{$_POST['idchat']}'";
+	}
+	$sql .= "  ORDER BY idchat DESC LIMIT 30";
+
+	$result = mysqli_query($link, $sql);
+	if (mysqli_num_rows($result) > 0) {
+		$mensajes = array();
+		while ($row = mysqli_fetch_assoc($result)) {
+			$intervalo = fecha_intervalo($row['fecha']);
+			$segundos = fecha_a_segundos($intervalo);
+			
+			if($segundos > 86400){
+				$fecha = $row['fecha_larga'];
+			}else{
+				$fecha = $row['fecha_corta'];
+			}
+			
+			if($row['emisor']!=$global_idusuarios){
+				$class = "mensaje_ajeno";
+			}else{
+				$class = "mensaje_propio";
+			}
+			
+			$msg = "<div idchat='{$row['idchat']}' class='{$class}'><div class='texto'>{$row['mensaje']}<div class='fecha'>{$fecha}</div></div></div>";
+			array_unshift($mensajes, $msg); //con esto el orden se corrige
+		}
+		
+		foreach ($mensajes as $val) {
+		    echo  $val;
+		}
+	}
 	error_mysql();
 	die();
 }
