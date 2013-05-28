@@ -63,9 +63,7 @@ require ("upload/subida.html");
 			<br />
 			<div id="uploader"></div>
 			<input type="hidden" name="subir_fotos" value="1" />
-			<button type="submit">
-				Subir fotos
-			</button>
+			<button type='submit' class="azul"><span><b>Subir fotos</b></span></button>
 		</form>
 
 </body>

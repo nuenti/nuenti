@@ -89,9 +89,7 @@ require ("inc/estructura.inc.php");
 	<hr>
 	Nombre del album:
 	<input type="text" name="album" id='album_id'/>
-	<button onclick="ajax_post({data:'album='+$('#album_id').val(),reload:true})">
-	Crear album
-	</button>
+	<button type='button' class="azul" onclick="ajax_post({data:'album='+$('#album_id').val(),reload:true})"><span><b>Crear album</b></span></button>
 	</div>
 	</div>
 

@@ -30,7 +30,7 @@
 		?>
 		<div id="tablon_comentar">
 			<textarea id="comentario"></textarea>
-			<button type="button" onclick="tablon_enviar_comentario()">Comentar</button>
+			<button type='button' class="azul" onclick="tablon_enviar_comentario()"><span><b>Comentar</b></span></button>
 		</div>
 		<?php 
 	}

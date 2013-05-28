@@ -29,14 +29,13 @@ if($_POST){
 }
 ?>
 	<div class="centrar">
-		<div class="marco" style="width: 300px;">
-			<div id="valida_error"></div>
+		<div class="marco" style="width: 400px;">
+			<div id="error_ajustable"></div>
 			<div style="text-align: center;">
-				<form name="registro" method='post' action='registro.php' style="text-align: left;">
+				<form name="registro" method='post' action='registro.php'>
 					Nombre: <input type='text' class="validable" size='26' maxlength='20' name='Nombre' value="<?php echo $_POST['Nombre']; ?>" /><br />
 					Apellidos: <input type='text' class="validable" size='25' maxlength='40' name='Apellidos'  value="<?php echo $_POST['Apellidos']; ?>" /><br />
 					Contrase&ntilde;a: <input type='password' class="validable" size='23' name='contrasenia' /><br />
-					Repita la contrase&ntilde;a: <input type='password' class="validable" size='15' name='contrasenia2' /><br />
 					Email: <input type='text' class="validable" size='29' name='Email'  value="<?php echo $_POST['Email']; ?>" /><br />
 	
 					Fecha nacimiento: <input type='text' class="validable" size='18' name='nacimiento'  id="datepicker"  value="<?php echo $_POST['nacimiento']; ?>" /><br />
@@ -49,7 +48,7 @@ if($_POST){
 					<input type="checkbox" class="validable" name="tos" id="checkbox_tos" value="tos_yes"><label for="checkbox_tos">Acepto los <a href="post.php?tos=1" target="_blank">terminos de uso</a></label><br>
 	
 					<input type="hidden" name="Registro" value="yes"/>
-					<button type='button' name='registro' value='Registrarse' onclick="validador('submit')">Registrarse</button>
+					<button type='button' name='registro' value='Registrarse' class="azul" onclick="validador('submit')"><span><b>Registrarse</b></span></button>
 				</form>
 			</div>
 		</div>

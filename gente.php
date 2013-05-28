@@ -180,7 +180,7 @@
 				Provincia: <select name="provincia"><?php require("inc/select_provincias.html"); ?></select><br>
 				<input type="hidden" name='page' value="1">
 				<input type="hidden" name='busqueda' value="true">
-				<button type='submit'>Buscar</button>
+				<button type='submit' class="azul"><span><b>Buscar</b></span></button>
 			</form>
 	</div>
 </div>

@@ -23,7 +23,8 @@
 			});
 		</script>
 		<input type='text' id='estado' size='110' value='<?php echo $r_user['estado']; ?>' />
-		<button type="button" onclick="estado_cambiar(estado_ori)">Cambiar</button>
+		<button type='button' class="azul" onclick="estado_cambiar(estado_ori)"><span><b>Cambiar</b></span></button>
+				  
 	<?php
 	}else{
 		echo "<div>{$estado}</div>";

@@ -59,8 +59,8 @@ if($_POST['email']){
 					Clave: <input type='password' class="validable" size='20' name='password'><br>
 					<!--Recordar datos: <input name='logincookie' type='checkbox' value='true'>
 					<br>-->
-				  <button type="button" onclick="validador('submit');">Entrar</button>
-				  <button type='button' onclick="location.href='registro.php';">Registrarse</button>
+					<button type='button' name='registro' value='Registrarse' class="azul" onclick="validador('submit')"><span><b>Entrar</b></span></button>
+					<button type='button' class="azul" onclick="location.href='registro.php';"><span><b>Registrarse</b></span></button>
 				  </form>
 			</div>
 		</div>

@@ -4,7 +4,7 @@
 	font-family: Segoe UI;
 	/*font-weight: bold;*/
 	color: #333333;
-	font-size: 12px;
+	font-size: 16px;
 }
 
 body {
@@ -17,6 +17,101 @@ body {
 
 .link {
 	color: #3869A0;
+}
+
+button {
+	background: none repeat scroll 0 center transparent;
+	border: 0 none;
+	color: #616161;
+	cursor: pointer;
+	padding: 0;
+}
+button span {
+	border-radius: 4px 4px 4px 4px;
+	display: inline-block;
+	padding: 5px;
+}
+
+button span b {
+	font-size: 14px;
+	font-weight: bold;
+	padding: 0 12px;
+	/*text-shadow: 0 1px #FFFFFF;*/
+	color: #FFFFFF;
+}
+
+button.verde > span {
+	background: linear-gradient(#7EC456, #64A141) repeat scroll 0 0 transparent;
+	border-color: #679F46 #67A046 #548139;
+}
+
+button.verde:hover > span {
+	background: linear-gradient(#87CD5D, #6CAC47) repeat scroll 0 0 transparent !important;
+	box-shadow: 0 1px rgba(255, 255, 255, 0.24) inset, 0 1px 2px rgba(0, 0, 0, 0.11) !important;
+	filter: none !important;
+}
+
+button.verde:active > span {
+	background: none repeat scroll 0 0 #74B152 !important;
+	box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.12) inset, 0 -1px 2px 0 rgba(0, 0, 0, 0.06) inset, 0 40px 40px -20px #8CCD66 inset !important;
+	color: #F2F9EF !important;
+	filter: none !important;
+}
+
+button.azul > span {
+	background: linear-gradient(#1098D3, #077CB1) repeat scroll 0 0 transparent;
+	border-color: #054D6E #06364D;
+}
+
+button.azul:hover > span {
+	background: none repeat scroll 0 0 #0F87BA !important;
+	box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.24) inset, 0 1px 2px 0 rgba(0, 0, 0, 0.11), 0 40px 40px -20px #1DA5DB inset !important;
+	filter: none !important;
+}
+
+button.azul:active > span {
+	background: none repeat scroll 0 0 #209BCE !important;
+	box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.12) inset, 0 -1px 2px 0 rgba(0, 0, 0, 0.06) inset, 0 40px 40px -20px #25A6DA inset !important;
+	color: #E9F6FB !important;
+	filter: none !important;
+}
+
+button.rojo > span {
+	background: linear-gradient(#BA4141, #A83434) repeat scroll 0 0 transparent;
+	border-color: #AD312F #AD312F #8B2A29;
+}
+
+button.rojo:hover > span {
+	background: linear-gradient(#C44949, #B53A3A) repeat scroll 0 0 transparent !important;
+	border-color: #A32E2C #A32E2C #832826 !important;
+	filter: none !important;
+}
+
+button.rojo:active > span {
+	background: linear-gradient(#BD4B4B, #BF5656) repeat scroll 0 0 transparent !important;
+	border-color: #A22F2D #A22F2D #822725 !important;
+	color: #F9EEEE !important;
+	filter: none !important;
+}
+
+button.gris > span {
+	background: linear-gradient(#F6F6F6, #EDEDED) repeat scroll 0 0 transparent !important;
+	border: 1px solid;
+	border-color: #D8D8D8 #D8D8D8 #C1C1C1 !important;
+	color: #616161;
+}
+
+button.gris:hover > span {
+	background: linear-gradient(#FAFAFA, #F3F3F3) repeat scroll 0 0 transparent !important;
+	border-color: #CBCBCB #CBCBCB #B3B3B3 !important;
+	box-shadow: 0 1px #FFFFFF inset, 0 1px 2px rgba(0, 0, 0, 0.11) !important;
+	color: #515151 !important;
+}
+button.gris:active > span {
+	background: linear-gradient(#F6F6F6, #EDEDED) repeat scroll 0 0 transparent !important;
+	border-color: #D8D8D8 #D8D8D8 #C1C1C1 !important;
+	color: #414141 !important;
+	filter: none !important;
 }
 #ajax_cargando_padre {
 	left: 0;
@@ -338,19 +433,19 @@ div.error_ajustable {
 	border-radius: 10px;
 	box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.2), 0 6px 5px -5px rgba(0, 0, 0, 0.5) inset;
 }
-
-button {
-	background: linear-gradient(#1098D3, #077CB1) repeat scroll 0 0 transparent;
-	border-radius: 5px 5px 5px 5px;
-	border-width: 0;
-	color: #FFFFFF;
-	cursor: pointer;
-	font-size: 14px;
-	font-weight: bold;
-	line-height: 34px;
-	margin: 5px;
-	text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.35);
-}
+/*
+ button {
+ background: linear-gradient(#1098D3, #077CB1) repeat scroll 0 0 transparent;
+ border-radius: 5px 5px 5px 5px;
+ border-width: 0;
+ color: #FFFFFF;
+ cursor: pointer;
+ font-size: 14px;
+ font-weight: bold;
+ line-height: 34px;
+ margin: 5px;
+ text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.35);
+ }*/
 
 .imagen_perfil {
 	margin-right: 5px;
@@ -456,7 +551,6 @@ img.imagen {
 	padding: 5px;
 	margin-left: 10px;
 }
-
 
 .chat_ventana .boton {
 	cursor: pointer;

@@ -5,9 +5,7 @@
 <div class="barra_full">
 	<div class="marco">
 		<textarea name="foto_comentario" id="foto_comentario_mens" cols="60" rows="2" placeholder="Escribe aqu&iacute; tu comentario" style="max-width: 826px;vertical-align: top;"></textarea>
-		<button onclick="enviar_comentario()">
-			Comentar
-		</button>
+		<button type='button' class="azul" onclick="enviar_comentario()"><span><b>Comentar</b></span></button>
 		<div id="comentarios"></div>
 		<script>
 					$(window).load(function() {

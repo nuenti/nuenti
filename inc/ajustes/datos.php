@@ -64,8 +64,7 @@
 	
 	Email antiguo: <input type="text" id="email" /><br>
 	Contraseña: <input type="password" id="pass" /><br>
-
-	<button onclick="cambio_email()">Cambiar email</button>
+	<button type='button' class="azul" onclick="cambio_email"><span><b>Cambiar email</b></span></button>
 </div>
 
 <div id="cambio_pass" class="">
@@ -75,7 +74,7 @@
 	
 	Contraseña antigua: <input type="password" id="pass" /><br>
 
-	<button onclick="cambio_pass()">Cambiar contraseña</button>
+	<button type='button' class="azul" onclick="cambio_pass"><span><b>Cambiar contraseña</b></span></button>
 </div>
 
 <div id="cambio_datos" class="">
@@ -92,8 +91,8 @@
 				
 	Fecha nacimiento: <input type="text" id="fecha" value="<?php echo $r_user['fecha']; ?>" /><br>
 		<input type="hidden" id="fecha_hidden" value="<?php echo $r_user['fnac']; ?>"/>
-		
-	<button onclick="cambio_datos()">Cambiar datos</button>
+
+	<button type='button' class="azul" onclick="cambio_datos()"><span><b>Cambiar datos</b></span></button>
 </div>
 
 

@@ -34,7 +34,7 @@
 					<form action='#' onsubmit='return false'>
 						<input type='hidden' name='receptor' value='{$r_mensajes['emisor']}'>
 						<textarea name='mensaje' class='validable' cols='60' rows='2'></textarea><br>
-						<button type='button' onclick='mp_enviar(this);'>Responder</button>
+						<button type='button' class='azul' onclick='mp_enviar(this);'><span><b>Responder</b></span></button>
 					</form>
 				</div>
 			</div>

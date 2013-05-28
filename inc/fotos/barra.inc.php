@@ -126,13 +126,8 @@ while ($row = mysqli_fetch_assoc($query)) {
 		<input id="tags" name="receptor"  style="display: none;" placeholder="amigo"/>
 	</div>
 	<br>
-
-	<button type="button" onclick="fotos_post();" style="display: none !important;" class='edicion'>
-		Guardar
-	</button>
-	<button type="button" onclick="foto_cancelar_edicion();" style="display: none !important;" class='edicion'>
-		Cancelar
-	</button>
+	<button type='button' class="azul edicion" onclick="fotos_post()" style="display: none !important;"><span><b>Guardar</b></span></button>
+	<button type='button' class="azul edicion" onclick="foto_cancelar_edicion();" style="display: none !important;"><span><b>Cancelar</b></span></button>
 </div>
 </form>
 </div>

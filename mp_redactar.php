@@ -127,5 +127,6 @@
 	<br>
 	Mensaje:<br>
 	<textarea name="mensaje" class="validable" cols="60" rows="2"></textarea><br>
-	<button type="button" onclick="mp_enviar();">Enviar</button>
+	
+	<button type='button' class="azul" onclick="mp_enviar();"><span><b>Enviar</b></span></button>
 </form>
