@@ -1,4 +1,11 @@
 <?php
+
+########	TERMINOS DE USO
+if($_GET['tos']){
+	require 'inc/tos.php';
+	die();
+}
+
 require ("inc/verify_login.php");
 
 ########	GENERAL
@@ -6,6 +13,7 @@ if($_POST['online_keep']){
 	mysqli_query($link, "UPDATE usuarios SET online = now() WHERE idusuarios='{$global_idusuarios}'");
 	die();
 }
+
 ########	PERFIL
 
 if ($_POST['estado_cambiar']) {
