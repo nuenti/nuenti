@@ -46,7 +46,7 @@ if($_POST['email']){
 ?>
 
 
-		<h1 id="logo">Social</h1>
+		<h1 id="logo"><?php echo Sitio; ?></h1>
 		<?php	if($error==1){	?>
 				<div class="centrar">
 					<div class='error'>El email o la contraseña son incorrectos</div>
