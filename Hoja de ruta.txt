@@ -1,10 +1,12 @@
 Registro de usuario
+	Cifrado JS
 	Mediante API externa
 	Nivel de seguridad de contraseña
 	Envio de email para validacion
 	Crypt
 Login de usuario
-	Cifrado
+	Cifrado JS
+	Detectar navegadores no soportados
 Inicio
 	Notificaciones
 	Novedades
@@ -31,7 +33,10 @@ Panel de control
 	Ips de acceso
 	Cambio de datos (Contrase�a, nombre, correo, localidad)
 Chat
+	Grupos
 Logout
+Contacto
+Terminos de uso
 
 Aplicacion web para movil mediante jquery
 
