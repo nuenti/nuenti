@@ -1,7 +1,7 @@
 /***************************	GENERICAS	********************/
 
 * {
-	font-family: Segoe UI;
+	font-family: Arial, Helvetica, sans-serif;
 	/*font-weight: bold;*/
 	color: #333333;
 	font-size: 16px;
@@ -19,12 +19,14 @@ body {
 	color: #3869A0;
 }
 
+/************************ BOTONES E INPUTS **********************/
 button {
 	background: none repeat scroll 0 center transparent;
 	border: 0 none;
 	color: #616161;
 	cursor: pointer;
 	padding: 0;
+	margin: 5px;
 }
 button span {
 	border-radius: 4px 4px 4px 4px;
@@ -113,6 +115,105 @@ button.gris:active > span {
 	color: #414141 !important;
 	filter: none !important;
 }
+
+div.input {    margin: 5px;
+	display: inline-block;
+	vertical-align: middle;
+	position: relative;
+}
+span.focus{
+		border-color: #3DADD9 !important;
+		box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.1) inset, 0 0 6px 0 rgba(61, 173, 217, 0.6) !important;
+		}
+div.input label {
+	color: #999999;
+	cursor: text;
+	left: 10px;
+	position: absolute;
+	top: 10%;
+	transition: all 0.3s ease-out 0s;
+}
+div.input span {
+	background-color: #FDFDFD;
+	border-color: #CBCBCB #E3E3E3 #E3E3E3;
+	border-radius: 4px 4px 4px 4px;
+	border-style: solid;
+	border-width: 1px;
+	box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.1) inset;
+	display: block;
+	transition: box-shadow 0.3s ease 0s, border-color 0.2s ease 0s;
+}
+div.input span input {
+	background: none repeat scroll 0 center transparent;
+	border: 0 none;
+	display: block;
+	font-size: 13px;
+	min-height: 16px;
+	padding: 8px;
+	vertical-align: middle;
+	margin: 0;
+}
+input:not([type="checkbox"]):focus {
+	border-color: #3DADD9;
+	box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.1) inset, 0 0 6px 0 rgba(61, 173, 217, 0.6);
+}
+label:focus{
+	border-color: #3DADD9;
+	box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.1) inset, 0 0 6px 0 rgba(61, 173, 217, 0.6);
+}
+
+span.select {
+	margin: 5px;
+	display: inline-block;
+	position: relative;
+	letter-spacing: normal;
+}
+span.select select:focus {
+	border-color: #3DADD9;
+	box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.1) inset, 0 0 6px 0 rgba(61, 173, 217, 0.6);
+}
+
+span.select:before {
+	background: linear-gradient(#F5F5F5, #F2F2F2) repeat scroll 0 0 transparent;
+	border-left: 1px solid #E2E2E2;
+	border-radius: 0 4px 4px 0;
+	bottom: 1px;
+	box-shadow: 0 1px rgba(255, 255, 255, 0.75) inset;
+	right: 1px;
+	top: 1px;
+	width: 24px;
+}
+
+span.select:after, span.select:before {
+	content: "";
+	pointer-events: none;
+	position: absolute;
+}
+
+span.select:after {
+	border-color: #666666 transparent transparent;
+	border-right: 4px solid transparent;
+	border-style: solid;
+	border-width: 4px;
+	right: 9px;
+	top: 50%;
+}
+
+span.select select {
+	cursor: pointer;
+	border-radius: 4px 4px 4px 4px;
+	border-style: none;
+	border-width: 1px;
+	box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.1) inset;
+	display: inline-block;
+	padding: 9px 8px 7px 9px;
+	transition: box-shadow 0.3s ease 0s, border-color 0.2s ease 0s;
+	white-space: nowrap;
+	width: 100%;
+	margin: 0px;
+}
+
+/******************************** AJAX	********************/
 #ajax_cargando_padre {
 	left: 0;
 	position: fixed;
@@ -289,14 +390,25 @@ span.ayuda {
 }
 
 /************	REGISTRO	***************/
-form[name='registro'] {
+#marco_registro{
+	
+}
+#marco_registro form{
 	line-height: 28px;
-	text-align: left;
+	text-align: center;
 	display: inline-block;
+}
+
+#marco_registro table tr td:first-child{
+	text-align: left;
+		
+}
+#marco_registro table tr td:last-child{
+	text-align: right;
 }
 /************	LOGIN	**********************/
 
-h1#logo {
+body#seccion_login h1{
 	text-align: center;
 	font-size: 80px;
 	color: #F0F0F0;
@@ -304,17 +416,21 @@ h1#logo {
 	margin-bottom: 90px;
 }
 
-div.login_form {
+body#seccion_login form {
 	text-align: center !important;
 	padding: 15px;
-	width: 270px;
 	margin: 0px auto 0 auto;
 	background-color: white;
 	border-radius: 10px 10px 10px 10px;
 	border-style: solid;
 	border-width: 0px;
-	box-shadow: 5px 5px 5px black;
+	box-shadow: 2px 2px 5px black;
 	line-height: 30px;
+	display: inline-block;
+}
+
+body#seccion_login input{
+	width: 200px;
 }
 
 #creditos {
@@ -363,7 +479,7 @@ div.fecha_novedad {
 h2.encabezado {
 	text-align: center;
 	font-size: 36px;
-	color: #F0F0F0;
+	color: white;
 	text-shadow: 2px 5px 20px black;
 	margin: 10px;
 }
@@ -433,19 +549,6 @@ div.error_ajustable {
 	border-radius: 10px;
 	box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.2), 0 6px 5px -5px rgba(0, 0, 0, 0.5) inset;
 }
-/*
- button {
- background: linear-gradient(#1098D3, #077CB1) repeat scroll 0 0 transparent;
- border-radius: 5px 5px 5px 5px;
- border-width: 0;
- color: #FFFFFF;
- cursor: pointer;
- font-size: 14px;
- font-weight: bold;
- line-height: 34px;
- margin: 5px;
- text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.35);
- }*/
 
 .imagen_perfil {
 	margin-right: 5px;
@@ -1007,13 +1110,13 @@ div.etiqueta_seleccionada {
 /*******************	VALIDACION	****************/
 
 .input_error {
-	background-color: #FFDDDD;
-	border: 1px solid red;
+	background-color: #FFDDDD !important;
+	border: 1px solid red !important;
 }
 
 .input_ok {
-	background-color: #60D160;
-	border: 1px solid green;
+	background-color: #60D160 !important;
+	border: 1px solid green !important;
 }
 
 input[type=checkbox] {

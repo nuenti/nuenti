@@ -13,56 +13,12 @@ class Validador{
 	public $obligatorio;
 	public $min;
 	public $max;
-	public $radio;
-	public $checkbox;
-	public $select;
 	public $semejante;
 	public $expr;
 	public $formato;
 	public $campos = array();
+	public $tipo;
 
-	function __construct() {
-	}
-	
-	function __destruct() {
-	}
-	
-	
-	public function setName($name){
-		$this->name = $name;
-	}
-	public function setAlias($alias){
-		$this->alias = $alias;
-	}
-	public function setObligatorio($obligatorio){
-		$this->obligatorio = $obligatorio;
-	}
-	public function setmin($min){
-		$this->min = $min;
-	}
-	public function setmax($max){
-		$this->max = $max;
-	}
-	public function setRadio($radio){
-		$this->radio = $radio;
-	}
-	public function setCheckbox($checkbox){
-		$this->checkbox = $checkbox;
-	}
-	public function setSelect($select){
-		$this->select = $select;
-	}
-	public function setSemejante($semejante){
-		$this->semejante = $semejante;
-	}
-	public function setExpr($expr){
-		$this->expr = $expr;
-	}
-	public function setFormato($formato){
-		$this->formato = $formato;
-	}
-
-	//Recoge los datos desde el array campos y setea los atributos
 	public function SetFromArray($arr){
 		//Destruimos los atributos de un campo ya generado
 		unset($this->name);
@@ -70,51 +26,14 @@ class Validador{
 		unset($this->obligatorio);
 		unset($this->min);
 		unset($this->max);
-		unset($this->radio);
-		unset($this->checkbox);
-		unset($this->select);
 		unset($this->semejante);
 		unset($this->expr);
 		unset($this->formato);
+		unset($this->tipo);
 
+		//Recoge los datos desde el array campos y setea los atributos
 		foreach ($arr as $key => $value) {
-			switch ($key) {
-				case 'name':
-					$this->setName($value);
-					break;
-				case 'alias':
-					$this->setAlias($value);
-					break;
-				case 'obligatorio':
-					$this->setObligatorio($value);
-					break;
-				case 'min':
-					$this->setmin($value);
-					break;
-				case 'max':
-					$this->setmax($value);
-					break;
-				case 'radio':
-					$this->setRadio($value);
-					break;
-				case 'checkbox':
-					$this->setCheckbox($value);
-					break;
-				case 'select':
-					$this->setSelect($value);
-					break;
-				case 'semejante':
-					$this->setSemejante($value);
-					break;
-				case 'expr':
-					$this->setExpr($value);
-					break;
-				case 'formato':
-					$this->setFormato($value);
-					break;
-				default:
-					break;
-			}
+			$this->$key = $value;
 		}
 
 	}
@@ -148,7 +67,8 @@ class Validador{
 
 			$this->SetFromArray($t);
 			if($this->campos){
-				print("
+				print("\n\n
+					////////////\tCAMPO: ".$this->name."
 					//Seteamos los objetos js
 					valid_error=0;
 					ayuda.".$this->name." = {};
@@ -169,90 +89,108 @@ class Validador{
 
 				// OBLIGATORIO
 				if($this->obligatorio){
-					array_push($check, $campo.".val().length<1){\n\t\t\t\t\t".
-						$help_div." += 'El campo \"".$this->alias."\" es obligatorio<br>';
+					array_push($check, $campo.".val().length<1){
+						".$help_div." += 'El campo \"".$this->alias."\" es obligatorio<br>';
 						valid_error=1;
 					}\n\n");
 				}
 
 				// MIN
 				if($this->min){
-					array_push($check, $campo.".val().length<".$this->min."){\n".
-							$help_div." += 'El campo \"".$this->alias."\" debe contener al menos ".$this->min." caracteres<br>';\n
-							valid_error=1;
-							
-						}\n");
-				}
-
-				// RADIO
-				if($this->radio){
-					array_push($check,"if(!$(\"input[name='".$this->name."']\").is(':checked')){;\n".
-						$help_div." += 'Debes seleccionar una de las casillas de \"".$this->alias."\"<br>';\n
+					array_push($check,$campo.".val().length<".$this->min."){
+						".$help_div." += 'El campo \"".$this->alias."\" debe contener al menos ".$this->min." caracteres<br>';
 						valid_error=1;
-					}");
-				}
-
-				// CHECKBOX
-				if($this->checkbox){
-					array_push($check,"if(!$(\"input[name='".$this->name."']\").is(':checked')){;\n".
-							$help_div." += 'Debes marcar la casilla \"".$this->alias."\"<br>';\n
-							valid_error=1;
-						}");
+					}\n");
 				}
 				
-				// SELECT
-				if(strlen($this->select)>0){
-					array_push($check,"if($(\"select[name='".$this->name."']\").val()=='".$this->select."' || $(\"select[name='".$this->name."']\").text()=='".$this->select."'){;\n".
-							$help_div." += 'Debes seleccionar una opcion de \"".$this->alias."\"<br>';\n
-							valid_error=1;
-						}");
-				}
 				// SEMEJANTE
 				if($this->semejante){
 					$semejantes=preg_split("/,/", $this->semejante);
-
-					array_push($check, $campo.".val()!=$(\"[name='".$semejantes[0]."']\").val() || $(\"input[name='".$this->name."']\").val().length<1){\n".
-						$help_div." += 'El campo ".$semejantes[1]." y \"".$this->alias."\" no coinciden<br>';\n
+					array_push($check, $campo.".val()!=$(\"[name='".$semejantes[0]."']\").val() || $(\"input[name='".$this->name."']\").val().length<1){
+						".$help_div." += 'El campo ".$semejantes[1]." y \"".$this->alias."\" no coinciden<br>';
 						valid_error=1;
 					}\n");
 				}
 
 				// FORMATO
 				if($this->formato){
-					array_push($check, $campo.".val().search(/".$this->formato."/g)==-1){\n".
-					$help_div." += 'El contenido del campo \"".$this->alias."\" no tiene un formato valido<br>';\n
+					array_push($check, $campo.".val().search(/".$this->formato."/g)==-1){
+						".$help_div." += 'El contenido del campo \"".$this->alias."\" no tiene un formato valido<br>';
 							valid_error=1;
 					}\n");
 				}
 				
+				// RADIO
+				//TODO: solo se activa al segundo cambio
+				if($this->tipo == "radio"){
+					array_push($check,"if(!$(\"input[name='".$this->name."']\").is(':checked')){
+						".$help_div." += 'Debes seleccionar una de las casillas de \"".$this->alias."\"<br>';
+						valid_error=1;
+					}\n");
+				}
+
+				// CHECKBOX
+				if($this->tipo == "checkbox"){
+					array_push($check,"if(!$(\"input[name='".$this->name."']\").is(':checked')){
+						".$help_div." += 'Debes marcar la casilla \"".$this->alias."\"<br>';
+						valid_error=1;
+					}\n");
+				}
+				
+				// SELECT
+				if($this->tipo == "select"){
+					$campo = "$(\"select[name='".$this->name."']\")";
+					array_push($check,"
+					if({$campo}.val()=='0' || {$campo}.val()=='NULL' || {$campo}.val()=='' ||  {$campo}.text()==''){
+						".$help_div." += 'Debes seleccionar una opcion de \"".$this->alias."\"<br>';
+						valid_error=1;
+					}\n");
+				}
+				
 				// MANEJO CLASSES
-				if($this->checkbox){
-					array_push($check, "if(valid_error==1){\n
-							$(\"[name='".$this->name."']\").addClass('checkbox_error');
-							$(\"[name='".$this->name."']\").removeClass('checkbox_ok');
+				if($this->tipo == "checkbox"){
+					array_push($check, "
+						if(valid_error==1){
+							$(\"[type='checkbox'][name='".$this->name."']\").addClass('checkbox_error');
+							$(\"[type='checkbox'][name='".$this->name."']\").removeClass('checkbox_ok');
 						}else{
-							$(\"[name='".$this->name."']\").removeClass('checkbox_error');
-							$(\"[name='".$this->name."']\").addClass('checkbox_ok');}
+							$(\"[type='checkbox'][name='".$this->name."']\").removeClass('checkbox_error');
+							$(\"[type='checkbox'][name='".$this->name."']\").addClass('checkbox_ok');
+						}
 					");
-				}elseif($this->radio){
-					array_push($check, "if(valid_error==1){\n
+				}elseif($this->tipo == "radio"){
+					array_push($check, "
+						if(valid_error==1){
 							$(\"label.label_".$this->name."\").addClass('radio_error');
 							$(\"label.label_".$this->name."\").removeClass('radio_ok');
 						}else{
 							$(\"label.label_".$this->name."\").removeClass('radio_error');
-							$(\"label.label_".$this->name."\").addClass('radio_ok');}
+							$(\"label.label_".$this->name."\").addClass('radio_ok');
+						}
 					");
-				}else{
-					array_push($check, "if(valid_error==1){\n
+				}elseif($this->tipo == "select"){
+					array_push($check, "
+						if(valid_error==1){
 							$(\"[name='".$this->name."']\").addClass('input_error');
 							$(\"[name='".$this->name."']\").removeClass('input_ok');
 						}else{
+							$(\"[name='".$this->name."']\").removeClass('input_error');
 							$(\"[name='".$this->name."']\").addClass('input_ok');
-							$(\"[name='".$this->name."']\").removeClass('input_error');}
+						}
+					");
+				}else{
+					array_push($check, "
+						if(valid_error==1){
+							$(\"[name='".$this->name."']\").parent().addClass('input_error');
+							$(\"[name='".$this->name."']\").parent().removeClass('input_ok');
+						}else{
+							$(\"[name='".$this->name."']\").parent().addClass('input_ok');
+							$(\"[name='".$this->name."']\").parent().removeClass('input_error');
+						}
 					");
 				}
 				foreach($check as $c){
-					echo $c;
+					print $c;
 				}
 
 			}else{
@@ -303,7 +241,12 @@ class Validador{
 						// MOSTRAR AYUDA
 						function ayuda_mostrar(t){
 							if(validado == 1){
-								help_div = eval('ayuda.' + $(t).attr('name') + '.mensaje'); /* DEPENDIENDO DEL DIV SE USA UNA VARIABLE */
+								/* DEPENDIENDO DEL DIV SE USA UNA VARIABLE */
+								if($(t).is('div')){
+									help_div = eval('ayuda.' + $(t).find('input,select').attr('name') + '.mensaje');
+								}else if($(t).parent().is('div')){
+									help_div = eval('ayuda.' + $(t).parent().find('input,select').attr('name') + '.mensaje');
+								}
 								if(help_div.length>0){ /* LA VARIABLE NO ESTA VACIA */
 									$('#help_div').html(help_div);
 									$('#help_div').show();
@@ -320,7 +263,6 @@ class Validador{
 						
 						// TOGGLE AYUDA
 						function ayuda_toggle(t){
-							help_div = eval('ayuda.' + $(t).attr('name') + '.mensaje'); /* DEPENDIENDO DEL DIV SE USA UNA VARIABLE */
 							if(help_div.length<1){
 								ayuda_ocultar();
 							}else{
@@ -330,19 +272,20 @@ class Validador{
 						
 					
 						// EVENTOS SOBRE CAMPOS
-						$(\".validable\").bind({
+						$(\"div.input,span.select,label,div.checkbox\").bind({
 							mouseenter:function() {
-								ayuda_mostrar(this);
-								$(\".validable\").mousemove(function(e){
-									var x = e.pageX + 15;
-									var y = e.pageY - 15;
-									$('#help_div').css({'left':x,'top':y});
-								});
-							},
-							mouseout:function() {
 								if(validado == 1){
-									validador();
-									ayuda_ocultar(this);
+									ayuda_mostrar(this);
+									$(\".validable,label\").mousemove(function(e){
+										var x = e.pageX + 15;
+										var y = e.pageY - 15;
+										$('#help_div').css({'left':x,'top':y});
+									});
+								}
+							},
+							mouseleave:function() {
+								if(validado == 1){
+									ayuda_ocultar();
 								}
 							},
 							keyup:function(event) {
@@ -359,10 +302,18 @@ class Validador{
 							focusout:function() {
 								if(validado == 1){
 									validador();
+									ayuda_ocultar();
 								}
 							},
-							click:function() {
+							click:function(e) {
 								if(validado == 1){
+									//Chapuza del siglo, marcamos el radio antes de pasar el validador
+									if(e.target.tagName=='LABEL'){
+										id = $(e.target).attr('for');
+										if($(\"input[type='radio']#\"+id).length){
+											$(\"input[type='radio']#\"+id).attr('checked',true);
+										}
+									}
 									validador();
 									ayuda_toggle(this);
 								}

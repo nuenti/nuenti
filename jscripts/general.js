@@ -113,6 +113,7 @@ function online_keep() {
 
 $(document).ready(function() {
 	//Actualizando la ultima conexion
+	//TODO: Solo clientes logueados
 	online_keep();
 	timeOutOnlineKeep = window.setInterval(online_keep, 30000);
 	

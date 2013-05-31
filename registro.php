@@ -1,54 +1,128 @@
 <?php
-require('inc/config.php');
-	head("Registro - Social");
-	?>
-	<script type="text/javascript" src="jscripts/valida_registro.php"></script>
-	<script>
-		$(function(){
-			$("#datepicker").datepicker({
-				changeMonth: true,
-				changeYear: true,
-				yearRange: "1940:2000"
-			});
-		});
-	</script>
+require ('inc/config.php');
+head("Registro - Social");
+?>
+<script type="text/javascript" src="jscripts/registro_js.php"></script>
+<script type="text/javascript" src="jscripts/forms.js"></script>
 </head>
 <body>
 	<ul id="menudrop">
-		<li><a href="login.php">Login</a></li>
-		<li><a href="contacto.php">Contacto</a></li>
+		<li>
+			<a href="login.php">Login</a>
+		</li>
+		<li>
+			<a href="contacto.php">Contacto</a>
+		</li>
 	</ul>
 
 	<h2 class="encabezado">Registro de usuario</h2>
 	<br>
 	<br>
 	<?php
-
-if($_POST){
-	require("registro-post.php");
-}
-?>
+		if ($_POST) {
+			require ("registro-post.php");
+		}
+	?>
+	<script>
+	</script>
 	<div class="centrar">
-		<div class="marco" style="width: 400px;">
+		<div id="marco_registro" class="marco" style="width: 400px;">
 			<div id="error_ajustable"></div>
 			<div style="text-align: center;">
-				<form name="registro" method='post' action='registro.php'>
-					Nombre: <input type='text' class="validable" size='26' maxlength='20' name='Nombre' value="<?php echo $_POST['Nombre']; ?>" /><br />
-					Apellidos: <input type='text' class="validable" size='25' maxlength='40' name='Apellidos'  value="<?php echo $_POST['Apellidos']; ?>" /><br />
-					Contrase&ntilde;a: <input type='password' class="validable" size='23' name='contrasenia' /><br />
-					Email: <input type='text' class="validable" size='29' name='Email'  value="<?php echo $_POST['Email']; ?>" /><br />
-	
-					Fecha nacimiento: <input type='text' class="validable" size='18' name='nacimiento'  id="datepicker"  value="<?php echo $_POST['nacimiento']; ?>" /><br />
-					Provincia: <select name="Provincia" class="validable"><?php require("inc/select_provincias.html"); ?></select><br>
-					
-					Sexo: 
-					<input type="radio" class="validable" name="Sexo" value="H" id="sexo_hombre"/><label for="sexo_hombre" class="label_radio label_Sexo"></label><label for="sexo_hombre">Hombre</label>
-					<input type="radio" class="validable" name="Sexo" value="M" id="sexo_mujer"/><label for="sexo_mujer" class="label_radio label_Sexo"></label><label for="sexo_mujer">Mujer</label><br />
-					
-					<input type="checkbox" class="validable" name="tos" id="checkbox_tos" value="tos_yes"><label for="checkbox_tos">Acepto los <a href="post.php?tos=1" target="_blank">terminos de uso</a></label><br>
-	
-					<input type="hidden" name="Registro" value="yes"/>
-					<button type='button' name='registro' value='Registrarse' class="azul" onclick="validador('submit')"><span><b>Registrarse</b></span></button>
+				<form name="registro" method='post' action='registro.php' autocomplete="off">
+					<table>
+						<tr>
+							<td> Nombre </td>
+							<td>
+							<div class="input">
+								<label for="Nombre" class="">Nombre</label>
+								<span>
+									<input id="Nombre" name="Nombre" class="validable" type="text" value="<?php echo $_POST['Nombre']; ?>" autocomplete="off" maxlength='20'>
+								</span>
+							</div></td>
+						</tr>
+						<tr>
+							<td> Apellidos </td>
+							<td>
+							<div class="input">
+								<label for="Apellidos" class="">Apellidos</label>
+								<span>
+									<input id="Apellidos" name="Apellidos" class="validable" type="text" value="<?php echo $_POST['Apellidos']; ?>" autocomplete="off" maxlength='40'>
+								</span>
+							</div></td>
+						</tr>
+						<tr>
+							<td> Contrase&ntilde;a </td>
+							<td>
+							<div class="input">
+								<label for="contrasenia" class="">Contraseña</label>
+								<span>
+									<input id="contrasenia" name="contrasenia" class="validable" type="password" value="" autocomplete="off" maxlength='20'>
+								</span>
+							</div></td>
+						</tr>
+						<tr>
+							<td> Email </td>
+							<td>
+							<div class="input">
+								<label for="Email" class="">Email</label>
+								<span>
+									<input id="Email" name="Email" class="validable" type="text" value="<?php echo $_POST['Email']; ?>" autocomplete="off" maxlength='40'>
+								</span>
+							</div></td>
+
+						</tr>
+						<tr>
+							<td> Fecha nacimiento </td>
+							<td>
+								<div class="input">
+									<label for="nacimiento" class="">Fecha nacimiento</label>
+									<span>
+										<input id="nacimiento" name="nacimiento" class="validable" type="text" value="<?php echo $_POST['nacimiento']; ?>" autocomplete="off" maxlength='20'>
+										<input id="nacimiento_hidden" name="nacimiento_hidden" type="text" style="display:none;" value="<?php echo $_POST['nacimiento_hidden']; ?>" autocomplete="off">
+									</span>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td> Provincia </td>
+							<td>
+							<div class="input">
+								<span class="select">
+									<select id="provincia" name="Provincia" class="validable">
+										<?php
+										require ("inc/select_provincias.html");
+										?>
+									</select> </span>
+							</div></td>
+						</tr>
+						<tr>
+							<td> Sexo </td>
+							<td>
+							<div style="word-spacing: 40px;">
+								<input type="radio" class="validable" name="Sexo" value="H" id="sexo_hombre"/>
+								<label for="sexo_hombre" class="label_radio label_Sexo"> </label><label for="sexo_hombre">Hombre</label>
+								<input type="radio" class="validable" name="Sexo" value="M" id="sexo_mujer"/>
+								<label for="sexo_mujer" class="label_radio label_Sexo"></label><label for="sexo_mujer">Mujer</label>
+							</div></td>
+						</tr>
+						<tr>
+							<td colspan="2" style="text-align: center;">
+								<div class="checkbox">
+									<input type="checkbox" id="checkbox_tos" name="tos" class="validable" value="tos_yes">
+									<label for="checkbox_tos" name="tos">Acepto los <a href="post.php?tos=1" target="_blank">terminos de uso</a></label>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2" style="text-align: center;">
+							
+							<input type="hidden" name="Registro" value="yes"/>
+							<button type='button' name='registro' value='Registrarse' class="azul" onclick="validador('submit')">
+								<span><b>Registrarse</b></span>
+							</button></td>
+						</tr>
+					</table>
 				</form>
 			</div>
 		</div>

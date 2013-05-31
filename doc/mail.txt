@@ -1,0 +1,12 @@
+Configuracion sendmail windows:
+
+sendmail.ini:
+	smtp_server=smtp.gmail.com
+	smtp_port=465
+	smtp_ssl=ssl
+	auth_username=javi.and.friends@gmail.com
+	auth_password=PASS_EMAIL
+
+php.ini
+	sendmail_path = "\"C:\xampp\sendmail\sendmail.exe\" -t"
+	;sendmail_path = "C:\xampp\mailtodisk\mailtodisk.exe"

@@ -6,6 +6,51 @@ if($_GET['tos']){
 	die();
 }
 
+########	ACTIVAR CUENTA
+if($_GET['activar_cuenta']){
+	require ('inc/config.php');
+	$sql = "SELECT * FROM usuarios WHERE activacion='{$_GET['codigo']}'";
+	$q_user = mysqli_query($link, $sql);
+	
+	if (mysqli_num_rows($q_user) == 1) {
+		mysqli_query($link, "UPDATE usuarios SET activacion = '1' WHERE activacion='{$_GET['codigo']}'");
+		$r_user = mysqli_fetch_assoc($q_user);		
+		
+		$destinatario_email = $r_user['email'];
+		$destinatario_name = $r_user['nombre']." ".$r_user['apellidos'];
+		$titulo = "Registro completado - ".Sitio;
+				
+// No separar del borde
+$mensaje = "
+<html>
+<body style=\"background-color:#3869A0;text-align:center;padding:20px;\">
+<b style=\"color:white;font-size:40px;\">".Sitio."</b><br>
+<div style=\"background-color:white;border-radius:10px;display: inline-block;
+margin: 10px;padding:20px;text-align:left;font-size:15px;\">
+¡Enhorabuena ".$r_user['nombre']."!, has completado con &eacute;xito
+ el proceso de registro.<br><br>
+<b>Tus datos son:</b><br>
+Nombre: ".$r_user['nombre']." ".$r_user['apellidos']."<br>
+Email: ".$r_user['email']."<br><br>
+Ahora podr&aacute; disfrutar de ".Sitio.", no esperes m&aacute;s y
+ entra ya<br><br>
+<a href=\"http://".Sitio_direccion."\">http://".Sitio_direccion."/</a><br><br>
+<center><i style=\"font-size:12px; color: grey;\">".Sitio." (c)</i></center>
+</div>
+</body></html>";
+		
+		$email_state = email_send($destinatario_name, $destinatario_email, $titulo, $mensaje);
+		if($email_state != TRUE){
+			//TODO: Avisar fallo envio email
+		}
+		header( "Location: login.php?activacion=ok" );
+	}else{
+		header( "Location: login.php?activacion=fail" );
+	}
+	die();
+}
+
+
 require ("inc/verify_login.php");
 
 ########	GENERAL
@@ -522,37 +567,6 @@ if ($_POST['cambio_datos']) {
 	}
 	die();
 }
-/*
- if($_POST['chat_conv_new']){
- $result=mysqli_query($link,"
- SELECT *,(@tiempo:=TIME_TO_SEC(TIMEDIFF(now(),online))) AS segundos_off,
- CASE
- WHEN @tiempo<60 THEN 'conectado'
- WHEN @tiempo<86000 THEN TIME_FORMAT(TIMEDIFF(now(),online), '%H:%i:%s')
- ELSE DATE_FORMAT(online, '%d/%m/%Y %H:%i') END AS online,
- (SELECT archivo FROM fotos WHERE idfotos=idfotos_princi) AS archivo
- FROM amigos, usuarios
- WHERE (user1='".$global_idusuarios."' AND user2='".$_POST['chat_conv_new']."' OR user2='".$global_idusuarios."' AND user1='".$_POST['chat_conv_new']."')
- AND idusuarios='".$_POST['chat_conv_new']."'
- ");
- $row=mysqli_fetch_assoc($result);
- print(
- "<div id='chat_conv_".$row['idusuarios']."_min' class='chat_ventana_min' onclick=\"max('".$row['idusuarios']."')\">
- &nbsp;<img src='".$row['archivo']."' alt='".$row['nombre']."' />&nbsp;
- <div class='mensajes'></div>
- </div>
- <div id='chat_conv_".$row['idusuarios']."' class='chat_ventana'>
- ".$row['nombre']." ".$row['apellidos']."
- <div class='boton cerr' onclick=\"cerrar('".$row['idusuarios']."')\"></div>
- <div class='boton max'></div>
- <div class='boton mini' onclick=\"mini('".$row['idusuarios']."')\"></div>
- <div id='mensajes'></div>
- <textarea name='mensaje' onkeypress=\"chat_press_enter(event,this,'".$row['idusuarios']."')\" /></textarea>
- <button type='button' onclick=\"enviar('".$row['idusuarios']."')\">Enviar</button>
- </div>");
- die();
- }
- */
 echo "<pre>";
  if($_POST){
  echo "POST:<br>";

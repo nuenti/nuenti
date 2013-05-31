@@ -273,8 +273,8 @@ Content-Type: text/plain; charset=ISO-8859-1
 $TextMessage
 
 --$boundary
-Content-Type: text/html; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset=\"UTF-8\"
+ Content-Transfer-Encoding: 8bit
 	
 $HTMLMessage
 
