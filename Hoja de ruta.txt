@@ -7,6 +7,8 @@ Registro de usuario
 Login de usuario
 	Cifrado JS
 	Detectar navegadores no soportados
+	Recuperar contraseña
+	Reenviar correo activacion
 Inicio
 	Notificaciones
 	Novedades
