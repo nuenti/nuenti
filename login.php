@@ -9,6 +9,7 @@ echo "<script type='text/javascript' src='jscripts/login_js.php'></script>";
 echo "<script type='text/javascript' src='jscripts/forms.js'></script>";
 
 if($_POST['email']){
+	//TODO: blowfish
 	//COMPROBAR DATOS LOGIN
 	$login=mysqli_query($link,"SELECT * FROM usuarios WHERE email='".$_POST['email']."' AND password='".sha1($_POST['password'])."' AND activacion = '1'");
 
@@ -79,7 +80,7 @@ if($_POST['email']){
 					
 					Clave:  					
 						<div class="input">
-							<label for="password" class="">Clave</label>
+							<label for="password" class="">Contrase&ntilde;a</label>
 							<span>
 								<input id="password" name="password" class="validable" type="password" value="" maxlength='30'>
 							</span>

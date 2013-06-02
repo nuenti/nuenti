@@ -50,7 +50,7 @@ function fotos_post() {
 
 	titulo = $("input[name='foto_titulo']").val();
 	album = $("select[name='foto_album']").val();
-
+	
 	//Si hay cambio de album a la siguiente foto
 	if (idalbum != album && idalbum != "0" && album != "NULL") {
 		if (tecla_siguiente) {
@@ -73,8 +73,10 @@ function fotos_post() {
 
 function etiqueta_editar() {
 	//Ocultamos cuadros originales y mostramos inputs para edicion
-	$(".barra_der,#foto_titulo").find(".edicion").css("display", "inline-block");
-	$(".barra_der,#foto_titulo").find(".original").css("display", "none");
+	$(".edicion").css("display", "inline-block");
+	$(".original").css("display", "none");
+	
+	$("#titulo").find(".original").css("display", "none");
 	$("#lista_etiquetados li div").css("display", "inline-block");
 	etiqueta_editar = 1;
 	$("form button").show();
@@ -120,7 +122,7 @@ function etiqueta_editar() {
 		$("#etiqueta").click(function(e) {
 			move = 0;
 			click = 1;
-			$(".ui-widget").find("*").show();
+			$("#amigo").show();
 			$(".ui-autocomplete-input").focus();
 			$( ".ui-autocomplete-input" ).autocomplete("search");
 
@@ -157,7 +159,7 @@ function etiqueta_editar() {
 
 function etiqueta_fijar(id, name) {
 	$("#foto_marco").append("<div class='etiquetado etiqueta_" + id + "' id='etiqueta_" + id + "' style='left:" + x_centrado + ";top:" + y_centrado + ";'><div class='etiqueta_nombre'>" + name + "</div></div>");
-	$("#tags").hide();
+	$("#amigo").hide();
 	$("body").focus();
 	move = 1;
 	click = 0;
@@ -174,8 +176,8 @@ function etiqueta_crear() {
 
 
 $(document).ready(function() {
-	$( "#tags" ).click(function(e){
-			$( "#tags" ).autocomplete("search");
+	$( "#amigo" ).click(function(e){
+			$( "#amigo" ).autocomplete("search");
 			$("#ui-id-1").show();
 	});
 });
@@ -198,7 +200,7 @@ function amigos_actualizar() {
 }
 
 $(function() {
-	$("#tags").autocomplete({
+	$("#amigo").autocomplete({
 		minLength : 0,
 		source : lista_amigos,
 		create : function(event, ui) {
@@ -236,7 +238,7 @@ $(function() {
 
 			//efectos de raton y divs
 			etiqueta_fijar(ui.item.value, ui.item.label);
-			$(".ui-widget").find("*").hide();
+			$("#amigo").hide();
 			return false;
 		}
 	}) .data( "autocomplete" )._renderItem = function( ul, item ) {

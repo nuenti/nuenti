@@ -14,7 +14,7 @@ while ($r_users = mysqli_fetch_assoc($q_users)) {
 				<img src='{$r_users['archivo']}' class='imagen_perfil'>
 				<div style='display: inline-block;'> 
 					<div> 
-						<div class='foto_come_titu'><a href='gente.php?id={$r_users['idusuarios']}'>{$r_users['nombre']} {$r_users['apellidos']}</a></div> 
+						<div class='foto_come_titu'><a href='perfil.php?id={$r_users['idusuarios']}'>{$r_users['nombre']} {$r_users['apellidos']}</a></div> 
 						
 					</div>";
 

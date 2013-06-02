@@ -4,27 +4,31 @@
 			<div class="original">
 		Album
 		<?php
-		if ($row_fotos['album']) {
-			echo $row_fotos['album'];
+		if ($r_fotos['album']) {
+			echo $r_fotos['album'];
 		} else {
 			echo $_GET['idalbum'];
 		}
 		echo "</div>";
 		echo "<div class='edicion'>";
 		$albums = mysqli_query($link, "SELECT * FROM `albums` WHERE usuarios_idusuarios='" . $_GET['iduser'] . "'");
+		print "Album: <div class='input'>
+						<span class='select'>
+							<select name='foto_album'><option value=''>Ninguno</option>";
 		if (mysqli_num_rows($albums) > 0) {
-			echo "Album: <select name='foto_album'><option value=''>Ninguno</option>";
 			while ($row = mysqli_fetch_assoc($albums)) {
 				echo "<option value='" . $row['idalbums'] . "'";
-				if ($row_fotos['albums_idalbums'] == $row['idalbums'])
+				if ($r_fotos['albums_idalbums'] == $row['idalbums'])
 					echo " selected";
 				echo ">" . $row['album'] . "</option>";
 			}
-			echo "</select>";
 		} else {
 
 		}
 		?>
+					</select>
+				</span>
+			</div>
 		</div>
 	</div>
 
@@ -38,7 +42,7 @@
 			<a href="#" onclick="foto_principal()">Principal</a>
 		</li>
 		<li>
-			<a href="post.php?foto_borrar=<?php echo $row_fotos['idfotos']; ?>">Borrar foto</a>
+			<a href="post.php?foto_borrar=<?php echo $r_fotos['idfotos']; ?>">Borrar foto</a>
 		</li>
 	</ul>
 
@@ -46,7 +50,7 @@
 	<br>
 	<ul id="lista_etiquetados" style='margin:0;list-style: none outside none;padding:0px;'>
 		<?php
-		if (mysqli_num_rows($fotos)) {
+		if (mysqli_num_rows($q_fotos)) {
 			if (mysqli_num_rows($etiquetados) > 0) {
 				mysqli_data_seek($etiquetados, 0);
 				while ($etiqueta = mysqli_fetch_assoc($etiquetados)) {
@@ -80,50 +84,52 @@
 	?>
 	<script>
 		//Declarando variables
-lista_amigos = new Array();
-lista_etiquetados = [<?php
-if (mysqli_num_rows($fotos)) {
-	if (mysqli_num_rows($etiquetados) > 0) {
-		mysqli_data_seek($etiquetados, 0);
+		lista_amigos = new Array();
+		lista_etiquetados = [<?php
+		if (mysqli_num_rows($q_fotos)) {
+			if (mysqli_num_rows($etiquetados) > 0) {
+				mysqli_data_seek($etiquetados, 0);
+				$i_temp = 0;
+				while ($etiqueta = mysqli_fetch_assoc($etiquetados)) {
+					if ($i_temp != 0)
+						echo ",";
+					print "{
+						value: " . $etiqueta['idusuarios'] . ",
+						label: '" . NombreApellido($etiqueta['nombre'] . " " . $etiqueta['apellidos']) . "',
+						 x: " . $etiqueta['x'] . ",
+						 y: " . $etiqueta['y'] . "
+					}";
+					$i_temp++;
+				}
+			}
+		}
+		?>
+			];
+		idfoto = <?php echo $r_fotos['idfotos']; ?>;
+		var lista_amigos = [
+		<?php
 		$i_temp = 0;
-		while ($etiqueta = mysqli_fetch_assoc($etiquetados)) {
+		while ($row = mysqli_fetch_assoc($query)) {
 			if ($i_temp != 0)
 				echo ",";
-			print "{
-				value: " . $etiqueta['idusuarios'] . ",
-				label: '" . NombreApellido($etiqueta['nombre'] . " " . $etiqueta['apellidos']) . "',
-				 x: " . $etiqueta['x'] . ",
-				 y: " . $etiqueta['y'] . "
+			echo "{
+				value: '" . $row['idusuarios'] . "',
+				label: '" . NombreApellido($row['nombre'] . " " . $row['apellidos']) . "',
+				icon: '".$row['archivo']."'
 			}";
 			$i_temp++;
 		}
-	}
-}
-?>
-	];
-idfoto = <?php echo $row_fotos['idfotos']; ?>;
-var lista_amigos = [
-<?php
-$i_temp = 0;
-while ($row = mysqli_fetch_assoc($query)) {
-	if ($i_temp != 0)
-		echo ",";
-	echo "{
-		value: '" . $row['idusuarios'] . "',
-		label: '" . NombreApellido($row['nombre'] . " " . $row['apellidos']) . "',
-		icon: '".$row['archivo']."'
-	}";
-	$i_temp++;
-}
-?>
+		?>
 	];
 	</script>
 
-	<div class="ui-widget">
-		<label for="tags" style="display: none;">
-			<br>
-			Amigo: </label>
-		<input id="tags" name="receptor"  style="display: none;" placeholder="amigo"/>
+	<div class="edicion">
+			<div class='input'>
+				<span>
+					<input id='amigo' type='text' autocomplete='off' placeholder='Nombre de amigo'>
+				</span>
+			</div>
+		<!--<input id="tags" name="receptor"  style="display: none;" placeholder="amigo"/>-->
 	</div>
 	<br>
 	<button type='button' class="azul edicion" onclick="fotos_post()" style="display: none !important;"><span><b>Guardar</b></span></button>

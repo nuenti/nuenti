@@ -1,4 +1,5 @@
 <?php
+	//TODO: Pulir diseño y revisar funcionamiento a fondo
 	require("inc/verify_login.php");
 	head("Mensajeria Privada - Social");
 	require("inc/estructura.inc.php");

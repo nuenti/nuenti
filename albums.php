@@ -83,13 +83,16 @@ require ("inc/estructura.inc.php");
 
 	//Formulario creacion de albumes
 	?>
-	<div style='display: inline-block;margin-left: 35px;'>
+	<div style='display: inline-block;margin: 25px;'>
 
 	Crea un album personalizado
 	<hr>
-	Nombre del album:
-	<input type="text" name="album" id='album_id'/>
-	<button type='button' class="azul" onclick="ajax_post({data:'album='+$('#album_id').val(),reload:true})"><span><b>Crear album</b></span></button>
+	<div class="input">
+		<span>
+			<input name="album" id="album_id" type="text" placeholder="Nombre del album">
+		</span>
+	</div>
+	<button type='button' class="azul" onclick="album_crear()"><span><b>Crear album</b></span></button>
 	</div>
 	</div>
 
@@ -103,6 +106,17 @@ require ("inc/estructura.inc.php");
 			});
 		});
 
+		function album_crear() {
+			var name = $("input[name='album']").val();
+			if (name != null && name != "") {
+				ajax_post({
+					data:'album='+name,
+					reload:true
+				});
+			}
+
+		}
+		
 		function album_renombrar(id, name) {
 			var name = prompt("Escribe el nombre del album", name);
 			if (name != null && name != "") {

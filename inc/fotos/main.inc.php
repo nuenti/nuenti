@@ -1,19 +1,19 @@
 
 <?php
-	if(mysqli_num_rows($fotos)){
+	if(mysqli_num_rows($q_fotos)){
 		//Navegacion de fotos
-		$navegar_primera="?iduser=".$_GET['iduser']."&idalbum=".$_GET['idalbum']."&idfotos=".$row_fotos['primera'];
-		if($row_fotos['anterior'])
-			$navegar_anterior="?iduser=".$_GET['iduser']."&idalbum=".$_GET['idalbum']."&idfotos=".$row_fotos['anterior'];
-		if($row_fotos['siguiente'])
-			$navegar_siguiente="?iduser=".$_GET['iduser']."&idalbum=".$_GET['idalbum']."&idfotos=".$row_fotos['siguiente'];
-		$navegar_ultima="?iduser=".$_GET['iduser']."&idalbum=".$_GET['idalbum']."&idfotos=".$row_fotos['ultima'];
+		$navegar_primera="?iduser=".$_GET['iduser']."&idalbum=".$_GET['idalbum']."&idfotos=".$r_fotos['primera'];
+		if($r_fotos['anterior'])
+			$navegar_anterior="?iduser=".$_GET['iduser']."&idalbum=".$_GET['idalbum']."&idfotos=".$r_fotos['anterior'];
+		if($r_fotos['siguiente'])
+			$navegar_siguiente="?iduser=".$_GET['iduser']."&idalbum=".$_GET['idalbum']."&idfotos=".$r_fotos['siguiente'];
+		$navegar_ultima="?iduser=".$_GET['iduser']."&idalbum=".$_GET['idalbum']."&idfotos=".$r_fotos['ultima'];
 		?>
 		<script>
 			//Declarando variables
 			iduser = "<?php echo $_GET['iduser']; ?>";
-			idalbum = "<?php echo $row_fotos['albums_idalbums']; ?>";
-			idfoto = "<?php echo $row_fotos['idfotos']; ?>";
+			idalbum = "<?php echo $r_fotos['albums_idalbums']; ?>";
+			idfoto = "<?php echo $r_fotos['idfotos']; ?>";
 			
 			tecla_primera = "<?php echo $navegar_primera; ?>";
 			tecla_anterior = "<?php echo $navegar_anterior; ?>";
@@ -25,16 +25,23 @@
 			<div class="marco">
 		<?php
 		###### TITULO FOTO
-		echo "<div id='foto_titulo'>";
-			echo "<div class='original'>".$row_fotos['titulo']."</div>";
-			echo "<input type='text' name='foto_titulo' value='".$row_fotos['titulo']."' class='edicion' size='80'>";
-		echo "</div>\n";
+		print "<div id='titulo'>
+			<div class='original'>{$r_fotos['titulo']}</div>
+			<div class='input edicion'>
+				<span>
+					<input name='foto_titulo' type='text' value='{$r_fotos['titulo']}' autocomplete='off' placeholder='Titulo de la foto'>
+				</span>
+			</div>
+		</div>\n";
+		
+			//echo "<div class='original'>".$r_fotos['titulo']."</div>";
+			//echo "<input type='text' name='foto_titulo' value='".$r_fotos['titulo']."' class='edicion' size='80'>";
 		
 		
 		####### FOTO	
-		echo "<div id='foto_marco_padre'><div id='foto_marco_medio'><div id='foto_marco'>";
-			echo "<img id='foto' style='max-width:700px;max-height:600px;' alt='".$row_fotos['titulo']."' src='".$row_fotos['archivo']."'";
-				if($row_fotos['siguiente']){
+		echo "<div id='foto_marco_padre'><div id='foto_marco_medio' style='width:700px;'><div id='foto_marco'>";
+			echo "<img id='foto' style='max-width:700px;max-height:600px;' alt='".$r_fotos['titulo']."' src='".$r_fotos['archivo']."'";
+				if($r_fotos['siguiente']){
 					?>
 					onclick="location.href='<?php echo $navegar_siguiente; ?>'"
 					<?php
@@ -43,7 +50,7 @@
 			$etiquetados = mysqli_query($link,"SELECT idusuarios, nombre, apellidos, archivo, x, y
 												FROM etiquetas, usuarios
 												LEFT JOIN fotos ON idfotos_princi = idfotos
-												WHERE fotos_idfotos = '{$row_fotos['idfotos']}'
+												WHERE fotos_idfotos = '{$r_fotos['idfotos']}'
 												AND usuarios_idusuarios = idusuarios");
 			while($p = mysqli_fetch_assoc($etiquetados)){
 				echo "<div class='etiquetado etiqueta_".$p['idusuarios']."' style='left:".$p['x']."px;top:".$p['y']."px;' id='etiqueta_".$p['idusuarios']."'>
@@ -53,12 +60,12 @@
 			
 		####### BARRA NAVEGACION
 		echo "<div id='barra_navegacion'>";
-		if($row_fotos['actual']>1){
+		if($r_fotos['actual']>1){
 			echo "<img class='flecha_back_top' src='css/flechas/flecha_left_top.jpg' onclick=\"location.href='".$navegar_primera."'\">";
 			echo "<img class='flecha_back' src='css/flechas/flecha_left.jpg' onclick=\"location.href='".$navegar_anterior."'\">";
 		}
-		echo "<div class='texto'>".$row_fotos['actual']." de ".$row_fotos['totales']."</div>";
-		if($row_fotos['actual']<$row_fotos['totales']){
+		echo "<div class='texto'>".$r_fotos['actual']." de ".$r_fotos['totales']."</div>";
+		if($r_fotos['actual']<$r_fotos['totales']){
 			echo "<img class='flecha_next' src='css/flechas/flecha_right.jpg' onclick=\"location.href='".$navegar_siguiente."'\">";
 			echo "<img class='flecha_next_top' src='css/flechas/flecha_right_top.jpg' onclick=\"location.href='".$navegar_ultima."'\">";
 		}

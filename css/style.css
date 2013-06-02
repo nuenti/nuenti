@@ -4,7 +4,7 @@
 	font-family: Arial, Helvetica, sans-serif;
 	/*font-weight: bold;*/
 	color: #333333;
-	font-size: 16px;
+	font-size: 14px;
 }
 
 body {
@@ -116,15 +116,17 @@ button.gris:active > span {
 	filter: none !important;
 }
 
-div.input {    margin: 5px;
+div.input {
+	margin: 5px;
 	display: inline-block;
 	vertical-align: middle;
 	position: relative;
+	line-height: 28px;
 }
-span.focus{
-		border-color: #3DADD9 !important;
-		box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.1) inset, 0 0 6px 0 rgba(61, 173, 217, 0.6) !important;
-		}
+span.focus {
+	border-color: #3DADD9 !important;
+	box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.1) inset, 0 0 6px 0 rgba(61, 173, 217, 0.6) !important;
+}
 div.input label {
 	color: #999999;
 	cursor: text;
@@ -143,7 +145,7 @@ div.input span {
 	display: block;
 	transition: box-shadow 0.3s ease 0s, border-color 0.2s ease 0s;
 }
-div.input span input {
+div.input span input, textarea {
 	background: none repeat scroll 0 center transparent;
 	border: 0 none;
 	display: block;
@@ -157,7 +159,7 @@ input:not([type="checkbox"]):focus {
 	border-color: #3DADD9;
 	box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.1) inset, 0 0 6px 0 rgba(61, 173, 217, 0.6);
 }
-label:focus{
+label:focus {
 	border-color: #3DADD9;
 	box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.1) inset, 0 0 6px 0 rgba(61, 173, 217, 0.6);
 }
@@ -390,25 +392,33 @@ span.ayuda {
 }
 
 /************	REGISTRO	***************/
-#marco_registro{
-	
-}
-#marco_registro form{
-	line-height: 28px;
-	text-align: center;
-	display: inline-block;
+#seccion_registro .marco {
+	width: 400px;
 }
 
-#marco_registro table tr td:first-child{
-	text-align: left;
-		
+#seccion_registro form {
+	line-height: 28px;
+	text-align: center;
 }
-#marco_registro table tr td:last-child{
+
+#seccion_registro table {
+	width: 100%;
+}
+
+#seccion_registro table tr td:first-child {
+	text-align: left;
+}
+
+#seccion_registro table tr td:last-child {
 	text-align: right;
+}
+
+#seccion_registro input[type='text'] {
+	width: 200px;
 }
 /************	LOGIN	**********************/
 
-body#seccion_login h1{
+body#seccion_login h1 {
 	text-align: center;
 	font-size: 80px;
 	color: #F0F0F0;
@@ -429,7 +439,7 @@ body#seccion_login form {
 	display: inline-block;
 }
 
-body#seccion_login input{
+body#seccion_login input {
 	width: 200px;
 }
 
@@ -839,8 +849,19 @@ div#barra_navegacion > a {
 }
 /*******************	FOTOS	***************/
 
-#foto_titulo {
-	margin: 5px 0 15px 10px;
+#seccion_fotos .edicion {
+	display: none;
+}
+
+#seccion_fotos .marco_small button {
+	margin: 0px !important;
+}
+
+#seccion_fotos #titulo {
+	margin: 5px 0 15px 0px;
+}
+#seccion_fotos #titulo input {
+	width: 500px;
 }
 #foto_titulo > .original {
 	color: gray;
@@ -909,6 +930,10 @@ div#barra_navegacion > a {
 	margin: 20px;
 	vertical-align: super;
 }
+#lista_etiquetados li {
+	margin: 5px;
+}
+
 #lista_etiquetados li div {
 	background: url("icons1.png") repeat scroll -34px -194px transparent;
 	cursor: pointer;
@@ -1035,7 +1060,7 @@ div.etiqueta_seleccionada {
 .resultado .info {
 	color: black;
 }
-.resultado .estado_amistad {
+.resultado .right {
 	float: right;
 	text-align: right;
 }

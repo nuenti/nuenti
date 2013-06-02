@@ -7,8 +7,10 @@
 	<?php
 		require_once("inc/validador.class.php");
 		$Validador = new Validador();
-		$Validador->SetInput(array('name' => 'receptor', 'alias' => 'Destinatario', 'obligatorio' => 'si'));
-		$Validador->SetInput(array('name' => 'mensaje', 'alias' => 'Mensaje', 'formato' => '[A-Za-z0-9]{1,}'));
+		if(!$_GET['receptor']){
+			$Validador->SetInput(array('name' => 'receptor', 'alias' => 'Destinatario', 'obligatorio' => 'si'));
+		}
+		$Validador->SetInput(array('name' => 'mensaje', 'alias' => 'Mensaje', 'MIN' => '2'));
 		$Validador->GeneraValidadorJS();
 	?>
 		function mp_enviar(){
@@ -34,10 +36,9 @@
 		$usuario=mysqli_fetch_assoc($query);
 		
 		print "<form action='#' onsubmit='return false'>
-				Destinatario: 
-				<img id='receptor_icon' src='{$usuario['archivo']}' style='max-width:30px;max-height:30px;vertical-align: middle;'>
-				<input id='receptor' name='receptor' class='validable' value='{$usuario['nombre']} {$usuario['apellidos']}' disabled  size='40'>
-				<input id='receptor_id' name='receptor_id' style='visibility: hidden;' value='{$_GET['receptor']}'>";
+				Destinatario: <img id='receptor_icon' src='{$usuario['archivo']}' style='max-width:30px;max-height:30px;vertical-align: middle;'>
+				<input id='receptor' name='receptor' class='' value='{$usuario['nombre']} {$usuario['apellidos']}' disabled  size='40'>
+				<input id='receptor_id' name='receptor_id' style='display: none;' value='{$_GET['receptor']}'>";
 	}else{
 		$query=mysqli_query($link,"
 			SELECT idusuarios, nombre, apellidos, archivo
@@ -49,12 +50,17 @@
 
 		if(mysqli_num_rows($query)>0){
 			?>
+			<script src="jscripts/forms.js"></script>
 			<form action="#" onsubmit="return false">
 				<div class="ui-widget">
-				    <label for="receptor">Destinatario: </label>
-				    <img id="receptor_icon" style='max-width:30px;max-height:30px;vertical-align: middle;'>
-				    <input id="receptor" name="receptor" class="validable" autofocus size='40'>
-				    <input id="receptor_id" name="receptor_id" style="visibility: hidden;" />
+					<?php //TODO: al borrar letras, deseleccionar amigo ?>
+				   Destinatario: <img id="receptor_icon" style='max-width:30px;max-height:30px;vertical-align: middle;'>	
+					<div class="input">
+						<span>
+							<input placeholder="Nombre de un amigo" id="receptor" name="receptor" class="validable" type="text" value="<?php echo $_POST['email']; ?>" size='40' autofocus>
+						</span>
+					</div>
+				    <input id="receptor_id" name="receptor_id" style="display: none;" /><br>
 				</div>
 
 
@@ -126,7 +132,10 @@
 	?>
 	<br>
 	Mensaje:<br>
-	<textarea name="mensaje" class="validable" cols="60" rows="2"></textarea><br>
-	
+	<div class="input">
+		<span>
+			<textarea name="mensaje" class="validable" cols="60" rows="2" style="width: 900px; height: 60px; resize: none;" placeholder="Escribele tu mensaje aqui"></textarea>
+		</span>
+	</div>
 	<button type='button' class="azul" onclick="mp_enviar();"><span><b>Enviar</b></span></button>
 </form>

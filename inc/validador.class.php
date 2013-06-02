@@ -243,9 +243,9 @@ class Validador{
 							if(validado == 1){
 								/* DEPENDIENDO DEL DIV SE USA UNA VARIABLE */
 								if($(t).is('div')){
-									help_div = eval('ayuda.' + $(t).find('input,select').attr('name') + '.mensaje');
+									help_div = eval('ayuda.' + $(t).find('.validable').attr('name') + '.mensaje');
 								}else if($(t).parent().is('div')){
-									help_div = eval('ayuda.' + $(t).parent().find('input,select').attr('name') + '.mensaje');
+									help_div = eval('ayuda.' + $(t).parent().find('.validable').attr('name') + '.mensaje');
 								}
 								if(help_div.length>0){ /* LA VARIABLE NO ESTA VACIA */
 									$('#help_div').html(help_div);

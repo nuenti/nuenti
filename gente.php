@@ -81,17 +81,18 @@
 						
 						//Estado de la amistad
 						if($r_search['amigo']){
-							$estado_amistad="Amigo<br>";
+							$estado_amistad="Amigo";
 							$nombre = "<a href='perfil.php?id={$r_search['idusuarios']}' class='link'>{$r_search['nombre']} {$r_search['apellidos']}</a>";
 						}elseif($r_search['enviada']){
-							$estado_amistad="Peticion enviada<br>";
+							$estado_amistad="Peticion enviada";
 							$nombre = $r_search['nombre']." ".$r_search['apellidos'];
 						}else{
-							$estado_amistad="<div class='peticion_enviar' onclick=\"peticion_enviar('{$r_search['idusuarios']}')\">Agregar</div><br>";
+							$estado_amistad="<div class='peticion_enviar' onclick=\"peticion_enviar('{$r_search['idusuarios']}')\">Agregar</div>";
 							$nombre = $r_search['nombre']." ".$r_search['apellidos'];
 						}
 						
 						// Imprimimos los resultados
+						//TODO: Añadir estado a los resultados
 						print "
 							<div class='resultado' id='resultado{$r_search['idusuarios']}'>
 								<div class='img'>
@@ -104,9 +105,13 @@
 										".IdProvincia($r_search['provincia'])."<br>
 									</div>
 								</div>
-								<div class='estado_amistad'>
-									{$estado_amistad}
-									<a href='mp_redactar.php?receptor={$r_search['idusuarios']}'>Enviar mensaje privado</a>
+								<div class='right'>
+									<div class='estado_amistad'>
+										{$estado_amistad}
+									</div>
+									<div class='mp'>
+										<a href='mp_redactar.php?receptor={$r_search['idusuarios']}'>Enviar mensaje privado</a>
+									</div>
 								</div>
 							</div><br>
 						";

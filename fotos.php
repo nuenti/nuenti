@@ -3,11 +3,12 @@ require ("inc/verify_login.php");
 head("Fotos - Social");
 echo "<script type='text/javascript' src='jscripts/foto_etiqueta.js'></script>";
 echo "<script type='text/javascript' src='jscripts/foto_visualizador.js'></script>";
+echo "<body id='seccion_fotos'>";
 require ("inc/estructura.inc.php");
 
 if (!$_GET['iduser']) {
 	$_GET['iduser'] = $global_idusuarios;
-	$uploader = 1;
+	//$uploader = 1;
 }
 
 if (!$_GET['idalbum']) {
@@ -26,9 +27,10 @@ if ($_GET['idalbum'] == 'subidas') {
 				@totales:=(SELECT COUNT(idfotos) FROM fotos WHERE uploader = '" . $_GET['iduser'] . "') AS totales,
 				(SELECT @totales - COUNT(idfotos) FROM fotos WHERE uploader = '" . $_GET['iduser'] . "' AND idfotos<'" . $_GET['idfotos'] . "') AS actual
 			FROM fotos
+			LEFT JOIN albums ON albums_idalbums=idalbums
 			WHERE idfotos='" . $_GET['idfotos'] . "'";
-	$fotos = mysqli_query($link,$query);
-	$row_fotos = mysqli_fetch_assoc($fotos);
+	$q_fotos = mysqli_query($link,$query);
+	$r_fotos = mysqli_fetch_assoc($q_fotos);
 } elseif ($_GET['idalbum'] == 'etiquetadas') {
 	$query = "SELECT  *,
 				(SELECT MIN(idfotos) FROM fotos, etiquetas WHERE usuarios_idusuarios='" . $_GET['iduser'] . "' AND idfotos=fotos_idfotos) AS ultima,
@@ -41,8 +43,8 @@ if ($_GET['idalbum'] == 'subidas') {
 			LEFT JOIN albums ON albums_idalbums=idalbums
 			WHERE idfotos='" . $_GET['idfotos'] . "'";
 			
-	$fotos = mysqli_query($link,$query);
-	$row_fotos = mysqli_fetch_assoc($fotos);
+	$q_fotos = mysqli_query($link,$query);
+	$r_fotos = mysqli_fetch_assoc($q_fotos);
 } else {
 	$query = "SELECT  *,
 				(SELECT MIN(idfotos) FROM fotos WHERE albums_idalbums='" . $_GET['idalbum'] . "') AS ultima,
@@ -52,9 +54,10 @@ if ($_GET['idalbum'] == 'subidas') {
 				@totales:=(SELECT COUNT(idfotos) FROM fotos WHERE albums_idalbums='" . $_GET['idalbum'] . "') AS totales,
 				(SELECT @totales - COUNT(idfotos) FROM fotos WHERE albums_idalbums='" . $_GET['idalbum'] . "' AND idfotos<'" . $_GET['idfotos'] . "') AS actual
 			FROM fotos, albums
+			LEFT JOIN albums ON albums_idalbums=idalbums
 			WHERE idfotos='" . $_GET['idfotos'] . "' AND albums_idalbums='" . $_GET['idalbum'] . "' AND albums_idalbums=idalbums";
-	$fotos = mysqli_query($link,$query);
-	$row_fotos = mysqli_fetch_assoc($fotos);
+	$q_fotos = mysqli_query($link,$query);
+	$r_fotos = mysqli_fetch_assoc($q_fotos);
 }
 require ("inc/fotos/main.inc.php");
 require ("inc/fotos/barra.inc.php");

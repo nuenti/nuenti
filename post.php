@@ -328,7 +328,7 @@ if ($_POST['foto_leer_comentarios']) {
 					 <img src='{$row['img_princi']}' class='imagen_perfil'> 
 					 <div> 
 						<div> 
-							<div class='foto_come_titu'><a href='gente.php?id={$row['idusuarios']}'>{$row['nombre']} {$row['apellidos']}</a></div> 
+							<div class='foto_come_titu'><a href='perfil.php?id={$row['idusuarios']}'>{$row['nombre']} {$row['apellidos']}</a></div> 
 							<div class='foto_come_fecha'>{$row['fecha2']}</div> 
 						</div> 
 						<div class='foto_come_men'>{$row['comentario']}</div> 

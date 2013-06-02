@@ -55,6 +55,7 @@ require ("inc/estructura.inc.php");
 			}
 		} else {
 			echo "No has subido ninguna foto";
+			die();
 		}
 
 
@@ -96,21 +97,7 @@ require ("inc/estructura.inc.php");
 			echo "<img class='flecha_next_top' src='css/flechas/flecha_right_top.jpg' onclick=\"location.href='" . $navegar_ultima . "'\">";
 		}
 		echo "</div>";
-	/*?>
-	<div id="barra_navegacion">
-		<?php
-		for ($i = 0; $i < 10; $i++) {
-			if ($npage_initial > $npage_max)
-				break;
-
-			if ($npage_initial == $_GET['page']) {
-				echo $npage_initial;
-			} else {
-				echo "<a href='album.php?iduser=" . $_GET['iduser'] . "&idalbum=" . $_GET['idalbum'] . "&page=" . $npage_initial . "'>" . $npage_initial . "</a>";
-			}
-			$npage_initial++;
-		}
-		*/?>
+		?>
 		</div>
 		</div>
 	</div>

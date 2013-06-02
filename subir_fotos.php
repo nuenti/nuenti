@@ -1,4 +1,6 @@
 <?php
+
+//TODO: Pulir estetica
 require ("inc/verify_login.php");
 head("Subir fotos - Social");
 require ("upload/subida.html");
@@ -42,17 +44,24 @@ require ("upload/subida.html");
 		}
 		?>
 		<form method="post" action="subir_fotos.php" enctype="multipart/form-data">
-			<b>Titulo(s):</b>
-			<input type="text" name="titulo" size="55" />
+			<b>Titulo(s):</b>			
+				<div class="input">
+					<span>
+						<input type="text" name="titulo" placeholder="Escribe un titulo para las fotos" size='55'>
+					</span>
+				</div>
 			<br />
 			<b>Album:</b>
 			<?php
 			$albums = mysqli_query($link,"SELECT * FROM `albums` WHERE usuarios_idusuarios='" . $global_idusuarios . "'");
 			if (mysqli_num_rows($albums) > 0) {
-				echo "<select name='idalbums'><option value='NULL'>Ninguno</option>";
+				print "<div class='input'>
+						<span class='select'>
+							<select name='idalbums'><option value='NULL'>Ninguno</option>";
 				while ($row = mysqli_fetch_assoc($albums)) {
 					echo "<option value='" . $row['idalbums'] . "'>" . $row['album'] . "</option>";
 				}
+				echo "</select></span></div>";
 			} else {
 				echo "<span class='ayuda' title='Primero debes crear un album'>Ninguno</span>";
 			}

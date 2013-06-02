@@ -22,7 +22,12 @@
 				estado_ori = $("#estado").val();
 			});
 		</script>
-		<input type='text' id='estado' size='110' value='<?php echo $r_user['estado']; ?>' />
+					
+		<div class="input">
+			<span>
+				<input id="estado" name="estado" placeholder="Escribe algo sobre ti" type="text" value="<?php echo $estado; ?>" size='80' maxlength='40' autofocus>
+			</span>
+		</div>
 		<button type='button' class="azul" onclick="estado_cambiar(estado_ori)"><span><b>Cambiar</b></span></button>
 				  
 	<?php

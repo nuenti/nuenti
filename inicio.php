@@ -43,6 +43,7 @@ require ("inc/estructura.inc.php");
 						} else {
 							echo "<p style='cursor:pointer;' onclick=\"chat_turn('0')\">Desactivar Chat</p>";
 						}
+						//TODO: CAmbiar estetica del caht apagado
 						?>
 					</div>
 				</div>
@@ -68,7 +69,7 @@ require ("inc/estructura.inc.php");
 			//echo "Tienes ".mysqli_num_rows($query)." peticion(es) de amistad:<br>";
 			while ($row = mysqli_fetch_assoc($query)) {
 				//print_r($row);
-				echo $row['nombre'] . " " . $row['apellidos'] . " <a href='gente.php?id=" . $row['idusuarios'] . "'>Ver perfil</a><br>";
+				echo $row['nombre'] . " " . $row['apellidos'] . " <a href='perfil.php?id=" . $row['idusuarios'] . "'>Ver perfil</a><br>";
 
 			}
 		}

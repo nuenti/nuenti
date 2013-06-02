@@ -5,7 +5,7 @@ head("Registro - Social");
 <script type="text/javascript" src="jscripts/registro_js.php"></script>
 <script type="text/javascript" src="jscripts/forms.js"></script>
 </head>
-<body>
+<body id="seccion_registro">
 	<ul id="menudrop">
 		<li>
 			<a href="login.php">Login</a>
@@ -26,9 +26,8 @@ head("Registro - Social");
 	<script>
 	</script>
 	<div class="centrar">
-		<div id="marco_registro" class="marco" style="width: 400px;">
+		<div class="marco">
 			<div id="error_ajustable"></div>
-			<div style="text-align: center;">
 				<form name="registro" method='post' action='registro.php' autocomplete="off">
 					<table>
 						<tr>
@@ -37,7 +36,7 @@ head("Registro - Social");
 							<div class="input">
 								<label for="Nombre" class="">Nombre</label>
 								<span>
-									<input id="Nombre" name="Nombre" class="validable" type="text" value="<?php echo $_POST['Nombre']; ?>" autocomplete="off" maxlength='20'>
+									<input id="Nombre" name="Nombre" class="validable" type="text" value="<?php echo $_POST['Nombre']; ?>" autocomplete="off">
 								</span>
 							</div></td>
 						</tr>
@@ -47,7 +46,7 @@ head("Registro - Social");
 							<div class="input">
 								<label for="Apellidos" class="">Apellidos</label>
 								<span>
-									<input id="Apellidos" name="Apellidos" class="validable" type="text" value="<?php echo $_POST['Apellidos']; ?>" autocomplete="off" maxlength='40'>
+									<input id="Apellidos" name="Apellidos" class="validable" type="text" value="<?php echo $_POST['Apellidos']; ?>" autocomplete="off">
 								</span>
 							</div></td>
 						</tr>
@@ -57,7 +56,7 @@ head("Registro - Social");
 							<div class="input">
 								<label for="contrasenia" class="">Contraseña</label>
 								<span>
-									<input id="contrasenia" name="contrasenia" class="validable" type="password" value="" autocomplete="off" maxlength='20'>
+									<input id="contrasenia" name="contrasenia" class="validable" type="password" value="" autocomplete="off">
 								</span>
 							</div></td>
 						</tr>
@@ -67,7 +66,7 @@ head("Registro - Social");
 							<div class="input">
 								<label for="Email" class="">Email</label>
 								<span>
-									<input id="Email" name="Email" class="validable" type="text" value="<?php echo $_POST['Email']; ?>" autocomplete="off" maxlength='40'>
+									<input id="Email" name="Email" class="validable" type="text" value="<?php echo $_POST['Email']; ?>" autocomplete="off">
 								</span>
 							</div></td>
 
@@ -78,7 +77,7 @@ head("Registro - Social");
 								<div class="input">
 									<label for="nacimiento" class="">Fecha nacimiento</label>
 									<span>
-										<input id="nacimiento" name="nacimiento" class="validable" type="text" value="<?php echo $_POST['nacimiento']; ?>" autocomplete="off" maxlength='20'>
+										<input id="nacimiento" name="nacimiento" class="validable" type="text" value="<?php echo $_POST['nacimiento']; ?>" autocomplete="off">
 										<input id="nacimiento_hidden" name="nacimiento_hidden" type="text" style="display:none;" value="<?php echo $_POST['nacimiento_hidden']; ?>" autocomplete="off">
 									</span>
 								</div>
@@ -124,6 +123,5 @@ head("Registro - Social");
 						</tr>
 					</table>
 				</form>
-			</div>
 		</div>
 	</div>
