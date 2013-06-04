@@ -11,10 +11,10 @@ $(window).ready(function() {
 
 $("#mensajes").find(".texto").live({
 	mouseenter: function() {
-		$(this).find(".fecha").css("visibility","visible");
+		$(this).find(".fecha").css("display","inline-block");
 	},
 	mouseleave: function() {
-		$(this).find(".fecha").css("visibility","hidden");
+		$(this).find(".fecha").css("display","none");
 	}
 });
 
