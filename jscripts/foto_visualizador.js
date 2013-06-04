@@ -1,35 +1,3 @@
-function foto_leer_comentarios(idfoto, page) {
-	comentarios = ajax_post({
-		data : "foto_leer_comentarios=1&idfoto=" + idfoto + "&page="+page, //TODO
-		retrieve : true,
-		visible : false
-	});
-	$("#comentarios").html(comentarios);
-	//alert(JSON.stringify(comentarios));
-}
-
-function enviar_comentario() {
-	comentario = $("[name='foto_comentario']").val();
-	if (comentario) {
-		ajax_post({
-			data : "foto_comentario=" + comentario + "&idfotos=" + idfoto,
-			reload : true,
-		});
-	}
-}
-
-function foto_principal() {
-	ajax_post({
-		data : "foto_principal=" + idfoto
-	});
-}
-
-function foto_borrar() {
-	ajax_post({
-		data : "foto_borrar=" + idfoto
-	});
-}
-
 //Una vez se cargan todos los archivos
 $(window).load(function() {
 	//Redimensiona el ancho y alto del div del fondo para centrar la imagen
@@ -42,8 +10,11 @@ $(window).load(function() {
 		$("#lista_etiquetados #nadie").show();
 	}
 });
-$(document).ready(function() {
 
+$(document).ready(function() {
+	if(propietario != true){
+		$("#opciones_marco button[onclick='etiqueta_editar()'], #opciones_marco button[onclick='foto_borrar()']").remove();
+	}
 	//Teclas navegacion rapida
 	$("body").keypress(function(event) {
 		//Evitamos problemas con la edicion de comentarios
@@ -83,3 +54,34 @@ $(document).ready(function() {
 		});
 	});
 });
+
+function foto_leer_comentarios(idfoto, page) {
+	comentarios = ajax_post({
+		data : "foto_leer_comentarios=1&idfoto=" + idfoto + "&page="+page,
+		retrieve : true,
+		visible : false
+	});
+	$("#comentarios").html(comentarios);
+}
+
+function enviar_comentario() {
+	comentario = $("[name='foto_comentario']").val();
+	if (comentario) {
+		ajax_post({
+			data : "foto_comentario=" + comentario + "&idfotos=" + idfoto,
+			reload : true,
+		});
+	}
+}
+
+function foto_principal() {
+	ajax_post({
+		data : "foto_principal=" + idfoto
+	});
+}
+
+function foto_borrar() {
+	ajax_post({
+		data : "foto_borrar=" + idfoto
+	});
+}

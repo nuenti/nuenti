@@ -12,7 +12,6 @@
 			<span><b>Comentar</b></span>
 		</button>
 		<div id="comentarios"></div>
-		<?php //TODO: Pulir estetica ?>
 		<script>
 			$(window).load(function() {
 				foto_leer_comentarios(<?php echo $r_fotos['idfotos']; ?>,1);

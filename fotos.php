@@ -8,7 +8,6 @@ require ("inc/estructura.inc.php");
 
 if (!$_GET['iduser']) {
 	$_GET['iduser'] = $global_idusuarios;
-	//$uploader = 1;
 }
 
 if (!$_GET['idalbum']) {

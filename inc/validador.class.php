@@ -121,7 +121,6 @@ class Validador{
 				}
 				
 				// RADIO
-				//TODO: solo se activa al segundo cambio
 				if($this->tipo == "radio"){
 					array_push($check,"if(!$(\"input[name='".$this->name."']\").is(':checked')){
 						".$help_div." += 'Debes seleccionar una de las casillas de \"".$this->alias."\"<br>';

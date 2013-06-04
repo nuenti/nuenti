@@ -37,6 +37,7 @@ Panel de control
 	Cambio de datos (Contrase�a, nombre, correo, localidad)
 Chat
 	Grupos
+	document title al recibir mensaje
 Logout
 Contacto
 Terminos de uso

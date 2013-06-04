@@ -1,4 +1,3 @@
-
 <?php
 	if(mysqli_num_rows($q_fotos)){
 		//Navegacion de fotos
@@ -11,6 +10,12 @@
 		?>
 		<script>
 			//Declarando variables
+			<?php if($_GET['iduser'] == $global_idusuarios){
+				echo "propietario = true;";
+			}else{
+				echo "propietario = false;";
+			} ?>
+			
 			iduser = "<?php echo $_GET['iduser']; ?>";
 			idalbum = "<?php echo $r_fotos['albums_idalbums']; ?>";
 			idfoto = "<?php echo $r_fotos['idfotos']; ?>";
