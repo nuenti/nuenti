@@ -5,7 +5,7 @@ function NombreApellido($input, $maximo = 18) {//si no se pasa segudo parametro 
 	$position = $maximo;
 	//Si no se detecta espacio se coge el maximo
 
-	preg_match_all("/ /", $input, $coincidencias, PREG_OFFSET_CAPTURE);
+	preg_match_all("/( )|$/", $input, $coincidencias, PREG_OFFSET_CAPTURE);
 
 	for ($i = 0; $i < 5; $i++) {
 		//echo $coincidencias[0][$i][1]." - "; //Muestra posicion del espacion

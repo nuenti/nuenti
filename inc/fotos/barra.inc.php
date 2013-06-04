@@ -1,54 +1,55 @@
 <div class="barra_der">
 	<div class="marco_small">
+		<div id="opciones"  onclick="fotos_opciones()">
+			<div id="opciones_marco" class="marco_small">
+				<button type='button' class="azul" onclick="etiqueta_editar()"><span><b>Editar</b></span></button>
+				<button type='button' class="azul" onclick="foto_principal()"><span><b>Principal</b></span></button>
+				<button type='button' class="rojo" onclick="foto_borrar()"><span><b>Borrar</b></span></button>
+			</div>
+		</div>
+		
+		
+	<?php 
+		echo NombreApellido($r_fotos['nombre'].' '.$r_fotos['apellidos'], 26)."<br>";
+		echo strftime ("%A %#d de %B del %y", strtotime($r_fotos['fecha']))."<br>";	
+	 ?>
+	 
 		<div id="foto_album">
 			<div class="original">
-		Album
-		<?php
-		if ($r_fotos['album']) {
-			echo $r_fotos['album'];
-		} else {
-			echo $_GET['idalbum'];
-		}
-		echo "</div>";
-		echo "<div class='edicion'>";
-		$albums = mysqli_query($link, "SELECT * FROM `albums` WHERE usuarios_idusuarios='" . $_GET['iduser'] . "'");
-		print "Album: <div class='input'>
-						<span class='select'>
-							<select name='foto_album'><option value=''>Ninguno</option>";
-		if (mysqli_num_rows($albums) > 0) {
-			while ($row = mysqli_fetch_assoc($albums)) {
-				echo "<option value='" . $row['idalbums'] . "'";
-				if ($r_fotos['albums_idalbums'] == $row['idalbums'])
-					echo " selected";
-				echo ">" . $row['album'] . "</option>";
-			}
-		} else {
-
-		}
-		?>
+				Album
+				<?php
+				if ($r_fotos['album']) {
+					echo $r_fotos['album'];
+				} else {
+					echo $_GET['idalbum'];
+				}
+				echo "</div>";
+				echo "<div class='edicion'>";
+				$albums = mysqli_query($link, "SELECT * FROM `albums` WHERE usuarios_idusuarios='" . $_GET['iduser'] . "'");
+				print "Album: <div class='input'>
+								<span class='select'>
+									<select name='foto_album'><option value=''>Ninguno</option>";
+				if (mysqli_num_rows($albums) > 0) {
+					while ($row = mysqli_fetch_assoc($albums)) {
+						echo "<option value='" . $row['idalbums'] . "'";
+						if ($r_fotos['albums_idalbums'] == $row['idalbums'])
+							echo " selected";
+						echo ">" . $row['album'] . "</option>";
+					}
+				} else {
+		
+				}
+				?>
 					</select>
 				</span>
 			</div>
 		</div>
 	</div>
-
-	<!-- info sobre foto (fecha)-->
-
-	<ul style='margin:0;list-style: none outside none;padding:0px;'>
-		<li>
-			<a href="#" onclick="etiqueta_editar()">Editar</a>
-		</li>
-		<li>
-			<a href="#" onclick="foto_principal()">Principal</a>
-		</li>
-		<li>
-			<a href="post.php?foto_borrar=<?php echo $r_fotos['idfotos']; ?>">Borrar foto</a>
-		</li>
-	</ul>
-
-	Personas:
-	<br>
+	</div>
+	
+	<div class="marco_small">
 	<ul id="lista_etiquetados" style='margin:0;list-style: none outside none;padding:0px;'>
+		<div id="nadie">No hay nadie etiquetado</div>
 		<?php
 		if (mysqli_num_rows($q_fotos)) {
 			if (mysqli_num_rows($etiquetados) > 0) {
@@ -61,8 +62,6 @@
 						</div>
 						</li>";
 				}
-			} else {
-				echo "No hay nadie etiquetado todavia";
 			}
 		}
 		?>
@@ -123,15 +122,13 @@
 	];
 	</script>
 
-	<div class="edicion">
-			<div class='input'>
-				<span>
-					<input id='amigo' type='text' autocomplete='off' placeholder='Nombre de amigo'>
-				</span>
-			</div>
-		<!--<input id="tags" name="receptor"  style="display: none;" placeholder="amigo"/>-->
+	<div class="edicion amigo">
+		<div class='input'>
+			<span>
+				<input id='amigo' type='text' autocomplete='off' placeholder='Nombre de amigo'>
+			</span>
+		</div>
 	</div>
-	<br>
 	<button type='button' class="azul edicion" onclick="fotos_post()" style="display: none !important;"><span><b>Guardar</b></span></button>
 	<button type='button' class="azul edicion" onclick="foto_cancelar_edicion();" style="display: none !important;"><span><b>Cancelar</b></span></button>
 </div>

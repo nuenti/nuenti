@@ -24,13 +24,23 @@ function foto_principal() {
 	});
 }
 
+function foto_borrar() {
+	ajax_post({
+		data : "foto_borrar=" + idfoto
+	});
+}
+
 //Una vez se cargan todos los archivos
 $(window).load(function() {
 	//Redimensiona el ancho y alto del div del fondo para centrar la imagen
 	$("#foto_marco_medio").width($("#foto").width());
 	$(".barra_izq_centro").eq(0).height($("#foto").height() + 155 + "px");
 	$(".barra_izq_centro").find("div.marco").eq(0).height($("#foto").height() + 90 + "px");
-
+	
+	
+	if($("#lista_etiquetados").find("li").length==0){
+		$("#lista_etiquetados #nadie").show();
+	}
 });
 $(document).ready(function() {
 

@@ -6,83 +6,37 @@ var y_centrado;
 var etiqueta_editar;
 //var idfotos;
 
-function foto_cancelar_edicion() {
-	location.reload();
-}
 
-function etiqueta_borrar(label, value, icon) {
-	if (etiqueta_editar != 1)
-		return false;
-	//lo borramos del panel etiquetado
-	$("#lista_etiquetados").find("li").each(function() {
-		if ($(this).text().search(label)!=-1) {
-			$(this).remove();
-		}
+$(document).ready(function() {
+	$( "#amigo" ).click(function(e){
+			$( "#amigo" ).autocomplete("search");
+			//$("#ui-id-1").show();
 	});
+});
 
-	lista_amigos.push({
-		value : value,
-		label : label,
-		icon: icon
-	});
-	
-	// buscamos el nombre del amigo seleccionado
-	for ( i = 0; i < lista_etiquetados.length; i++) {
-		if (lista_etiquetados[i].value == value) {
-			lista_etiquetados.splice(i, 1);
-			// y lo quitamos del array
-			break;
-		}
-	}
-	
-	$("#etiqueta_" + value).remove();
-
-}
-
-function fotos_post() {
-	string_envio = "";
-	for ( i = 0; i < lista_etiquetados.length; i++) {
-		string_envio += lista_etiquetados[i].value + ",";
-		string_envio += lista_etiquetados[i].x + ",";
-		string_envio += lista_etiquetados[i].y + ",";
-	}
-	string_envio = string_envio.substring(0, string_envio.length - 1);
-
-	titulo = $("input[name='foto_titulo']").val();
-	album = $("select[name='foto_album']").val();
-	
-	//Si hay cambio de album a la siguiente foto
-	if (idalbum != album && idalbum != "0" && album != "NULL") {
-		if (tecla_siguiente) {
-			nextUrl = "fotos.php" + tecla_siguiente;
-			reload = false;
-		} else {
-			nextUrl = "album.php?iduser=" + iduser + "&idalbum=" + idalbum;
-			reload = false;
-		}
+function fotos_opciones() {
+	if ($("#opciones_marco").css("display") == "none") {
+		$("#opciones_marco").css({
+			"display" : "inline-block"
+		});
 	} else {
-		nextUrl = false;
-		reload = true;
+		$("#opciones_marco").hide();
 	}
-	ajax_post({
-		data : "foto_edicion=1&idfotos=" + idfoto + "&etiquetas=" + string_envio + "&titulo=" + titulo + "&idalbum=" + album,
-		reload : reload,
-		nextUrl : nextUrl
-	});
 }
 
 function etiqueta_editar() {
 	//Ocultamos cuadros originales y mostramos inputs para edicion
-	$(".edicion").css("display", "inline-block");
-	$(".original").css("display", "none");
+	$(".edicion:not(.amigo)").show();
+	$(".original").hide();
 	
 	$("#titulo").find(".original").css("display", "none");
 	$("#lista_etiquetados li div").css("display", "inline-block");
+	$(".etiquetado").addClass("etiquetado_show");
 	etiqueta_editar = 1;
-	$("form button").show();
-	//TODO: cambiar visual lista etuiquetados
+	
 	move = 1;
 	onclick = $("#foto").attr("onclick");
+	
 	//desactivamos click
 	$("#foto").removeAttr("onclick");
 
@@ -122,7 +76,7 @@ function etiqueta_editar() {
 		$("#etiqueta").click(function(e) {
 			move = 0;
 			click = 1;
-			$("#amigo").show();
+			$("div.edicion.amigo").show();
 			$(".ui-autocomplete-input").focus();
 			$( ".ui-autocomplete-input" ).autocomplete("search");
 
@@ -132,37 +86,20 @@ function etiqueta_editar() {
 			if (move == 0 && click == 1) {
 				move = 1;
 				click = 0;
-				$("form input,label").show();
-				//$("form #tags").focus();
-				//$( "form #tags" ).autocomplete("search");
+				$("div.edicion.amigo").hide();
 			}
 		});
 
 	});
-
-	//CANCELAR EDICION
-	$(window).keypress(function(event) {
-		//alert(event.keyCode);
-		//Evitamos problemas con la edicion de comentarios
-		/*if (document.activeElement != "[object HTMLBodyElement]") {
-		 return;
-		 }*/
-		//TODO
-		/*if (event.keyCode == 27) {
-			location.reload(true);
-			alert(location.href);
-			//foto_cancelar_edicion();
-		}*/
-	});
-
 }
 
 function etiqueta_fijar(id, name) {
 	$("#foto_marco").append("<div class='etiquetado etiqueta_" + id + "' id='etiqueta_" + id + "' style='left:" + x_centrado + ";top:" + y_centrado + ";'><div class='etiqueta_nombre'>" + name + "</div></div>");
-	$("#amigo").hide();
+	$("div.edicion.amigo").hide();
 	$("body").focus();
 	move = 1;
 	click = 0;
+		$("#lista_etiquetados #nadie").hide();
 }
 
 function etiqueta_crear() {
@@ -174,20 +111,42 @@ function etiqueta_crear() {
 	}
 }
 
-
-$(document).ready(function() {
-	$( "#amigo" ).click(function(e){
-			$( "#amigo" ).autocomplete("search");
-			$("#ui-id-1").show();
+function etiqueta_borrar(label, value, icon) {
+	if (etiqueta_editar != 1)
+		return false;
+	//lo borramos del panel etiquetado
+	$("#lista_etiquetados").find("li").each(function() {
+		if ($(this).text().search(label)!=-1) {
+			$(this).remove();
+		}
 	});
-});
+
+	lista_amigos.push({
+		value : value,
+		label : label,
+		icon: icon
+	});
+	
+	// buscamos el nombre del amigo seleccionado
+	for ( i = 0; i < lista_etiquetados.length; i++) {
+		if (lista_etiquetados[i].value == value) {
+			lista_etiquetados.splice(i, 1);
+			// y lo quitamos del array
+			break;
+		}
+	}
+	
+	$("#etiqueta_" + value).remove();
+	
+	if($("#lista_etiquetados").find("li").length==0){
+		$("#lista_etiquetados #nadie").show();
+	}
+}
 
 //elimina gente etiquetada del la lista_amigos
 function amigos_actualizar() {
 	$("#lista_etiquetados li div").each(function() {
-		//alert($(this).attr('onclick').match(/'[0-9]{1,}'/gim)[0]);
 		id = $(this).attr('onclick').match(/'[0-9]{1,}'/gim)[0].match(/[0-9]{1,}/gim)[0];
-		//alert(id);
 		// buscamos el nombre del amigo seleccionado
 		for ( i = 0; i < lista_amigos.length; i++) {
 			if (lista_amigos[i].value == id) {
@@ -222,10 +181,11 @@ $(function() {
 				x : x_centrado,
 				y : y_centrado
 			});
+			
 			$("#lista_etiquetados").append(
 				"<li class='etiqueta_" + ui.item.value + "'>"+
 				"<img src='"+ui.item.icon+"' class='autocomplete_img'>" + ui.item.label + "<div onclick=\"etiqueta_borrar('" + ui.item.label + "','" + ui.item.value + "')\" style='display:inline-block;'></div></li>");
-			$("#tags").val("");
+			$("#amigo").val("");
 
 			// buscamos el nombre del amigo seleccionado
 			for ( i = 0; i < lista_amigos.length; i++) {
@@ -238,7 +198,7 @@ $(function() {
 
 			//efectos de raton y divs
 			etiqueta_fijar(ui.item.value, ui.item.label);
-			$("#amigo").hide();
+			$("div.edicio.amigo").hide();
 			return false;
 		}
 	}) .data( "autocomplete" )._renderItem = function( ul, item ) {
@@ -249,3 +209,39 @@ $(function() {
 			"</a>" ).appendTo( ul );
 	};
 });
+
+function fotos_post() {
+	string_envio = "";
+	for ( i = 0; i < lista_etiquetados.length; i++) {
+		string_envio += lista_etiquetados[i].value + ",";
+		string_envio += lista_etiquetados[i].x + ",";
+		string_envio += lista_etiquetados[i].y + ",";
+	}
+	string_envio = string_envio.substring(0, string_envio.length - 1);
+
+	titulo = $("input[name='foto_titulo']").val();
+	album = $("select[name='foto_album']").val();
+	
+	//Si hay cambio de album a la siguiente foto
+	if (idalbum != album && idalbum != "0" && album != "NULL") {
+		if (tecla_siguiente) {
+			nextUrl = "fotos.php" + tecla_siguiente;
+			reload = false;
+		} else {
+			nextUrl = "album.php?iduser=" + iduser + "&idalbum=" + idalbum;
+			reload = false;
+		}
+	} else {
+		nextUrl = false;
+		reload = true;
+	}
+	ajax_post({
+		data : "foto_edicion=1&idfotos=" + idfoto + "&etiquetas=" + string_envio + "&titulo=" + titulo + "&idalbum=" + album,
+		reload : reload,
+		nextUrl : nextUrl
+	});
+}
+
+function foto_cancelar_edicion() {
+	location.reload();
+}

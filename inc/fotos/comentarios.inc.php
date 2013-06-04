@@ -1,11 +1,11 @@
 <?php
 	if(mysqli_num_rows($q_fotos)){
 ?>
-<div class="barra_full">
+<div class="barra_izq_centro">
 	<div class="marco">
 		<div class="input">
 			<span>
-				<textarea name="foto_comentario" id="foto_comentario_mens" cols="60" rows="2" placeholder="Escribe aqu&iacute; tu comentario" style="width: 900px;height: 60px;resize: none;"></textarea>
+				<textarea name="foto_comentario" id="foto_comentario_mens" cols="60" rows="2" placeholder="Escribe aqu&iacute; tu comentario" style="width: 650px;height: 60px;resize: none;"></textarea>
 			</span>
 		</div>
 		<button type='button' class="azul" onclick="enviar_comentario()">

@@ -718,10 +718,9 @@ img.imagen {
 }
 
 #chat_anclaje .mensaje_propio > div > .fecha, #chat_anclaje .mensaje_ajeno > div > .fecha {
-	display: inline-block;
+	display: none;
 	font-size: 10px;
 	font-style: italic;
-	visibility: hidden;
 }
 
 #chat_anclaje .mensaje_propio {
@@ -900,13 +899,15 @@ div#barra_navegacion > a {
 }
 
 .etiquetado {
-	background-color: white;
-	border: 3px solid #3869A0;
 	height: 50px;
-	opacity: 0.6;
 	position: absolute;
 	width: 50px;
 	z-index: 50;
+}
+.etiquetado_show {
+	background-color: white !important;
+	border: 3px solid #3869A0 !important;
+	opacity: 0.6 !important;
 }
 
 .etiqueta_nombre {
@@ -930,6 +931,11 @@ div#barra_navegacion > a {
 	margin: 20px;
 	vertical-align: super;
 }
+
+/* Barra derecha	*/
+#lista_etiquetados #nadie{
+	display: none;
+}
 #lista_etiquetados li {
 	margin: 5px;
 }
@@ -951,6 +957,35 @@ li.etiqueta_seleccionada {
 div.etiqueta_seleccionada {
 	border-color: red;
 }
+
+#seccion_fotos .marco_small {
+	line-height: 20px;
+}
+
+#seccion_fotos #opciones {
+	background-image: url("../css/iconos4.png");
+	background-position: -102px -6px;
+	height: 12px;
+	width: 12px;
+	float: right;
+	cursor: pointer;
+}
+
+#seccion_fotos #opciones .marco_small {
+	display: none;
+	left: -60px;
+	position: relative;
+	top: 20px;
+	z-index: 99999999;
+	text-align: center;
+}
+
+#seccion_fotos #opciones .marco_small button span {
+	width: 90px;
+}
+
+/* Comentarios */
+
 .foto_comentario {
 	padding: 10px 0;
 	border-bottom: 1px solid #E5E5E5;

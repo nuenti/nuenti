@@ -23,6 +23,7 @@ Mensajeria privada
 Albums
 	Visualizacion fotos
 		Etiquetas fotos
+		Me gusta
 		Comentarios & editar y borrar
 	Subida fotos
 		Cambio de formato
