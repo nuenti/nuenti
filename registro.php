@@ -99,9 +99,9 @@ head("Registro - Social");
 							<td> Sexo </td>
 							<td>
 							<div style="word-spacing: 40px;">
-								<input type="radio" class="validable" name="Sexo" value="H" id="sexo_hombre"/>
+								<input type="radio" class="validable" name="Sexo" value="h" id="sexo_hombre"/>
 								<label for="sexo_hombre" class="label_radio label_Sexo"> </label><label for="sexo_hombre">Hombre</label>
-								<input type="radio" class="validable" name="Sexo" value="M" id="sexo_mujer"/>
+								<input type="radio" class="validable" name="Sexo" value="m" id="sexo_mujer"/>
 								<label for="sexo_mujer" class="label_radio label_Sexo"></label><label for="sexo_mujer">Mujer</label>
 							</div></td>
 						</tr>

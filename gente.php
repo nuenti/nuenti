@@ -1,20 +1,18 @@
 <?php
 	require("inc/verify_login.php");
 	head("Gente - Social");
+	echo "<body id='seccion_gente'>";
 	require("inc/estructura.inc.php");
 ?>
 <div class='barra_izq_centro' style="width: 710px;">
 	<div class="marco">
-		<?php
-			//if($_POST['busqueda']){
-				?>
 				<script>
-					//ENVIAR PETICION AMISTAD
 					function peticion_enviar(idusuario){
 						ajax_post({
 							data: "peticion_amistad_enviar=1&idusuario="+idusuario
 						});
-						$("#resultado"+idusuario).find(".estado_amistad").html("Peticion enviada");
+						$("#resultado"+idusuario).find(".estado_amistad button").attr({"disabled":"true", onclick:""});
+						$("#resultado"+idusuario).find(".estado_amistad button b").text("Peticion enviada");
 					}
 					
 					function cambiar_pagina(number){
@@ -27,6 +25,7 @@
 						$("select[name='provincia']").find("option[value='<?php echo $_POST['provincia']; ?>']").attr("selected","true");
 					});
 				</script>
+				
 				<?php			
 				$sql="SELECT *,
 					FLOOR(DATEDIFF(CURDATE(),fnac)/365) AS edad,
@@ -53,8 +52,8 @@
 				if($_POST['provincia']){
 					$where.=" AND provincia = '{$_POST['provincia']}'";
 				}
-				if($_POST['aaaaa']){
-					$where.=" AND campo = '{$_POST['aaaaa']}'";
+				if($_POST['sexo']){
+					$where.=" AND sexo = '{$_POST['sexo']}'";
 				}
 				
 				$where = " WHERE idusuarios!='$global_idusuarios'$where";
@@ -71,23 +70,22 @@
 				echo "</pre>";
 				echo "$sql<br>";*/
 				
-				echo "<div class='busqueda'>";
+				echo "<div id='resultados'>";
 				$q_search = mysqli_query($link,$sql);
 				if(mysqli_num_rows($q_search)){
-					//echo mysqli_fetch_array($q_search_nums)['0'];
 					error_mysql();
 					while($r_search = mysqli_fetch_assoc($q_search)){
 						//print_r($r_search);
 						
 						//Estado de la amistad
 						if($r_search['amigo']){
-							$estado_amistad="Amigo";
+							$estado_amistad="";
 							$nombre = "<a href='perfil.php?id={$r_search['idusuarios']}' class='link'>{$r_search['nombre']} {$r_search['apellidos']}</a>";
 						}elseif($r_search['enviada']){
-							$estado_amistad="Peticion enviada";
+							$estado_amistad="<button type='button' disabled class='verde'><span><b>Peticion enviada</b></span></button>";
 							$nombre = $r_search['nombre']." ".$r_search['apellidos'];
 						}else{
-							$estado_amistad="<div class='peticion_enviar' onclick=\"peticion_enviar('{$r_search['idusuarios']}')\">Agregar</div>";
+							$estado_amistad="<button type='button' class='verde' onclick=\"peticion_enviar('{$r_search['idusuarios']}')\"><span><b>Agregar</b></span></button>";
 							$nombre = $r_search['nombre']." ".$r_search['apellidos'];
 						}
 						
@@ -110,10 +108,10 @@
 										{$estado_amistad}
 									</div>
 									<div class='mp'>
-										<a href='mp.php?modo=enviar&receptor={$r_search['idusuarios']}'>Enviar mensaje privado</a>
+										<button type='button' class='azul' onclick=\"location.href='mp.php?modo=enviar&amp;receptor={$r_search['idusuarios']}'\"><span><b>Enviar MP</b></span></button>
 									</div>
 								</div>
-							</div><br>
+							</div>
 						";
 					}
 					
@@ -139,11 +137,9 @@
 						}
 					echo "</div>";
 				}else{
-					print "No se han encontrado resultados";
+					print "<div class='resultado'>No se han encontrado resultados</div>";
 				}
 				echo "</div>";
-				
-			//}
 		?>
 	</div>
 </div>
@@ -151,38 +147,66 @@
 	<div class="marco_small">
 		<h3>Busqueda</h3>
 		<form name="busqueda" method='post' action='gente.php'>
-				Nombre: <input type='text' size='15' maxlength='20' name='nombre' value="<?php echo $_POST['nombre']; ?>" /><br />
-				Apellidos: <input type='text' size='25' maxlength='40' name='apellidos' value="<?php echo $_POST['apellidos']; ?>" /><br />
+				<div class="input">
+					<span>
+						<input name="nombre" type="text" value="<?php echo $_POST['nombre']; ?>" placeholder="Nombre">
+					</span>
+				</div><br>
+				
+				<div class="input">
+					<span>
+						<input name="apellidos" type="text" value="<?php echo $_POST['apellidos']; ?>" placeholder="Apellidos">
+					</span>
+				</div><br>
+				
 				Edad entre:
-				<select name="edad_menor">
-					<option value="">-</option>
-					<?php
-						for($i=18;$i<100;$i++){
-							echo "<option";
-							if($_POST['edad_menor']==$i){ echo " selected";}
-							echo ">{$i}</option>";
-						}
-					?>
-				</select> y 
-				<select name="edad_mayor">
-					<option value="">-</option>
-					<?php
-						for($i=18;$i<100;$i++){
-							echo "<option";
-							if($_POST['edad_mayor']==$i){ echo " selected";}
-							echo ">{$i}</option>";
-						}
-					?>
-				</select><br>
+				<div class="input">
+					<span class="select">
+						<select name="edad_menor">
+							<option value="">-</option>
+							<?php
+								for($i=18;$i<100;$i++){
+									echo "<option";
+									if($_POST['edad_menor']==$i){ echo " selected";}
+										echo ">{$i}</option>";
+								}
+							?>
+						</select>
+					</span>
+				</div>y<div class="input">
+					<span class="select">
+						<select name="edad_mayor">
+							<option value="">-</option>
+							<?php
+								for($i=18;$i<100;$i++){
+									echo "<option";
+									if($_POST['edad_mayor']==$i){ echo " selected";}
+										echo ">{$i}</option>";
+								}
+							?>
+						</select>
+					</span>
+				</div><br>
 				
-				Sexo: 
-				<input type="radio" name="sexo" value="hombre" style="display: inline;" /> Chico
-				<input type="radio" name="sexo" value="mujer" style="display: inline;" /> Chica<br>
-				Amigo
-				Amigo de amigos
-				Todos
+				<div style="word-spacing: 30px;">Sexo: 
+					<input type="radio" name="sexo" value="h" id="sexo_hombre" <?php if($_POST['sexo'] == "h") echo "checked"; ?>/>
+					<label for="sexo_hombre" class="label_radio label_Sexo"> </label><label for="sexo_hombre">Hombre</label>
+					<input type="radio" name="sexo" value="m" id="sexo_mujer" <?php if($_POST['sexo'] == "m") echo "checked"; ?>/>
+					<label for="sexo_mujer" class="label_radio label_Sexo"></label><label for="sexo_mujer">Mujer</label>
+				</div><br>
 				
-				Provincia: <select name="provincia"><?php require("inc/select_provincias.html"); ?></select><br>
+				
+				
+				<?php //TODO: Amigo, Amigo de amigos, Todos ?>
+				
+				Provincia: 
+				<div class="input">
+					<span class="select">
+						<select name="provincia">
+							<?php require("inc/select_provincias.html"); ?>
+						</select>
+					</span>
+				</div>
 				<input type="hidden" name='page' value="1">
 				<input type="hidden" name='busqueda' value="true">
 				<button type='submit' class="azul"><span><b>Buscar</b></span></button>

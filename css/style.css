@@ -1136,34 +1136,56 @@ div.etiqueta_seleccionada {
 }
 
 /*******************	GENTE	****************/
-.resultado {
-	border-bottom: 1px solid gray;
-	margin: 20px 0;
-	padding: 10px 0;
+#seccion_gente #resultados {
 }
-.resultado .img {
+
+#seccion_gente .resultado {
+	outline: 1px solid #E5E5E5;
+	margin: 15px 0;
+	padding: 10px;
+}
+
+#seccion_gente .resultado .img {
 	display: inline-block;
 }
-.resultado img {
+
+#seccion_gente .resultado img {
 	max-height: 150px;
 	max-width: 200px;
 }
-.resultado .datos {
+
+#seccion_gente .resultado .datos {
 	display: inline-block;
 	vertical-align: top;
 }
-.resultado0 .nombre {
+
+#seccion_gente .resultado0 .nombre {
 	color: black;
 }
-.resultado .info {
+
+#seccion_gente .resultado .info {
 	color: black;
 }
-.resultado .right {
+
+#seccion_gente .resultado .right {
 	float: right;
 	text-align: right;
 }
-.resultado .peticion_enviar {
+
+#seccion_gente .resultado .peticion_enviar {
 	cursor: pointer;
+}
+
+#seccion_gente form input[type="text"] {
+	width: 230px;
+}
+
+#seccion_gente form select[name="provincia"] {
+	width: 155px;
+}
+
+#seccion_gente form div.input span {
+
 }
 
 /*******************	AJUSTES		****************/
@@ -1295,6 +1317,7 @@ input[type=checkbox] {
 
 label.label_radio {
 	margin-right: 5px;
+	cursor: pointer;
 }
 input[type=radio] {
 	display: none;
