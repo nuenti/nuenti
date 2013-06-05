@@ -29,7 +29,11 @@
 	if($perfil=="ajeno"){
 		?>
 		<div id="tablon_comentar">
-			<textarea id="comentario"></textarea>
+			<div class="input">
+				<span>
+					<textarea id="comentario" placeholder="Escribele tu comentario aqui"></textarea>
+				</span>
+			</div>
 			<button type='button' class="azul" onclick="tablon_enviar_comentario()"><span><b>Comentar</b></span></button>
 		</div>
 		<?php 

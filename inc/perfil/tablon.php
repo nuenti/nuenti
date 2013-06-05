@@ -1,4 +1,4 @@
-<div class="marco">
+<div class="marco_small estado">
 	<?php
 	if ($r_user['estado']) {
 		$estado = $r_user['estado'];
@@ -32,7 +32,11 @@
 				  
 	<?php
 	}else{
-		echo "<div>{$estado}</div>";
+		echo "<div class='blockquote'>
+				<div>“</div>
+					<span>{$estado}</span>
+				<div>”</div>
+			</div>";
 	}
 	?>
 </div>

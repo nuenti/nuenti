@@ -29,6 +29,7 @@ if ($perfil == "ajeno") {
 } else {
 	head("Perfil - Social");
 }
+echo "<body id='seccion_perfil'>";
 require ("inc/estructura.inc.php");
 ?>
 

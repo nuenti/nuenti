@@ -132,8 +132,6 @@ if ($_POST['tablon_leer_comentarios']) {
 				echo "<img class='flecha_next_top' src='css/flechas/flecha_right_top.jpg' onclick=\"tablon_leer_comentarios(idusuarios, " . $ultima . ");\">";
 			}
 		
-	} else {
-		echo "<div>Todavia nadie ha comentado el tablon</div>";
 	}
 	die();
 }
