@@ -933,7 +933,7 @@ div#barra_navegacion > a {
 }
 
 /* Barra derecha	*/
-#lista_etiquetados #nadie{
+#lista_etiquetados #nadie {
 	display: none;
 }
 #lista_etiquetados li {
@@ -1025,51 +1025,114 @@ div.etiqueta_seleccionada {
 }
 
 /*******************	MENSAJES PRIVADOS	********/
-.mp_entrante {
+#mps_separador {
+	border-top: 1px solid #E5E5E5;
+	margin-bottom: 10px;
+}
+
+#seccion_mp_enviar #receptor_icon {
+	max-width: 30px;
+	max-height: 30px;
+	vertical-align: middle;
+}
+#seccion_mp_enviar textarea[name='mensaje'] {
+	min-height: 60px;
+	min-width: 650px;
+	max-width: 650px;
+}
+
+#seccion_mp_recibidos .mensaje {
 	margin: 10px 0;
 	padding: 5px 0;
 	border-bottom: 1px solid #E5E5E5;
 }
-.mp_entrante > .encabezado {
+
+#seccion_mp_recibidos .mensaje.nuevo .encabezado {
+	font-weight: bold;
+}
+
+#seccion_mp_recibidos .mensaje .encabezado {
 	cursor: pointer;
 	display: inline-block;
 }
-.mp_entrante > .encabezado div, .mp_entrante > .encabezado img {
-	color: black;
-	display: inline;
-}
-.mp_entrante > .encabezado > .icono {
-	color: black;
-}
-.mp_entrante > .encabezado > img {
+
+#seccion_mp_recibidos .mensaje .encabezado img {
 	max-width: 50px;
 	max-height: 50px;
 	vertical-align: top;
 	margin-right: 5px;
 }
-.mp_entrante > .encabezado > .nombre {
-	color: black;
-}
-.mp_entrante > .encabezado > .resumen {
-	font-style: italic;
-	margin: 0 10px;
-}
-.mp_entrante > .encabezado > .fecha {
-	vertical-align: top;
+
+#seccion_mp_recibidos .mensaje .encabezado div.img {
 	display: inline-block;
+	vertical-align: top;
+}
+
+#seccion_mp_recibidos .mensaje .encabezado .datos {
+	display: inline-block;
+}
+
+#seccion_mp_recibidos .mensaje .encabezado .datos div {
+	display: inline-block;
+	margin: 3px;
+}
+#seccion_mp_recibidos .mensaje .encabezado .datos .fecha {
 	font-size: 10px;
-	font-weight: normal !important;
-	margin-left: 20px;
+	font-style: italic;
 }
-.mp_entrante > .cuerpo {
+
+#seccion_mp_recibidos .mensaje .cuerpo {
 	display: none;
+	margin: 10px;
 }
-.mp_entrante > .cuerpo > .texto {
-	font-size: 13px;
+#seccion_mp_recibidos .mensaje form {
+	margin: 10px;
 }
-.mp_entrante > .cuerpo > form > textarea {
-	width: 90%;
-	margin: 15px 30px;
+#seccion_mp_recibidos .mensaje textarea {
+	max-width: 630px;
+	min-height: 59px;
+	min-width: 630px;
+}
+
+#seccion_mp_enviados .mensaje {
+	margin: 10px 0;
+	padding: 5px 0;
+	border-bottom: 1px solid #E5E5E5;
+}
+
+#seccion_mp_enviados .mensaje .encabezado {
+	cursor: pointer;
+	display: inline-block;
+}
+
+#seccion_mp_enviados .mensaje .encabezado img {
+	max-width: 50px;
+	max-height: 50px;
+	vertical-align: top;
+	margin-right: 5px;
+}
+
+#seccion_mp_enviados .mensaje .encabezado div.img {
+	display: inline-block;
+	vertical-align: top;
+}
+
+#seccion_mp_enviados .mensaje .encabezado .datos {
+	display: inline-block;
+}
+
+#seccion_mp_enviados .mensaje .encabezado .datos div {
+	display: inline-block;
+	margin: 3px;
+}
+#seccion_mp_enviados .mensaje .encabezado .datos .fecha {
+	font-size: 10px;
+	font-style: italic;
+}
+
+#seccion_mp_enviados .mensaje .texto {
+	display: none;
+	margin: 10px;
 }
 
 /*******************	GENTE	****************/

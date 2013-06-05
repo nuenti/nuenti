@@ -110,7 +110,7 @@
 										{$estado_amistad}
 									</div>
 									<div class='mp'>
-										<a href='mp_redactar.php?receptor={$r_search['idusuarios']}'>Enviar mensaje privado</a>
+										<a href='mp.php?modo=enviar&receptor={$r_search['idusuarios']}'>Enviar mensaje privado</a>
 									</div>
 								</div>
 							</div><br>

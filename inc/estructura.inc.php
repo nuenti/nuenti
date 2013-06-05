@@ -18,11 +18,11 @@
 		</ul>
 	</li>
 	<li>
-		<a href="mp_entrada.php">Mensajes</a>
+		<a href="mp.php?modo=recibidos">Mensajes</a>
 		<ul>
-			<li><a href="mp_entrada.php">Mensajes Recibidos</a></li>
-			<li><a href="mp_salida.php">Mensajes Enviados</a></li>
-			<li><a href="mp_redactar.php">Escribir Mensajes</a></li>
+			<li><a href="mp.php?modo=recibidos">Mensajes Recibidos</a></li>
+			<li><a href="mp.php?modo=enviados">Mensajes Enviados</a></li>
+			<li><a href="mp.php?modo=enviar">Escribir Mensajes</a></li>
 		</ul>
 	</li>
 	<li><a href="gente.php">Gente</a></li>

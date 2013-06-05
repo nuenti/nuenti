@@ -1,16 +1,11 @@
-<?php
-	require("inc/verify_login.php");
-	head("Mensajeria Privada - Social");
-	require("inc/estructura.inc.php");
-?>
-	<script>
+<script>
 	<?php
 		require_once("inc/validador.class.php");
 		$Validador = new Validador();
 		if(!$_GET['receptor']){
 			$Validador->SetInput(array('name' => 'receptor', 'alias' => 'Destinatario', 'obligatorio' => 'si'));
 		}
-		$Validador->SetInput(array('name' => 'mensaje', 'alias' => 'Mensaje', 'MIN' => '2'));
+		$Validador->SetInput(array('name' => 'mensaje', 'alias' => 'Mensaje', 'min' => '1'));
 		$Validador->GeneraValidadorJS();
 	?>
 		function mp_enviar(){
@@ -26,9 +21,8 @@
 		}
 	</script>
 	
-	<div class='barra_full'>
-		<div class='marco'>
-			<h2>Mensajeria Privada: Redactar</h2>
+	<h2>Mensajeria Privada: Redactar</h2>
+	<div id='mps_separador'></div>
 <?php
 	//Si hay un destinatario preseleccionado
 	if($_GET['receptor']){
@@ -36,7 +30,7 @@
 		$usuario=mysqli_fetch_assoc($query);
 		
 		print "<form action='#' onsubmit='return false'>
-				Destinatario: <img id='receptor_icon' src='{$usuario['archivo']}' style='max-width:30px;max-height:30px;vertical-align: middle;'>
+				Destinatario: <img id='receptor_icon' src='{$usuario['archivo']}'>
 				<input id='receptor' name='receptor' class='' value='{$usuario['nombre']} {$usuario['apellidos']}' disabled  size='40'>
 				<input id='receptor_id' name='receptor_id' style='display: none;' value='{$_GET['receptor']}'>";
 	}else{
@@ -54,7 +48,7 @@
 			<form action="#" onsubmit="return false">
 				<div class="ui-widget">
 					<?php //TODO: al borrar letras, deseleccionar amigo ?>
-				   Destinatario: <img id="receptor_icon" style='max-width:30px;max-height:30px;vertical-align: middle;'>	
+				   Destinatario: <img id="receptor_icon">	
 					<div class="input">
 						<span>
 							<input placeholder="Nombre de un amigo" id="receptor" name="receptor" class="validable" type="text" value="<?php echo $_POST['email']; ?>" size='40' autofocus>
@@ -110,6 +104,7 @@
 							.appendTo( ul );
 						};
 					});
+					
 					$(window).ready(function(){
 						$( "#receptor" ).autocomplete("search");
 						
@@ -120,7 +115,7 @@
 							}
 						});
 						$("#receptor").focus(function(e){
-						$( "#receptor" ).autocomplete("search");
+							$( "#receptor" ).autocomplete("search");
 						});
 					});
 					</script>
@@ -134,7 +129,7 @@
 	Mensaje:<br>
 	<div class="input">
 		<span>
-			<textarea name="mensaje" class="validable" cols="60" rows="2" style="width: 900px; height: 60px; resize: none;" placeholder="Escribele tu mensaje aqui"></textarea>
+			<textarea name="mensaje" class="validable" placeholder="Escribele tu mensaje aqui"></textarea>
 		</span>
 	</div>
 	<button type='button' class="azul" onclick="mp_enviar();"><span><b>Enviar</b></span></button>
