@@ -1195,21 +1195,19 @@ div.etiqueta_seleccionada {
 }
 
 .chat_ventana #mensajes {
+
+	background: none repeat scroll 0 0 #F5F5F5;
 	overflow-x: hidden;
 	overflow-y: scroll;
 	display: inline-block;
 	border: 1px solid gray;
-	height: 200px;
+	height: 235px;
 	width: 298px;
 	word-wrap: break-word;
 }
 
-.chat_ventana textarea {
-	border: 1px solid gray;
-	display: inline-block;
-	height: 65px;
-	resize: none;
-	width: 225px;
+.chat_ventana input {
+	width: 269px;
 }
 
 #chat_anclaje .mensaje_propio, #chat_anclaje .mensaje_ajeno {
@@ -1221,7 +1219,7 @@ div.etiqueta_seleccionada {
 	border-radius: 5px 5px 5px 5px;
 	box-shadow: 0.3px 0.3px 1px black;
 	color: black;
-	display: inline;
+	display: inline-block;
 	padding: 4px;
 }
 
@@ -1280,6 +1278,17 @@ div.etiqueta_seleccionada {
 	vertical-align: middle;
 }
 
+.chat_ventana.maximizado {
+	width: 400px;
+	height: 500px
+}
+.chat_ventana.maximizado #mensajes {
+	width: 400px;
+	height: 435px;
+}
+.chat_ventana.maximizado input {
+	width: 375px;
+}
 /*******************	VALIDACION	****************/
 
 .input_error {

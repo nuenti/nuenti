@@ -80,18 +80,20 @@ function chat_conv_init(iduser, nombre, img) {
 		chat_conv_mini(user);
 	});
 	if ($("#chat_conv_" + iduser).length < 1) {
-		//$("#chat_anclaje").append("<div id='chat_conv_" + iduser + "_min' class='chat_ventana_min' onclick=\"chat_conv_show('" + iduser + "')\">" + "<img src='" + img + "' alt='" + nombre + "'/>" + "<div class='mensajes'></div>" + "</div>" + "<div id='chat_conv_" + iduser + "' class='chat_ventana' iduser='" + iduser + "'>" + nombre + "<div class='boton cerr' onclick=\"chat_conv_cerrar('" + iduser + "')\"></div>" + "<div class='boton max' onclick=\"chat_conv_max('" + iduser + "')\"></div>" + "<div class='boton mini' onclick=\"chat_conv_mini('" + iduser + "')\"></div>" + "<div id='mensajes'></div>" + "<textarea name='mensaje' onkeypress=\"chat_press_enter(event,this,'" + iduser + "')\" /></textarea>" + "<button type='button' onclick=\"chat_enviar('" + iduser + "')\">Enviar</button>" + "</div>");
 		chat_ventana = "<div id='chat_conv_" + iduser + "_min' class='chat_ventana_min' onclick=\"chat_conv_show('" + iduser + "')\">" +
 							"<img src='" + img + "' alt='" + nombre + "'/>" + 
 							"<div class='mensajes'></div>" + 
 						"</div>" + 
 						"<div id='chat_conv_" + iduser + "' class='chat_ventana' iduser='" + iduser + "'>" + nombre + 
 							"<div class='boton cerr' onclick=\"chat_conv_cerrar('" + iduser + "')\"></div>" + 
-							"<div class='boton max' onclick=\"chat_conv_max('" + iduser + "')\"></div>" + 
+							"<div class='boton max' onclick=\"chat_conv_resize('" + iduser + "')\"></div>" + 
 							"<div class='boton mini' onclick=\"chat_conv_mini('" + iduser + "')\"></div>" + 
-							"<div id='mensajes'><div style='text-align:center;'><button onclick=\"chat_leer_prev('" + iduser + "')\">Ver anteriores</button></div></div>" + 
-							"<textarea name='mensaje' onkeypress=\"chat_press_enter(event,this,'" + iduser + "')\" /></textarea>" + 
-							"<button type='button' onclick=\"chat_enviar('" + iduser + "')\">Enviar</button>" + 
+							"<div id='mensajes'><div style='text-align:center;'><button type='button' class='azul' onclick=\"chat_leer_prev('" + iduser + "')\"><span><b>Ver anteriores</b></span></button></div></div>"+
+							"<div class='input'>"+
+								"<span>"+
+									"<input name='mensaje' type='text' onkeypress=\"chat_press_enter(event,this,'" + iduser + "')\" placeholder='Escribe tu mensaje' autofocus>"+
+								"</span>"+
+							"</div>"+
 						"</div>";
 		
 		$("#chat_anclaje").append(chat_ventana);
@@ -138,10 +140,12 @@ function chat_enviar(iduser) {
 
 	fecha = hora + ":" + minuto;
 
-	mensaje = $("#chat_conv_" + iduser).find("textarea").val();
+	mensaje = $("#chat_conv_" + iduser).find("input[name='mensaje']").val();
 	if (mensaje.length == 0)	return false;
 	mensaje_f = "<div class='mensaje_propio'><div class='texto'>" + mensaje + "<div class='fecha'>" + fecha + "</div></div></div>";
-	$("#chat_conv_" + iduser).find("textarea").val("");
+	$("#chat_conv_" + iduser).find("input[name='mensaje']").val("");
+	
+
 	
 	idchat = ajax_post({
 		data : "chat_enviar=1&receptor="+iduser+"&mensaje="+mensaje,
@@ -247,34 +251,6 @@ function chat_conv_mini(emisor) {
 	$("#chat_conv_" + emisor + "_min").find(".mensajes").hide();
 }
 
-function chat_conv_max(emisor) {
-	if($("#chat_conv_" + emisor).css("width")=="300px"){
-		$("#chat_conv_" + emisor).css({
-			"width" : "400px",
-			"height" : "500px"
-		});
-		
-		$("#chat_conv_" + emisor).find("#mensajes").css({
-			"width" : "400px",
-			"height" : "400px"
-		});
-		
-		$("#chat_conv_" + emisor).find("textarea").css({
-			"width" : "321px"
-		});
-	}else{
-		$("#chat_conv_" + emisor).css({
-			"width" : "300px",
-			"height" : "300px"
-		});
-		
-		$("#chat_conv_" + emisor).find("#mensajes").css({
-			"width" : "298px",
-			"height" : "200px"
-		});
-		
-		$("#chat_conv_" + emisor).find("textarea").css({
-			"width" : "225px"
-		});
-	}	
+function chat_conv_resize(emisor) {
+	$("#chat_conv_" + emisor).toggleClass("maximizado");
 }
