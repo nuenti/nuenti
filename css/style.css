@@ -2,14 +2,12 @@
 
 * {
 	font-family: Arial, Helvetica, sans-serif;
-	/*font-weight: bold;*/
 	color: #333333;
 	font-size: 14px;
 }
 
 body {
 	background-color: #3869A0;
-	/*min-height:600px;*/
 	width: 997px;
 	margin: 0 auto;
 	padding: 5px;
@@ -38,7 +36,6 @@ button span b {
 	font-size: 14px;
 	font-weight: bold;
 	padding: 0 12px;
-	/*text-shadow: 0 1px #FFFFFF;*/
 	color: #FFFFFF;
 }
 
@@ -318,11 +315,6 @@ span.ayuda {
 	border-style: solid;
 	border-width: 0px;
 	box-shadow: 2px 2px 3px black;
-	/* Forzar superposición del menú
-	 position:relative;
-	 z-index:5;
-	 Quitar el comentario si se necesita
-	 */
 }
 
 #menudrop li {
@@ -346,18 +338,15 @@ span.ayuda {
 }
 
 #menudrop ul {
-	/* Color de fondo de la web -para IE- */
 	background: white;
-	/* Idem transparente para navegadores que lo soporten */
-	/*background:rgba(255,255,255,0);*/
 	list-style: none;
 	position: absolute;
-	left: -9999px; /* Escondemos inicialmente los submenús */
+	left: -9999px;
 	z-index: 9000;
 }
 
 #menudrop ul li {
-	padding-top: 1px; /* Separación vertical entre elementos */
+	padding-top: 1px;
 	float: none;
 }
 
@@ -369,26 +358,20 @@ span.ayuda {
 }
 
 #menudrop ul a {
-	white-space: nowrap; /* Separa los elementos en diferentes líneas */
+	white-space: nowrap;
 	border-radius: 7px;
 }
 
 #menudrop li:hover ul {
-	left: 0; /* Submenús visibles */
+	left: 0;
 }
 
-/* Para que cuando se mueva el cursor por los elementos del submenú los elementos permanecen visibles */
 #menudrop li:hover a {
-	/*background-color:white; /* Aprovechamos para cambiar de color los señalados */
 	text-decoration: none;
 }
 
 #menudrop li:hover ul a {
 	text-decoration: none;
-}
-
-#menudrop li:hover ul li a:hover {
-	/*background-color:#3869A0;*/
 }
 
 /************	REGISTRO	***************/
@@ -550,7 +533,7 @@ div.marco_small {
 
 div.error_ajustable {
 	text-align: left;
-	display: inline-block; /*	indispensable para centrar*/
+	display: inline-block;
 	border: 2px solid red;
 	padding: 15px;
 	margin: auto auto 30px;
@@ -796,7 +779,6 @@ img.album_cubierta {
 	max-height: 140px;
 	max-width: 240px;
 	position: relative;
-	/*display: table-row-group;*/
 }
 
 div.album_titulo {
@@ -1354,11 +1336,9 @@ input[type=radio]:checked + label {
 .ui-autocomplete {
 	max-height: 200px;
 	overflow-y: auto;
-	/* prevent horizontal scrollbar */
 	overflow-x: hidden;
 }
 
-/* IE 6 doesn't support max-height we use height instead, but this forces the menu to always be this tall */
 * html .ui-autocomplete {
 	height: 500px;
 }
