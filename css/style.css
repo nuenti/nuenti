@@ -1086,21 +1086,24 @@ div.etiqueta_seleccionada {
 #chat_anclaje {
 	bottom: 0;
 	position: fixed;
+	height: 55px;
 }
 
 #chat_boton {
 	background-color: white;
 	background-image: url("../css/chat.png");
 	background-repeat: no-repeat;
-	background-size: 40px 40px;
+	background-size: 50px 50px;
 	border-radius: 10px 10px 10px 10px;
 	bottom: 0;
 	box-shadow: 1px 1px 3px black;
-	display: inline-block;
-	height: 40px;
-	vertical-align: bottom;
-	width: 40px;
 	cursor: pointer;
+	display: inline-block;
+	float: left;
+	height: 50px;
+	margin-right: 10px;
+	vertical-align: bottom;
+	width: 50px;
 }
 
 #chat_padre_contactos {
@@ -1108,13 +1111,13 @@ div.etiqueta_seleccionada {
 	border-radius: 10px 10px 10px 10px;
 	box-shadow: 5px 5px 5px black;
 	display: none;
+	float: left;
 	font-size: 12px;
+	left: -60px;
 	list-style: none outside none;
-	left: -40px;
-	margin-right: -40px;
+	margin-right: -215px;
 	padding: 8px;
 	position: relative;
-	top: -50px;
 	width: 200px;
 }
 
@@ -1164,14 +1167,18 @@ div.etiqueta_seleccionada {
 }
 
 .chat_ventana {
-	display: inline-block;
-	height: 300px;
-	width: 300px;
 	background-color: white;
 	border-radius: 10px 10px 10px 10px;
+	bottom: 330px;
 	box-shadow: 2px -1px 3px black;
-	padding: 5px;
+	float: left;
+	height: 300px;
 	margin-left: 10px;
+	margin-right: -320px;
+	padding: 5px;
+	position: relative;
+	right: 60px;
+	width: 300px;
 }
 
 .chat_ventana .boton {
@@ -1211,6 +1218,20 @@ div.etiqueta_seleccionada {
 	width: 269px;
 }
 
+.chat_ventana.maximizado {
+	width: 400px;
+	height: 500px;
+	bottom : 530px !important;
+	margin-right: -417px !important;
+}
+.chat_ventana.maximizado #mensajes {
+	width: 400px;
+	height: 435px;
+}
+.chat_ventana.maximizado input {
+	width: 375px;
+}
+
 #chat_anclaje .mensaje_propio, #chat_anclaje .mensaje_ajeno {
 	padding: 6px;
 }
@@ -1247,18 +1268,24 @@ div.etiqueta_seleccionada {
 }
 
 .chat_ventana_min {
-	cursor: pointer;
+	margin-right: 10px;
 	background-color: white;
 	border-radius: 10px 10px 10px 10px;
+	bottom: 0;
 	box-shadow: 5px 5px 5px black;
-	line-height: 50px;
-	text-align: center;
-	display: none;
-	width: 50px;
-	height: 50px;
+	cursor: pointer;
+	float: left;
 	font-size: 8px;
+	height: 50px;
+	line-height: 50px;
 	overflow: hidden;
-	vertical-align: bottom;
+	text-align: center;
+	width: 50px;
+}
+
+.chat_ventana_min.activa {
+	position: relative;
+	top: -10px;
 }
 
 .chat_ventana_min .mensajes {
@@ -1274,22 +1301,12 @@ div.etiqueta_seleccionada {
 }
 
 .chat_ventana_min img {
+	border-radius: 5px;
 	height: 40px;
 	width: 40px;
 	vertical-align: middle;
 }
 
-.chat_ventana.maximizado {
-	width: 400px;
-	height: 500px
-}
-.chat_ventana.maximizado #mensajes {
-	width: 400px;
-	height: 435px;
-}
-.chat_ventana.maximizado input {
-	width: 375px;
-}
 /*******************	VALIDACION	****************/
 
 .input_error {

@@ -14,8 +14,10 @@ $(window).ready(function() {
 				for(i=0;i<open_convs.length;i++){
 					chat_conv_init(open_convs[i].iduser, open_convs[i].nombre, open_convs[i].img, "onload");
 					chat_leer_prev(open_convs[i].iduser);
-					//last_conv_id = open_convs[i].iduser;
+					last_iduser = open_convs[i].iduser;
 				}
+				// Icono conversacion activa
+				$("#chat_conv_" + last_iduser+"_min").addClass("activa");
 			}
 		}
 	}
@@ -23,10 +25,10 @@ $(window).ready(function() {
 
 $("#mensajes").find(".texto").live({
 	mouseenter: function() {
-		$(this).find(".fecha").css("display","inline-block");
+		$(this).find(".fecha").toggle();
 	},
 	mouseleave: function() {
-		$(this).find(".fecha").css("display","none");
+		$(this).find(".fecha").toggle();
 	}
 });
 
@@ -75,13 +77,15 @@ function chat_contactos() {
 
 function chat_toggle() {
 	if (chat_mode_home != true) {
-		if ($("#chat_padre_contactos").css("display") == "none") {
-			$("#chat_padre_contactos").css({
-				"display" : "inline-block"
-			});
-		} else {
-			$("#chat_padre_contactos").hide();
-		}
+		$("#chat_padre_contactos").toggle();
+		bottom = $("#chat_padre_contactos").height();
+		$("#chat_padre_contactos").css("bottom",bottom+30);
+	}
+	if($("#chat_padre_contactos").is(":visible")){
+		$(".chat_ventana").each(function() {
+			user = $(this).attr("iduser");
+			chat_conv_mini(user);
+		});
 	}
 }
 
@@ -94,7 +98,7 @@ function chat_conv_init(iduser, nombre, img, modo) {
 	
 	//Creamos una conversacion nueva
 	if ($("#chat_conv_" + iduser).length < 1) {
-		chat_ventana = "<div id='chat_conv_" + iduser + "_min' class='chat_ventana_min' onclick=\"chat_conv_show('" + iduser + "')\">" +
+		chat_ventana = "<div id='chat_conv_" + iduser + "_min' class='chat_ventana_min activa' onclick=\"chat_conv_show('" + iduser + "')\">" +
 							"<img src='" + img + "' alt='" + nombre + "'/>" + 
 							"<div class='mensajes'></div>" + 
 						"</div>" + 
@@ -115,7 +119,6 @@ function chat_conv_init(iduser, nombre, img, modo) {
 	//Mostramos una conversacion existente
 	} else {
 		chat_conv_show(iduser);
-		$("#chat_conv_" + iduser).find("input").focus();
 	}
 	
 	if(modo == "normal"){
@@ -152,18 +155,16 @@ function chat_conv_init(iduser, nombre, img, modo) {
 }
 
 function chat_conv_show(emisor) {
+	$("#chat_padre_contactos").hide();
+	
 	//Minimizamos conversaciones abiertas
-	$(".chat_ventana").each(function() {
-		user = $(this).attr("iduser");
-		chat_conv_mini(user);
-	});
-	$("#chat_conv_" + emisor).css({
-		"display" : "inline-block"
-	});
-	$("#chat_conv_" + emisor).show();
-	$("#chat_conv_" + emisor + "_min").hide();
-
-	$("#chat_conv_" + emisor).find("textarea").focus();
+	$(".chat_ventana:not('#chat_conv_" + emisor+"')").hide();
+	$(".chat_ventana_min:not('#chat_conv_" + emisor+"_min')").removeClass("activa");
+	
+	//Toggle current conv
+	$("#chat_conv_" + emisor).toggle(300, 'linear');
+	$("#chat_conv_" + emisor).find("input").focus();
+	$("#chat_conv_" + emisor+"_min").toggleClass("activa");
 	
 	
 	// Seteamos la ultima conversacion abierta
@@ -307,33 +308,29 @@ function chat_leer_prev(iduser) {
 	});
 }
 
-function chat_conv_cerrar(emisor) {
-	$("#chat_conv_" + emisor).remove();
-	
-	// localStorage and sessionStorage support!
-	if(typeof(Storage)!=="undefined"){
-		var open_convs = JSON.parse(sessionStorage["open_convs"]);
-	
-			
-			//EVITAR VALORES DUPLICADOS
-			open_convs_limpia = new Array();
-			for(i=0;i<open_convs.length;i++){
-				if(open_convs[i].iduser != emisor){
-					open_convs_limpia.push(open_convs[i]);
-				}
-			sessionStorage["open_convs"] = JSON.stringify(open_convs_limpia);
-		}
-	}
-}
-
 function chat_conv_mini(emisor) {
 	$("#chat_conv_" + emisor).hide();
-	$("#chat_conv_" + emisor + "_min").css({
-		"display" : "inline-block"
-	});
+	$("#chat_conv_" + emisor + "_min").removeClass("activa");
 	$("#chat_conv_" + emisor + "_min").find(".mensajes").hide();
 }
 
 function chat_conv_resize(emisor) {
 	$("#chat_conv_" + emisor).toggleClass("maximizado");
+}
+
+function chat_conv_cerrar(emisor) {
+	$("#chat_conv_" + emisor).remove();
+	$("#chat_conv_" + emisor+"_min").remove();
+	
+	//Limpiamos las conversaciones abiertas
+	if(typeof(Storage)!=="undefined"){
+		var open_convs = JSON.parse(sessionStorage["open_convs"]);
+		open_convs_limpia = new Array();
+		for(i=0;i<open_convs.length;i++){
+			if(open_convs[i].iduser != emisor){
+				open_convs_limpia.push(open_convs[i]);
+			}
+			sessionStorage["open_convs"] = JSON.stringify(open_convs_limpia);
+		}
+	}
 }
