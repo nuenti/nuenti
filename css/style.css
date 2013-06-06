@@ -1221,7 +1221,7 @@ div.etiqueta_seleccionada {
 .chat_ventana.maximizado {
 	width: 400px;
 	height: 500px;
-	bottom : 530px !important;
+	bottom: 530px !important;
 	margin-right: -417px !important;
 }
 .chat_ventana.maximizado #mensajes {
@@ -1278,9 +1278,8 @@ div.etiqueta_seleccionada {
 	font-size: 8px;
 	height: 50px;
 	line-height: 50px;
-	overflow: hidden;
-	text-align: center;
 	width: 50px;
+	position: relative;
 }
 
 .chat_ventana_min.activa {
@@ -1292,8 +1291,7 @@ div.etiqueta_seleccionada {
 	background-image: url("../css/iconos3.png");
 	background-position: -177px -211px;
 	height: 10px;
-	width: 10px;
-	left: 15px;
+	left: 50px;
 	position: relative;
 	top: -60px;
 	width: 10px;
@@ -1301,10 +1299,11 @@ div.etiqueta_seleccionada {
 }
 
 .chat_ventana_min img {
-	border-radius: 5px;
+	border-radius: 5px 5px 5px 5px;
 	height: 40px;
-	width: 40px;
+	margin-left: 5px;
 	vertical-align: middle;
+	width: 40px;
 }
 
 /*******************	VALIDACION	****************/
