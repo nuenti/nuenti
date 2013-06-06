@@ -1119,6 +1119,7 @@ div.etiqueta_seleccionada {
 }
 
 #chat_opciones {
+	cursor: pointer;
 	background-image: url("../css/iconos4.png");
 	background-position: -102px -6px;
 	height: 12px;

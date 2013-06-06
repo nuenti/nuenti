@@ -462,7 +462,7 @@ if ($_POST['chat_contactos']) {
 		if(mysqli_num_rows($result)>0){
 			echo "<ul>";
 			while ($row = mysqli_fetch_assoc($result)) {
-				echo "<li onclick=\"chat_conv_init('" . $row['idusuarios'] . "','" . $row['nombre'] . " " . $row['apellidos'] . "','" . $row['archivo'] . "')\"><div class='conectado'></div>" . NombreApellido($row['nombre'] . " " . $row['apellidos']) . "</li>";
+				echo "<li onclick=\"chat_conv_init('" . $row['idusuarios'] . "','" . $row['nombre'] . " " . $row['apellidos'] . "','" . $row['archivo'] . "', 'normal')\"><div class='conectado'></div>" . NombreApellido($row['nombre'] . " " . $row['apellidos']) . "</li>";
 			}
 			echo "</ul>";
 		}
@@ -482,7 +482,7 @@ if ($_POST['chat_contactos']) {
 		echo "<ul>";
 		if(mysqli_num_rows($result)>0){
 			while ($row = mysqli_fetch_assoc($result)) {
-				echo "<li onclick=\"chat_conv_init('" . $row['idusuarios'] . "','" . $row['nombre'] . " " . $row['apellidos'] . "','" . $row['archivo'] . "')\"><div class='desconectado'></div>" . NombreApellido($row['nombre'] . " " . $row['apellidos']) . "</li>";
+				echo "<li onclick=\"chat_conv_init('" . $row['idusuarios'] . "','" . $row['nombre'] . " " . $row['apellidos'] . "','" . $row['archivo'] . "', 'normal')\"><div class='desconectado'></div>" . NombreApellido($row['nombre'] . " " . $row['apellidos']) . "</li>";
 			}
 			echo "</ul>";
 		}

@@ -6,6 +6,18 @@ $(window).ready(function() {
 		timeOutChatLeer = window.setInterval(chat_leer, 5000);
 		chat_contactos();
 		timeOutChatContactos = window.setInterval(chat_contactos, 10000);
+		
+		// Auto iniciar conversaciones
+		if(typeof(Storage)!=="undefined"){
+			if (sessionStorage["open_convs"] ) {
+				var open_convs = JSON.parse(sessionStorage["open_convs"]);
+				for(i=0;i<open_convs.length;i++){
+					chat_conv_init(open_convs[i].iduser, open_convs[i].nombre, open_convs[i].img, "onload");
+					chat_leer_prev(open_convs[i].iduser);
+					//last_conv_id = open_convs[i].iduser;
+				}
+			}
+		}
 	}
 });
 
@@ -73,12 +85,14 @@ function chat_toggle() {
 	}
 }
 
-function chat_conv_init(iduser, nombre, img) {
+function chat_conv_init(iduser, nombre, img, modo) {
 	//Minimizamos conversaciones abiertas
 	$(".chat_ventana").each(function() {
 		user = $(this).attr("iduser");
 		chat_conv_mini(user);
 	});
+	
+	//Creamos una conversacion nueva
 	if ($("#chat_conv_" + iduser).length < 1) {
 		chat_ventana = "<div id='chat_conv_" + iduser + "_min' class='chat_ventana_min' onclick=\"chat_conv_show('" + iduser + "')\">" +
 							"<img src='" + img + "' alt='" + nombre + "'/>" + 
@@ -97,12 +111,44 @@ function chat_conv_init(iduser, nombre, img) {
 						"</div>";
 		
 		$("#chat_anclaje").append(chat_ventana);
-		$("#chat_conv_" + iduser).find("textarea").focus();
+		$("#chat_conv_" + iduser).find("input").focus();
+	//Mostramos una conversacion existente
 	} else {
 		chat_conv_show(iduser);
-		$("#chat_conv_" + iduser).find("textarea").focus();
+		$("#chat_conv_" + iduser).find("input").focus();
 	}
-	chat_toggle();
+	
+	if(modo == "normal"){
+		chat_toggle();
+		
+		// Añadimos la conversacion a las existentes
+		if(typeof(Storage)!=="undefined"){
+			if (!sessionStorage["open_convs"] ) {
+				sessionStorage["open_convs"] = JSON.stringify([]);
+			}
+			var open_convs = JSON.parse(sessionStorage["open_convs"]);
+			
+			new_conv = {
+				iduser:iduser,
+				nombre:nombre,
+				img:img
+			};
+			open_convs.push(new_conv);
+			
+			//Evitamos valores duplicados
+			open_convs_limpia = new Array();
+			for(i=0;i<open_convs.length;i++){
+						repetido = false;
+						for(i2=0;i2<open_convs_limpia.length;i2++){
+							if(open_convs[i].iduser == open_convs_limpia[i2].iduser)
+								repetido = true;
+					}
+					if(repetido == false)
+						open_convs_limpia.push(open_convs[i]);
+			}
+			sessionStorage["open_convs"] = JSON.stringify(open_convs_limpia);
+		}
+	}
 }
 
 function chat_conv_show(emisor) {
@@ -118,6 +164,28 @@ function chat_conv_show(emisor) {
 	$("#chat_conv_" + emisor + "_min").hide();
 
 	$("#chat_conv_" + emisor).find("textarea").focus();
+	
+	
+	// Seteamos la ultima conversacion abierta
+	if(typeof(Storage)!=="undefined"){
+		var open_convs = JSON.parse(sessionStorage["open_convs"]);
+	
+		//Traspasamos valores y metemos la ultima conv al final del array
+		open_convs_limpia = new Array();
+		for(i=0;i<open_convs.length;i++){
+			if(open_convs[i].iduser != emisor){
+				open_convs_limpia.push(open_convs[i]);
+			}else{
+				last_conv = {
+					iduser:open_convs[i].iduser,
+					nombre:open_convs[i].nombre,
+					img:open_convs[i].img
+				};
+			}
+		}
+		open_convs_limpia.push(last_conv);
+		sessionStorage["open_convs"] = JSON.stringify(open_convs_limpia);
+	}
 }
 
 function chat_opciones() {
@@ -199,7 +267,7 @@ function chat_leer() {
 				$("#chat_conv_" + emisor).find("#mensajes").append(mensaje_f);
 			} else {
 				//sin iniciar
-				chat_conv_init(emisor, nombre, img);
+				chat_conv_init(emisor, nombre, img, 'normal');
 				chat_toggle();
 				//minimizar lista contactos
 				$("#chat_conv_" + emisor).find("#mensajes").append(mensaje_f);
@@ -241,6 +309,21 @@ function chat_leer_prev(iduser) {
 
 function chat_conv_cerrar(emisor) {
 	$("#chat_conv_" + emisor).remove();
+	
+	// localStorage and sessionStorage support!
+	if(typeof(Storage)!=="undefined"){
+		var open_convs = JSON.parse(sessionStorage["open_convs"]);
+	
+			
+			//EVITAR VALORES DUPLICADOS
+			open_convs_limpia = new Array();
+			for(i=0;i<open_convs.length;i++){
+				if(open_convs[i].iduser != emisor){
+					open_convs_limpia.push(open_convs[i]);
+				}
+			sessionStorage["open_convs"] = JSON.stringify(open_convs_limpia);
+		}
+	}
 }
 
 function chat_conv_mini(emisor) {
