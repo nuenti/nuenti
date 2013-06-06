@@ -484,7 +484,7 @@ span.ayuda {
 	text-align: right;
 }
 
-#seccion_registro input[type='text'] {
+#seccion_registro input[type='text'], #seccion_registro input[type='password'], #seccion_registro select {
 	width: 200px;
 }
 /************	LOGIN	**********************/

@@ -72,17 +72,15 @@ if($_POST['email']){
 				<form id='form_login' method='POST' action='login.php'>
 					Email: 					
 						<div class="input">
-							<label for="email" class="">ejemplo@mail.com</label>
 							<span>
-								<input id="email" name="email" class="validable" type="text" value="<?php echo $_POST['email']; ?>" maxlength='40' autofocus>
+								<input id="email" name="email" class="validable" type="text" value="<?php echo $_POST['email']; ?>" maxlength='40' autofocus placeholder="ejemplo@mail.com">
 							</span>
 						</div><br>
 					
 					Clave:  					
 						<div class="input">
-							<label for="password" class="">Contrase&ntilde;a</label>
 							<span>
-								<input id="password" name="password" class="validable" type="password" value="" maxlength='30'>
+								<input id="password" name="password" class="validable" type="password" value="" maxlength='30' placeholder="Contrase&ntilde;a">
 							</span>
 						</div><br>
 					<button type='button' name='registro' value='Registrarse' class="azul" onclick="validador('submit')"><span><b>Entrar</b></span></button>

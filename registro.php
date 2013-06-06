@@ -34,9 +34,8 @@ head("Registro - Social");
 							<td> Nombre </td>
 							<td>
 							<div class="input">
-								<label for="Nombre" class="">Nombre</label>
 								<span>
-									<input id="Nombre" name="Nombre" class="validable" type="text" value="<?php echo $_POST['Nombre']; ?>" autocomplete="off">
+									<input id="Nombre" name="Nombre" class="validable" type="text" value="<?php echo $_POST['Nombre']; ?>" autocomplete="off" placeholder="Nombre">
 								</span>
 							</div></td>
 						</tr>
@@ -44,9 +43,8 @@ head("Registro - Social");
 							<td> Apellidos </td>
 							<td>
 							<div class="input">
-								<label for="Apellidos" class="">Apellidos</label>
 								<span>
-									<input id="Apellidos" name="Apellidos" class="validable" type="text" value="<?php echo $_POST['Apellidos']; ?>" autocomplete="off">
+									<input id="Apellidos" name="Apellidos" class="validable" type="text" value="<?php echo $_POST['Apellidos']; ?>" autocomplete="off" placeholder="Apellidos">
 								</span>
 							</div></td>
 						</tr>
@@ -54,9 +52,8 @@ head("Registro - Social");
 							<td> Contrase&ntilde;a </td>
 							<td>
 							<div class="input">
-								<label for="contrasenia" class="">Contraseña</label>
 								<span>
-									<input id="contrasenia" name="contrasenia" class="validable" type="password" value="" autocomplete="off">
+									<input id="contrasenia" name="contrasenia" class="validable" type="password" value="" autocomplete="off" placeholder="Contrase&ntilde;a">
 								</span>
 							</div></td>
 						</tr>
@@ -64,9 +61,8 @@ head("Registro - Social");
 							<td> Email </td>
 							<td>
 							<div class="input">
-								<label for="Email" class="">Email</label>
 								<span>
-									<input id="Email" name="Email" class="validable" type="text" value="<?php echo $_POST['Email']; ?>" autocomplete="off">
+									<input id="Email" name="Email" class="validable" type="text" value="<?php echo $_POST['Email']; ?>" autocomplete="off" placeholder="Email">
 								</span>
 							</div></td>
 
@@ -75,10 +71,9 @@ head("Registro - Social");
 							<td> Fecha nacimiento </td>
 							<td>
 								<div class="input">
-									<label for="nacimiento" class="">Fecha nacimiento</label>
 									<span>
 										<input id="nacimiento" name="nacimiento" class="validable" type="text" value="<?php echo $_POST['nacimiento']; ?>" autocomplete="off">
-										<input id="nacimiento_hidden" name="nacimiento_hidden" type="text" style="display:none;" value="<?php echo $_POST['nacimiento_hidden']; ?>" autocomplete="off">
+										<input id="nacimiento_hidden" name="nacimiento_hidden" type="text" style="display:none;" value="<?php echo $_POST['nacimiento_hidden']; ?>" autocomplete="off" placeholder="Fecha nacimiento">
 									</span>
 								</div>
 							</td>
