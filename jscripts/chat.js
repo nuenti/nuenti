@@ -1,32 +1,37 @@
 chat_mode_home = false;
-
-$(window).ready(function() {
+$(document).ready(function() {
+	//sessionStorage["open_convs"] = JSON.stringify([]);//TODO: fallo al recargar sesiones¿?
+			
 	if (chat_estado == 1) {
-		chat_leer();
-		timeOutChatLeer = window.setInterval(chat_leer, 5000);
-		chat_contactos();
-		timeOutChatContactos = window.setInterval(chat_contactos, 10000);
-		
 		// Auto iniciar conversaciones
 		if(typeof(Storage)!=="undefined"){
 			if (sessionStorage["open_convs"] ) {
 				var open_convs = JSON.parse(sessionStorage["open_convs"]);
 				for(i=0;i<open_convs.length;i++){
 					chat_conv_init(open_convs[i].iduser, open_convs[i].nombre, open_convs[i].img, "auto");
+					//Cargamos los mensajes anteriores
 					chat_leer_prev(open_convs[i].iduser);
 					
-					if(open_convs[i].maximizado == true)
-						$("#chat_conv_" + open_convs[i].iduser).addClass("maximizado");
+					//La maximizamos
+					if(open_convs[i].maximizada == true)
+						$("#chat_conv_" + open_convs[i].iduser).addClass("maximizada");
 					
+					// La hacemos visible
 					if(open_convs[i].activa == true){
 						$("#chat_conv_" + open_convs[i].iduser+"_min").addClass("activa");
-					}else{
-						$("#chat_conv_" + open_convs[i].iduser+"_min").removeClass("activa");
-						chat_conv_mini(open_convs[i].iduser, 'auto');
+						$("#chat_conv_" + open_convs[i].iduser).show();
 					}
 				}
 			}
 		}
+	}
+});
+$(window).ready(function() {
+	if (chat_estado == 1) {
+		chat_leer();
+		timeOutChatLeer = window.setInterval(chat_leer, 5000);
+		chat_contactos();
+		timeOutChatContactos = window.setInterval(chat_contactos, 10000);
 		
 		$("#mensajes").find(".texto").live({
 			mouseenter: function() {
@@ -102,20 +107,21 @@ function chat_conv_init(iduser, nombre, img, modo) {
 	if(modo == "normal"){
 		$(".chat_ventana").each(function() {
 			user = $(this).attr("iduser");
-			chat_conv_mini(user, 'normal');
+			if(user != iduser)
+				chat_conv_mini(user);
 		});
 	}
 	
 	//Creamos una conversacion nueva
 	if ($("#chat_conv_" + iduser).length < 1) {
-		chat_ventana = "<div id='chat_conv_" + iduser + "_min' class='chat_ventana_min activa' onclick=\"chat_conv_show('" + iduser + "')\">" +
+		chat_ventana = "<div id='chat_conv_" + iduser + "_min' class='chat_ventana_min' onclick=\"chat_conv_show('" + iduser + "', 'normal')\">" +
 							"<img src='" + img + "' alt='" + nombre + "'/>" + 
 							"<div class='mensajes'></div>" + 
 						"</div>" + 
 						"<div id='chat_conv_" + iduser + "' class='chat_ventana' iduser='" + iduser + "'>" + nombre + 
 							"<div class='boton cerr' onclick=\"chat_conv_cerrar('" + iduser + "')\"></div>" + 
 							"<div class='boton max' onclick=\"chat_conv_resize('" + iduser + "')\"></div>" + 
-							"<div class='boton mini' onclick=\"chat_conv_mini('" + iduser + "', 'normal')\"></div>" + 
+							"<div class='boton mini' onclick=\"chat_conv_mini('" + iduser + "')\"></div>" + 
 							"<div id='mensajes'><div style='text-align:center;'><button type='button' class='azul' onclick=\"chat_leer_prev('" + iduser + "')\"><span><b>Ver anteriores</b></span></button></div></div>"+
 							"<div class='input'>"+
 								"<span>"+
@@ -125,15 +131,15 @@ function chat_conv_init(iduser, nombre, img, modo) {
 						"</div>";
 		
 		$("#chat_anclaje").append(chat_ventana);
-		$("#chat_conv_" + iduser).find("input").focus();
+		if(modo == 'normal'){
+			chat_conv_show(iduser, 'normal');
+		}
 	//Mostramos una conversacion existente
 	} else {
-		chat_conv_show(iduser);
+		chat_conv_show(iduser, 'normal');
 	}
 	
-	if(modo == "normal"){
-		chat_toggle();
-		
+	if(modo == "normal" || modo == "msg"){		
 		// Añadimos la conversacion a las existentes
 		if(typeof(Storage)!=="undefined"){
 			if (!sessionStorage["open_convs"] ) {
@@ -167,33 +173,61 @@ function chat_conv_init(iduser, nombre, img, modo) {
 	}
 }
 
-function chat_conv_show(emisor) {
+function chat_conv_show(emisor, modo) {
 	$("#chat_padre_contactos").hide();
 	
 	//Minimizamos conversaciones abiertas
 	$(".chat_ventana:not('#chat_conv_" + emisor+"')").hide();
 	$(".chat_ventana_min:not('#chat_conv_" + emisor+"_min')").removeClass("activa");
-	
-	//Toggle current conv
-	$("#chat_conv_" + emisor).toggle(300, 'linear');
-	$("#chat_conv_" + emisor).find("input").focus();
-	$("#chat_conv_" + emisor+"_min").toggleClass("activa");
-	
-	//Ocultar notificacion
 	$("#chat_conv_" + emisor+"_min").find(".mensajes").hide();
 	
-	// Seteamos la ultima conversacion abierta
-	if(typeof(Storage)!=="undefined"){
-		var open_convs = JSON.parse(sessionStorage["open_convs"]);
-	
-		for(i=0;i<open_convs.length;i++){
-			if(open_convs[i].iduser == emisor && $("#chat_conv_" + emisor+"_min").hasClass("activa")){
-				open_convs[i].activa = true;
-			}else{
-				open_convs[i].activa = false;
-			}
+	//Activa -> minimizar
+	if($("#chat_conv_" + emisor+"_min").hasClass("activa")){
+		chat_conv_mini(emisor);
+
+	//Minimiza -> Abrir
+	}else{
+		$("#chat_conv_" + emisor+"_min").toggleClass("activa");
+		$("#chat_conv_" + emisor).css({bottom:"-60px", display: "inline-block"});
+		
+		//Toggle current conv
+		if($("#chat_conv_" + emisor).hasClass("maximizada")){
+			$("#chat_conv_" + emisor).animate(
+				{"bottom":"530px"}, 
+				500
+			);
+		}else{
+			$("#chat_conv_" + emisor).show();
+			$("#chat_conv_" + emisor).animate(
+				{"bottom":"330px"}, 
+				500
+			);
 		}
-		sessionStorage["open_convs"] = JSON.stringify(open_convs);
+		$("#chat_conv_" + emisor).find("input").focus();
+		
+		//Scroll down
+		$("#chat_conv_"+emisor).find("#mensajes").scrollTop($("#chat_conv_"+emisor).find("#mensajes").prop("scrollHeight"));
+	}
+	
+	if(modo == "normal"){
+		// Configuramos como abierta la ultima conversacion (o no)
+		if(typeof(Storage)!=="undefined"){
+			var open_convs = JSON.parse(sessionStorage["open_convs"]);
+
+			for(i=0;i<open_convs.length;i++){
+				if(open_convs[i].iduser == emisor){
+					if($("#chat_conv_" + emisor+"_min").hasClass("activa")){
+						open_convs[i].activa = true;
+					}else{
+						open_convs[i].activa = false;
+					}
+				// Las demas conversaciones estan cerradas
+				}else{
+					open_convs[i].activa = false;
+				}
+			}
+			sessionStorage["open_convs"] = JSON.stringify(open_convs);
+		}
 	}
 }
 
@@ -254,7 +288,7 @@ function chat_leer() {
 		}
 	}).done(function(msg) {
 		$("#chat_conv_tmp").html(msg);
-
+		var chats = new Array();
 		$("#chat_conv_tmp").find("div").each(function() {
 			idchat = $(this).attr("idchat");
 			emisor = $(this).attr("iduser");
@@ -265,24 +299,32 @@ function chat_leer() {
 			mensaje = $(this).html();
 			mensaje_f = "<div idchat='"+ idchat +"' class='mensaje_ajeno'><div class='texto'>" + $(this).html() + "<div class='fecha'>" + fecha + "</div></div></div>";
 			
-			
-			
+			// Conver minimizada
 			if ($("#chat_conv_" + emisor).is(":hidden")) {
-				//minimizada
+				
 				$("#chat_conv_" + emisor).find("#mensajes").append(mensaje_f);
-				new_message(emisor, nombre);
+				
+				//si se reciben varios mensajes de golpe generar solo una alerta
+				if($.inArray(emisor, chats) == -1){
+					new_message(emisor, nombre);
+				}
+				
+			// Conver activa
 			} else if ($("#chat_conv_" + emisor).is(":visible")) {
-				//maximizada
 				$("#chat_conv_" + emisor).find("#mensajes").append(mensaje_f);
+				
+			// Conver inexistente
 			} else {
-				//sin iniciar
-				chat_conv_init(emisor, nombre, img, 'normal');
-				chat_toggle();
-				//minimizar lista contactos
+				//La iniciamos
+				chat_conv_init(emisor, nombre, img, 'msg');
+				
+				//añadimos el msg
 				$("#chat_conv_" + emisor).find("#mensajes").append(mensaje_f);
-				//minimizar conversa
-				chat_conv_mini(emisor, 'normal');
-				new_message(emisor, nombre);
+				
+				//si se reciben varios mensajes de golpe generar solo una alerta
+				if($.inArray(emisor, chats) == -1){
+					new_message(emisor, nombre);
+				}
 			}
 			
 			// Deslizando verticalmente la conversacion
@@ -290,6 +332,8 @@ function chat_leer() {
 			$("#chat_conv_" + emisor).find("#mensajes").animate({
 				scrollTop : $("#chat_conv_" + emisor).find("#mensajes").prop("scrollHeight")
 			}, 3000);
+			
+			chats.push(emisor);
 		});
 	});
 }
@@ -315,42 +359,61 @@ function chat_leer_prev(iduser) {
 	});
 }
 
-function chat_conv_mini(emisor, modo) {
-	$("#chat_conv_" + emisor).hide();
+function chat_conv_mini(emisor) {
+	// Conv no activa
 	$("#chat_conv_" + emisor + "_min").removeClass("activa");
-	$("#chat_conv_" + emisor + "_min").find(".mensajes").hide();
+	//$("#chat_conv_" + emisor + "_min").find(".mensajes").hide();
 	
-	// Auto iniciar conversaciones
-	if(typeof(Storage)!=="undefined" && modo == "normal"){
-		if (sessionStorage["open_convs"] ) {
-			var open_convs = JSON.parse(sessionStorage["open_convs"]);
-			for(i=0;i<open_convs.length;i++){
-				
-				if(open_convs[i].iduser == emisor)
-					open_convs[i].activa = false;
+	if(modo = 'normal'){
+		//Animacion minimizar
+		$("#chat_conv_" + emisor).animate(
+			{"bottom":"-60px"}, 
+			500,
+			function(){
+				//Al acabar la ocultamos por si las moscas
+				$(this).hide();
+				$(this).css("bottom","");
 			}
-			sessionStorage["open_convs"] = JSON.stringify(open_convs);
+		);
+		
+		// Seteamos como minimizada
+		if(typeof(Storage)!=="undefined"){
+			if (sessionStorage["open_convs"] ) {
+				var open_convs = JSON.parse(sessionStorage["open_convs"]);
+				for(i=0;i<open_convs.length;i++){
+					if(open_convs[i].iduser == emisor)
+						open_convs[i].activa = false;
+				}
+				sessionStorage["open_convs"] = JSON.stringify(open_convs);
+			}
 		}
 	}
 }
 
 function chat_conv_resize(emisor) {
-	$("#chat_conv_" + emisor).toggleClass("maximizado");
-	if($("#chat_conv_" + emisor).hasClass('maximizado')){
-		//Limpiamos las conversaciones abiertas
-		if(typeof(Storage)!=="undefined"){
-			var open_convs = JSON.parse(sessionStorage["open_convs"]);
-			for(i=0;i<open_convs.length;i++){
-				if(open_convs[i].iduser == emisor){
-					open_convs[i].maximizado = true;
+	//Toggle class
+	$("#chat_conv_" + emisor).toggleClass("maximizada");
+		
+	//Seteamos la conv como maximizada
+	if(typeof(Storage)!=="undefined"){
+		var open_convs = JSON.parse(sessionStorage["open_convs"]);
+		for(i=0;i<open_convs.length;i++){
+			if(open_convs[i].iduser == emisor){
+				if($("#chat_conv_" + emisor).hasClass('maximizada')){
+					open_convs[i].maximizada = true;
+					$("#chat_conv_" + emisor).css({bottom:"530px"}); //importante, anula la class original
+				}else{
+					open_convs[i].maximizada = false;
+					$("#chat_conv_" + emisor).css("bottom",""); //usamos el valor de las class original
 				}
 			}
-			sessionStorage["open_convs"] = JSON.stringify(open_convs);
 		}
+		sessionStorage["open_convs"] = JSON.stringify(open_convs);
 	}
 }
 
 function chat_conv_cerrar(emisor) {
+	//Cerramos las ventanas
 	$("#chat_conv_" + emisor).remove();
 	$("#chat_conv_" + emisor+"_min").remove();
 	
@@ -359,28 +422,22 @@ function chat_conv_cerrar(emisor) {
 		var open_convs = JSON.parse(sessionStorage["open_convs"]);
 		open_convs_limpia = new Array();
 		for(i=0;i<open_convs.length;i++){
-			if(open_convs[i].iduser != emisor){
+			if(open_convs[i].iduser != emisor)
 				open_convs_limpia.push(open_convs[i]);
-			}
-			sessionStorage["open_convs"] = JSON.stringify(open_convs_limpia);
 		}
+		sessionStorage["open_convs"] = JSON.stringify(open_convs_limpia);
 	}
 }
 
 //Notificamos el mensaje nuevo para una conversacion minimizada o cerrada
 function new_message(emisor, nombre){
+	//TODO: probar parpadeo
+	
 	//Mostrar bocadillo verde
 	$("#chat_conv_" + emisor + "_min").find(".mensajes").show();
 	
 	//Animacion ventana minimizada
-	$("#chat_conv_" + emisor + "_min").animate({"bottom": "+=25px"}, 200);
-	$("#chat_conv_" + emisor + "_min").animate({"bottom": "-=25px"}, 200);
-		
-	$("#chat_conv_" + emisor + "_min").animate({"bottom": "+=12px"}, 300);
-	$("#chat_conv_" + emisor + "_min").animate({"bottom": "-=12px"}, 300);
-				
-	$("#chat_conv_" + emisor + "_min").animate({"bottom": "+=5px"}, 400);
-	$("#chat_conv_" + emisor + "_min").animate({"bottom": "-=5px"}, 400);
+	$("#chat_conv_" + emisor + "_min").effect( "bounce", "slow" );
 	
 	// Parpadeo title
 	if(document.hasFocus()==false){

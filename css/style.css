@@ -1179,6 +1179,7 @@ div.etiqueta_seleccionada {
 	position: relative;
 	right: 60px;
 	width: 300px;
+	display: none;
 }
 
 .chat_ventana .boton {
@@ -1218,17 +1219,17 @@ div.etiqueta_seleccionada {
 	width: 269px;
 }
 
-.chat_ventana.maximizado {
+.chat_ventana.maximizada {
 	width: 400px;
 	height: 500px;
-	bottom: 530px !important;
+	bottom: 530px;
 	margin-right: -417px !important;
 }
-.chat_ventana.maximizado #mensajes {
+.chat_ventana.maximizada #mensajes {
 	width: 400px;
 	height: 435px;
 }
-.chat_ventana.maximizado input {
+.chat_ventana.maximizada input {
 	width: 375px;
 }
 
@@ -1289,12 +1290,13 @@ div.etiqueta_seleccionada {
 
 .chat_ventana_min .mensajes {
 	background-image: url("../css/iconos3.png");
-	background-position: -177px -211px;
-	height: 10px;
+	background-position: -176px -211px;
+	display: none;
+	height: 11px;
 	left: 50px;
 	position: relative;
 	top: -60px;
-	width: 10px;
+	width: 11px;
 	z-index: 20;
 }
 
