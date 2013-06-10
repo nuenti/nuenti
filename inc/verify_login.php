@@ -3,7 +3,7 @@
 	require('inc/config.php');
 	
 	if(isset($_SESSION['idsesion'])) {
-		$login=mysqli_query($link,"SELECT *	FROM usuarios WHERE idsesion='".$_SESSION['idsesion']."'");
+		$login=mysqli_query($link,"SELECT *	FROM usuarios WHERE idsesion='".$_SESSION['idsesion']."' AND activacion = '1'");
 		
 		if(mysqli_num_rows($login)!=1){
 			header("Location: logout.php?auth_error");

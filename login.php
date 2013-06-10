@@ -1,12 +1,10 @@
 <?php
 session_start();
 require('inc/config.php');
-if(isset($_SESSION['idsesion']) AND !$_GET['activacion']) {
+
+if(isset($_SESSION['idsesion']) AND !$_GET['activacion'])
 	header("Location: inicio.php");
-}
-head("Login - Social");
-echo "<script type='text/javascript' src='jscripts/login_js.php'></script>";
-echo "<script type='text/javascript' src='jscripts/forms.js'></script>";
+
 
 if($_POST['email']){
 	//TODO: blowfish
@@ -22,8 +20,9 @@ if($_POST['email']){
 		// Log de acceso con IP & fecha
 		mysqli_query($link,"INSERT INTO accesos (usuarios_idusuarios, ip, fecha) VALUES ('{$r_login["idusuarios"]}','{$_SERVER["REMOTE_ADDR"]}',now())");
 		$_SESSION['idsesion']=$codigo_temp;
-		session_write_close();
+		
 		header( "Location: inicio.php" );
+		die();
 		// TODO: funcionalidad de URL al loguear.
 		// TODO: duracion de la sesion al cerrar la pagina
 
@@ -42,6 +41,10 @@ if($_POST['email']){
 	}
 	
 }
+
+head("Login - Social");
+echo "<script type='text/javascript' src='jscripts/login_js.php'></script>";
+echo "<script type='text/javascript' src='jscripts/forms.js'></script>";
 ?>
 <body id="seccion_login">
 		<h1><?php echo Sitio; ?></h1>
