@@ -198,6 +198,17 @@ if ($_POST['peticion_amistad_aceptar']) {
 	die();
 }
 
+if ($_POST['peticion_amistad_ignorar']) {
+	mysqli_query($link, "UPDATE peticiones SET ignorada = '1' WHERE emisor='" . $_POST['emisor'] . "' AND receptor='" . $global_idusuarios . "'");
+	error_mysql();
+	
+	// Notificacion
+	$notificacion = array("propietario" => $global_idusuarios, "tipo" => 'peticion');
+	notificacion($notificacion);
+
+	die();
+}
+
 
 
 ########	MENSAJERIA PRIVADA
