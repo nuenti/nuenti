@@ -29,7 +29,6 @@ header("Pragma: no-cache");
 	$global_idsesion=$usuario['idsesion'];
 
 // Settings
-//$targetDir = ini_get("upload_tmp_dir") . DIRECTORY_SEPARATOR . "plupload";
 $targetDir = "../user_fotos/".$global_idusuarios."-".limpia_texto($global_nombrefull);
 
 $cleanupTargetDir = true; // Remove old files
@@ -65,8 +64,11 @@ if ($chunks < 2 && file_exists($targetDir . DIRECTORY_SEPARATOR . $fileName)) {
 $filePath = $targetDir . DIRECTORY_SEPARATOR . $fileName;
 
 // Create target dir
-if (!file_exists($targetDir))
-	mkdir($targetDir, 0, true);
+if (!file_exists($targetDir)){
+	if(!mkdir($targetDir, 0777, true)){
+    	die('Fallo al crear carpetas...');
+	}
+}
 
 // Remove old temp files
 if ($cleanupTargetDir && is_dir($targetDir) && ($dir = opendir($targetDir))) {
