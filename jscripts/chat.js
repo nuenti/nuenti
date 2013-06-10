@@ -10,6 +10,7 @@ $(document).ready(function() {
 				//alert(JSON.stringify(open_convs));
 				for(i=0;i<open_convs.length;i++){
 					chat_conv_init(open_convs[i].iduser, open_convs[i].nombre, open_convs[i].img, "auto");
+					
 					//Cargamos los mensajes anteriores
 					chat_leer_prev(open_convs[i].iduser);
 					
@@ -21,6 +22,12 @@ $(document).ready(function() {
 					if(open_convs[i].activa == true){
 						$("#chat_conv_" + open_convs[i].iduser+"_min").addClass("activa");
 						$("#chat_conv_" + open_convs[i].iduser).show();
+					}
+					
+					// Tiene mensajes sin leer
+					if(open_convs[i].msg == true){
+						new_message(open_convs[i].iduser, open_convs[i].nombre, "auto");
+						
 					}
 				}
 			}
@@ -215,7 +222,7 @@ function chat_conv_show(emisor, modo) {
 	}
 	
 	if(modo == "normal"){
-		// Configuramos como abierta la ultima conversacion (o no)
+		// Configuramos como activa la ultima conversacion (o no)
 		if(typeof(Storage)!=="undefined"){
 			var open_convs = JSON.parse(sessionStorage["open_convs"]);
 
@@ -311,7 +318,7 @@ function chat_leer() {
 				
 				//si se reciben varios mensajes de golpe generar solo una alerta
 				if($.inArray(emisor, chats) == -1){
-					new_message(emisor, nombre);
+					new_message(emisor, nombre, "normal");
 				}
 				
 			// Conver activa
@@ -328,7 +335,7 @@ function chat_leer() {
 				
 				//si se reciben varios mensajes de golpe generar solo una alerta
 				if($.inArray(emisor, chats) == -1){
-					new_message(emisor, nombre);
+					new_message(emisor, nombre, "normal");
 				}
 			}
 			
@@ -435,31 +442,44 @@ function chat_conv_cerrar(emisor) {
 }
 
 //Notificamos el mensaje nuevo para una conversacion minimizada o cerrada
-function new_message(emisor, nombre){
+function new_message(emisor, nombre, modo){
 	//TODO: probar parpadeo
 	
 	//Mostrar bocadillo verde
 	$("#chat_conv_" + emisor + "_min").find(".mensajes").show();
 	
-	//Animacion ventana minimizada
-	$("#chat_conv_" + emisor + "_min").effect( "bounce", "slow" );
 	
-	// Parpadeo title
-	if(document.hasFocus()==false){
-		var title = document.title;
-		new_message_interval = setInterval(function() {
-			
-			if(document.title != title){
-				document.title = title;
-			}else{
-				document.title = nombre;
-			}
-			
-			if(document.hasFocus()==true){
-				clearInterval(new_message_interval);
-				document.title = title;
-			}		
-		}, 2000);
-	}
+	if(modo == "normal"){
 		
+		//Animacion ventana minimizada
+		$("#chat_conv_" + emisor + "_min").effect( "bounce", "slow" );
+		
+		// Parpadeo title
+		if(document.hasFocus()==false){
+			var title = document.title;
+			new_message_interval = setInterval(function() {
+				
+				if(document.title != title){
+					document.title = title;
+				}else{
+					document.title = nombre;
+				}
+				
+				if(document.hasFocus()==true){
+					clearInterval(new_message_interval);
+					document.title = title;
+				}		
+			}, 2000);
+		}
+		
+		//Seteamos la conv como no leida
+		if(typeof(Storage)!=="undefined"){
+			var open_convs = JSON.parse(sessionStorage["open_convs"]);
+			for(i=0;i<open_convs.length;i++){
+				if(open_convs[i].iduser == emisor)
+					open_convs[i].msg = true;
+			}
+			sessionStorage["open_convs"] = JSON.stringify(open_convs);
+		}
+	}
 }
