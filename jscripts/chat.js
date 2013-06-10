@@ -7,6 +7,7 @@ $(document).ready(function() {
 		if(typeof(Storage)!=="undefined"){
 			if (sessionStorage["open_convs"] ) {
 				var open_convs = JSON.parse(sessionStorage["open_convs"]);
+				//alert(JSON.stringify(open_convs));
 				for(i=0;i<open_convs.length;i++){
 					chat_conv_init(open_convs[i].iduser, open_convs[i].nombre, open_convs[i].img, "auto");
 					//Cargamos los mensajes anteriores
@@ -153,28 +154,26 @@ function chat_conv_init(iduser, nombre, img, modo) {
 			}
 			var open_convs = JSON.parse(sessionStorage["open_convs"]);
 			
-			new_conv = {
-				iduser:iduser,
-				nombre:nombre,
-				img:img,
-				activa:true,
-				maximizada:false
-			};
+			if(modo == "normal"){
+				new_conv = {
+					iduser:iduser,
+					nombre:nombre,
+					img:img,
+					activa:true,
+					maximizada:false
+				};
+			}else if(modo == "msg"){
+				new_conv = {
+					iduser:iduser,
+					nombre:nombre,
+					img:img,
+					activa:false,
+					maximizada:false
+				};
+			}
 			
 			open_convs.push(new_conv);
-			
-			//Evitamos valores duplicados
-			open_convs_limpia = new Array();
-			for(i=0;i<open_convs.length;i++){
-						repetido = false;
-						for(i2=0;i2<open_convs_limpia.length;i2++){
-							if(open_convs[i].iduser == open_convs_limpia[i2].iduser)
-								repetido = true;
-					}
-					if(repetido == false)
-						open_convs_limpia.push(open_convs[i]);
-			}
-			sessionStorage["open_convs"] = JSON.stringify(open_convs_limpia);
+			sessionStorage["open_convs"] = JSON.stringify(open_convs);
 		}
 	}
 }
