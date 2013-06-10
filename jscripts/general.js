@@ -1,3 +1,28 @@
+$(document).ready(function() {
+	
+	// Muestra y oculta los menús
+	$('#menu-altern ul li:has(ul)').hover(function(e) {
+		$(this).find('ul').fadeIn();
+	}, function(e) {
+		$(this).find('ul').fadeOut();
+	});
+
+	// Señala en el menu horizontal la pagina actual
+	var url = location.href.match(/[a-z0-9_-]{1,}.php/gi);
+	$("#menudrop").find("a").each(function() {
+		if ($(this).attr("href") == url) {
+			//alert(url);
+			$(this).css({
+				"color" : "white"
+			});
+			$(this).parent().css({
+				"background-color" : "#3869A0"
+			});
+		}
+	});
+}); 
+
+
 /*
  * AJAX_POST
  * PARAMETROS:
@@ -110,31 +135,3 @@ function online_keep() {
 		visible : false
 	});
 }
-
-$(document).ready(function() {
-	//Actualizando la ultima conexion
-	//TODO: Solo clientes logueados
-	online_keep();
-	timeOutOnlineKeep = window.setInterval(online_keep, 30000);
-	
-	// Muestra y oculta los menús
-	$('#menu-altern ul li:has(ul)').hover(function(e) {
-		$(this).find('ul').fadeIn();
-	}, function(e) {
-		$(this).find('ul').fadeOut();
-	});
-
-	// Señala en el menu horizontal la pagina actual
-	var url = location.href.match(/[a-z0-9_-]{1,}.php/gi);
-	$("#menudrop").find("a").each(function() {
-		if ($(this).attr("href") == url) {
-			//alert(url);
-			$(this).css({
-				"color" : "white"
-			});
-			$(this).parent().css({
-				"background-color" : "#3869A0"
-			});
-		}
-	});
-}); 

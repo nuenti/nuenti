@@ -26,8 +26,13 @@ $(document).ready(function() {
 		}
 	}
 });
+
 $(window).ready(function() {
 	if (chat_estado == 1) {
+		//Actualizando la ultima conexion
+		online_keep();
+		timeOutOnlineKeep = window.setInterval(online_keep, 30000);
+		
 		chat_leer();
 		timeOutChatLeer = window.setInterval(chat_leer, 5000);
 		chat_contactos();
@@ -113,6 +118,7 @@ function chat_conv_init(iduser, nombre, img, modo) {
 	}
 	
 	//Creamos una conversacion nueva
+	//TODO: estado del contacto
 	if ($("#chat_conv_" + iduser).length < 1) {
 		chat_ventana = "<div id='chat_conv_" + iduser + "_min' class='chat_ventana_min' onclick=\"chat_conv_show('" + iduser + "', 'normal')\">" +
 							"<img src='" + img + "' alt='" + nombre + "'/>" + 
