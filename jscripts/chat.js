@@ -1,13 +1,14 @@
 chat_mode_home = false;
 $(document).ready(function() {
 	//sessionStorage["open_convs"] = JSON.stringify([]);//TODO: fallo al recargar sesiones¿?
+	//var open_convs = JSON.parse(sessionStorage["open_convs"]);
+	//alert(JSON.stringify(open_convs));
 			
 	if (chat_estado == 1) {
 		// Auto iniciar conversaciones
 		if(typeof(Storage)!=="undefined"){
 			if (sessionStorage["open_convs"] ) {
 				var open_convs = JSON.parse(sessionStorage["open_convs"]);
-				//alert(JSON.stringify(open_convs));
 				for(i=0;i<open_convs.length;i++){
 					chat_conv_init(open_convs[i].iduser, open_convs[i].nombre, open_convs[i].img, "auto");
 					
@@ -86,6 +87,9 @@ function chat_turn(modo) {
 		timeOutChatLeer = window.clearInterval(timeOutChatLeer);
 		timeOutChatContactos = window.clearInterval(timeOutChatContactos);
 		chat_estado = 0;
+		
+		//Limpiar convs abiertas
+		sessionStorage["open_convs"] = JSON.stringify([]);
 	}
 }
 
@@ -145,43 +149,41 @@ function chat_conv_init(iduser, nombre, img, modo) {
 						"</div>";
 		
 		$("#chat_anclaje").append(chat_ventana);
-		if(modo == 'normal'){
+		if(modo == 'normal' || modo == "msg"){
 			chat_conv_show(iduser, 'normal');
+			
+			// Añadimos la conversacion a las existentes
+			if(typeof(Storage)!=="undefined"){
+				if (!sessionStorage["open_convs"] ) {
+					sessionStorage["open_convs"] = JSON.stringify([]);
+				}
+				var open_convs = JSON.parse(sessionStorage["open_convs"]);
+				
+				if(modo == "normal"){
+					new_conv = {
+						iduser:iduser,
+						nombre:nombre,
+						img:img,
+						activa:true,
+						maximizada:false
+					};
+				}else if(modo == "msg"){
+					new_conv = {
+						iduser:iduser,
+						nombre:nombre,
+						img:img,
+						activa:false,
+						maximizada:false
+					};
+				}
+				
+				open_convs.push(new_conv);
+				sessionStorage["open_convs"] = JSON.stringify(open_convs);
+			}
 		}
 	//Mostramos una conversacion existente
 	} else {
 		chat_conv_show(iduser, 'normal');
-	}
-	
-	if(modo == "normal" || modo == "msg"){		
-		// Añadimos la conversacion a las existentes
-		if(typeof(Storage)!=="undefined"){
-			if (!sessionStorage["open_convs"] ) {
-				sessionStorage["open_convs"] = JSON.stringify([]);
-			}
-			var open_convs = JSON.parse(sessionStorage["open_convs"]);
-			
-			if(modo == "normal"){
-				new_conv = {
-					iduser:iduser,
-					nombre:nombre,
-					img:img,
-					activa:true,
-					maximizada:false
-				};
-			}else if(modo == "msg"){
-				new_conv = {
-					iduser:iduser,
-					nombre:nombre,
-					img:img,
-					activa:false,
-					maximizada:false
-				};
-			}
-			
-			open_convs.push(new_conv);
-			sessionStorage["open_convs"] = JSON.stringify(open_convs);
-		}
 	}
 }
 
