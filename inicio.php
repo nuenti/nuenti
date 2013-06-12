@@ -60,22 +60,8 @@ require ("inc/estructura.inc.php");
 
 <div class="barra_centro_der">
 	<div class="marco" style="width: 717px;">
-		<h2>Lista de amigos</h2>
 		<?php
-		$query = mysqli_query($link, "
-			SELECT *
-			FROM amigos, usuarios
-			WHERE user1='" . $global_idusuarios . "' AND user2=idusuarios OR user2='" . $global_idusuarios . "' AND user1=idusuarios
-			");
-		if (mysqli_num_rows($query) > 0) {
-			//echo "Tienes ".mysqli_num_rows($query)." peticion(es) de amistad:<br>";
-			while ($row = mysqli_fetch_assoc($query)) {
-				//print_r($row);
-				echo $row['nombre'] . " " . $row['apellidos'] . " <a href='perfil.php?id=" . $row['idusuarios'] . "'>Ver perfil</a><br>";
-
-			}
-		}
-		require ("inc/novedades.inc.php");
+			require ("inc/novedades.inc.php");
 		?>
 	</div>
 	
