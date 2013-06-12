@@ -542,16 +542,23 @@ body#seccion_login input {
 }
 
 /************	NOVEDADES	*****************/
-div.novedad_user {
+#seccion_novedades .novedades {
+    left: 65px;
+    position: relative;
+    top: -15px;
+}
+
+#seccion_novedades div.user {
 	border-bottom: 1px solid #E5E5E5;
 	border-top: 1px solid #E5E5E5;
 	padding: 10px 0;
 }
-div.novedad_novedad {
+
+#seccion_novedades div.novedad {
 	line-height: 20px;
 }
 
-div.fecha_novedad {
+#seccion_novedades div.fecha {
 	font-size: 10px;
 	display: inline;
 }
@@ -908,7 +915,7 @@ div.etiqueta_seleccionada {
 
 .foto_come_titu > a {
 	color: #36679F;
-	font-size: 10px;
+	font-size: 14px;
 	vertical-align: top;
 }
 
