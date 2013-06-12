@@ -29,6 +29,7 @@ if ($perfil == "ajeno") {
 } else {
 	head("Perfil - Social");
 }
+echo "<script type='text/javascript' src='jscripts/perfil.js'></script>";
 echo "<body id='seccion_perfil'>";
 require ("inc/estructura.inc.php");
 ?>
@@ -42,8 +43,7 @@ require ("inc/estructura.inc.php");
 <div class="barra_centro_der" >
 	<?php
 	require 'inc/perfil/tablon.php';
-	?>
-	<?php
+	require 'inc/perfil/albums.php';
 	require 'inc/perfil/comentarios.php';
 	?>
 </div>

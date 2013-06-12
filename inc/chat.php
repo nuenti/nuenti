@@ -1,7 +1,7 @@
 <div id="chat_anclaje">
 <div id="chat_boton" onclick="chat_toggle()"></div>
 	<div id="chat_padre_contactos">
-		<h2>Chat</h2>
+		<h2 style="margin: 10px;">Chat</h2>
 			<div id="chat_opciones"  onclick="chat_opciones()">
 				<div id="chat_opciones_lista" class="marco_small">
 					<div id="chat_estado">

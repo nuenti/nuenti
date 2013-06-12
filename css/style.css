@@ -563,7 +563,7 @@ div.fecha_novedad {
 }
 #seccion_perfil h2 {
 	padding: 0;
-	margin: 0 0 10px;
+	margin: 0;
 }
 
 #seccion_perfil #comentario {
@@ -602,39 +602,47 @@ div.fecha_novedad {
 	font-weight: bold;
 	vertical-align: top;
 }
-/*******************	ALBUMS	***************/
-div.album {
+
+#seccion_perfil .album {
 	display: inline-block;
-	margin: 25px;
-	max-height: 300px;
-	padding: 7px;
+	margin: 0 15px;
+	max-height: 220px;
+	padding: 5px;
 	text-decoration: none;
 	vertical-align: top;
-	width: 375px;
+	width: 300px;
 }
 
-div.album .album_titulo a {
+#seccion_perfil div.album div.foto {
+	position: relative;
+}
+
+#seccion_perfil div.album div.foto a {
+	display: inline-block;
+}
+
+#seccion_perfil div.album .album_titulo a {
 	text-decoration: none;
 	display: inline-block;
 }
 
-div.album > a {
+#seccion_perfil div.album > a {
 	text-decoration: none;
 }
 
-img.album_cubierta {
+#seccion_perfil img.album_cubierta {
 	max-height: 140px;
 	max-width: 240px;
 	position: relative;
 }
 
-div.album_titulo {
+#seccion_perfil div.album_titulo {
 	border-bottom: 1px solid black;
 	margin-bottom: 5px;
 	text-align: center;
 }
 
-div.album_renombrar {
+#seccion_perfil div.album_renombrar {
 	background-image: url("../css/iconos3.png");
 	background-position: -246px -185px;
 	display: inline-block;
@@ -644,7 +652,70 @@ div.album_renombrar {
 	margin-left: 7px;
 	width: 15px;
 }
-div.album_borrar {
+#seccion_perfil div.album_borrar {
+	background-image: url("../css/iconos3.png");
+	background-position: -71px -342px;
+	background-repeat: no-repeat;
+	background-size: 395px 857px;
+	cursor: pointer;
+	display: inline-block;
+	height: 18px;
+	margin-left: 7px;
+	visibility: hidden;
+	width: 18px;
+}
+
+#seccion_perfil div.conectado {
+	background-position: -9px -812px;
+	background-image: url("../css/iconos3.png");
+	display: inline-block;
+	height: 8px;
+	margin: 0 4px;
+	width: 8px;
+}
+/*******************	ALBUMS	***************/
+#seccion_albums div.album {
+	display: inline-block;
+	margin: 25px;
+	max-height: 300px;
+	padding: 7px;
+	text-decoration: none;
+	vertical-align: top;
+	width: 375px;
+}
+
+#seccion_albums div.album .album_titulo a {
+	text-decoration: none;
+	display: inline-block;
+}
+
+#seccion_albums div.album > a {
+	text-decoration: none;
+}
+
+#seccion_albums img.album_cubierta {
+	max-height: 140px;
+	max-width: 240px;
+	position: relative;
+}
+
+#seccion_albums div.album_titulo {
+	border-bottom: 1px solid black;
+	margin-bottom: 5px;
+	text-align: center;
+}
+
+#seccion_albums div.album_renombrar {
+	background-image: url("../css/iconos3.png");
+	background-position: -246px -185px;
+	display: inline-block;
+	height: 15px;
+	visibility: hidden;
+	cursor: pointer;
+	margin-left: 7px;
+	width: 15px;
+}
+#seccion_albums div.album_borrar {
 	background-image: url("../css/iconos3.png");
 	background-position: -71px -342px;
 	background-repeat: no-repeat;
