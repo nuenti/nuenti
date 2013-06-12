@@ -1153,6 +1153,24 @@ div.etiqueta_seleccionada {
 }
 
 /*******************	CHAT	*****************/
+#chat #encabezado {
+	display: inline-block;    margin-bottom: 10px;
+}
+
+#chat #encabezado h2 {
+	display: inline-block;
+	width: 147px;
+}
+
+#chat #encabezado #desactivar {
+	display: inline-block;
+	background: url("iconos3.png") no-repeat scroll -85px -434px /473px 1085px transparent;
+	cursor: pointer;
+	height: 23px;
+	margin-left: 5px;
+	vertical-align: middle;
+	width: 22px;
+}
 
 #chat_anclaje {
 	bottom: 0;
@@ -1192,16 +1210,6 @@ div.etiqueta_seleccionada {
 	width: 200px;
 }
 
-#chat_opciones {
-	cursor: pointer;
-	background-image: url("../css/iconos4.png");
-	background-position: -102px -6px;
-	height: 12px;
-	position: relative;
-	right: -146px;
-	top: -25px;
-	width: 12px;
-}
 #chat_opciones_lista {
 	display: none;
 	left: -60px;

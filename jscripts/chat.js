@@ -65,7 +65,9 @@ function chat_turn(modo) {
 			data : "chat_estado=1",
 			visible : false
 		});
-		$("#chat_estado").html("<p style='cursor:pointer;' onclick=\"chat_turn('0')\">Desactivar Chat</p>");
+		
+		$("#chat #activar").hide();
+		$("#chat #encabezado").show();
 
 		chat_leer();
 		timeOutChatLeer = window.setInterval(chat_leer, 5000);
@@ -74,6 +76,9 @@ function chat_turn(modo) {
 
 		chat_estado = 1;
 	} else {
+		$("#chat #activar").show();
+		$("#chat #encabezado").hide();
+		
 		//Cerramos conversaciones activas
 		$(".chat_ventana,.chat_ventana_min").remove();
 		//Desactivamos el chat
@@ -82,8 +87,13 @@ function chat_turn(modo) {
 			visible : false
 		});
 		$("#chat_contactos").html("");
-		$("#chat_estado").html("<p style='cursor:pointer;' onclick='chat_turn(\"1\")'>Activar Chat</p>");
-
+		//$("#chat_estado").html("<p style='cursor:pointer;' onclick='chat_turn(\"1\")'>Activar Chat</p>");
+		
+		if (chat_mode_home != true) {
+			bottom = $("#chat_padre_contactos").height();
+			$("#chat_padre_contactos").css("bottom",bottom+30);
+		}
+		
 		timeOutChatLeer = window.clearInterval(timeOutChatLeer);
 		timeOutChatContactos = window.clearInterval(timeOutChatContactos);
 		chat_estado = 0;
@@ -102,6 +112,10 @@ function chat_contactos() {
 		}
 	}).done(function(msg) {
 		$("#chat_contactos").html(msg);
+		if (chat_mode_home != true) {
+			bottom = $("#chat_padre_contactos").height();
+			$("#chat_padre_contactos").css("bottom",bottom+30);
+		}
 	});
 }
 
