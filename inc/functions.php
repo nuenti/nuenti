@@ -117,18 +117,20 @@ function head($title = Sitio) {
 		<!DOCTYPE html>
 		<html lang='es'>
 			<head>
+				
 				<!-- METAS -->
 				<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
 				<meta name='Keywords' content='Social,red social,gratuito,asir'>
 				<meta name='Description' content='Proyecto de Red Social de 2 ASIR'>
 				 <meta name='author' content='Javier Gonzalez Rastrojo'>
+				
 				<!-- FAVICON -->
-				<link rel='shortcut icon' href='css/favicon.ico' />
-				<link rel='icon' href='css/favicon.ico' type='image/x-ico' />
-				<link rel='shortcut icon' href='css/favicon.ico' type='image/x-icon'>
+				<link rel='icon' href='css/favicon.png' sizes='16x16 32x32 64x64 289x289' type='image/png'>
+ 				 
 				<!-- CSS -->
 				<link rel='stylesheet' href='css/style.css' type='text/css' />
 				<link rel='stylesheet' href='jscripts/jquery-ui/css/redmond/jquery-ui-1.9.0.custom.css' type='text/css' />
+				
 				<!-- JS -->
 				<script type='text/javascript' src='jscripts/jquery-1.8.2.min.js'></script>
 				<script type='text/javascript' src='jscripts/jquery-ui/jquery-ui-1.9.0.js'></script>
