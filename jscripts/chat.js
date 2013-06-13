@@ -1,12 +1,20 @@
 chat_mode_home = false;
 $(document).ready(function() {
-	//sessionStorage["open_convs"] = JSON.stringify([]);//TODO: fallo al recargar sesiones¿?
-	//var open_convs = JSON.parse(sessionStorage["open_convs"]);
+	//sessionStorage["open_convs"] = JSON.stringify([]);
+	
+	//alert(sessionStorage["open_convs"]);
+	///open_convs = JSON.parse(sessionStorage["open_convs"]);
 	//alert(JSON.stringify(open_convs));
 			
 	if (chat_estado == 1) {
 		// Auto iniciar conversaciones
 		if(typeof(Storage)!=="undefined"){
+			
+			//Inicializamos la variable si no existe
+			if (sessionStorage["open_convs"]=="" || sessionStorage["open_convs"]=="undefined" || sessionStorage["open_convs"]==null) {
+				sessionStorage["open_convs"] = JSON.stringify([]);
+			}
+			
 			if (sessionStorage["open_convs"] ) {
 				var open_convs = JSON.parse(sessionStorage["open_convs"]);
 				for(i=0;i<open_convs.length;i++){
@@ -66,9 +74,12 @@ function chat_turn(modo) {
 			visible : false
 		});
 		
+		//Toggle buttons
 		$("#chat #activar").hide();
 		$("#chat #encabezado").show();
 
+		sessionStorage["open_convs"] = JSON.stringify([]);
+		
 		chat_leer();
 		timeOutChatLeer = window.setInterval(chat_leer, 5000);
 		chat_contactos();
@@ -76,18 +87,19 @@ function chat_turn(modo) {
 
 		chat_estado = 1;
 	} else {
+		//Toggle buttons
 		$("#chat #activar").show();
 		$("#chat #encabezado").hide();
 		
 		//Cerramos conversaciones activas
 		$(".chat_ventana,.chat_ventana_min").remove();
+		
 		//Desactivamos el chat
 		ajax_post({
 			data : "chat_estado=0",
 			visible : false
 		});
 		$("#chat_contactos").html("");
-		//$("#chat_estado").html("<p style='cursor:pointer;' onclick='chat_turn(\"1\")'>Activar Chat</p>");
 		
 		if (chat_mode_home != true) {
 			bottom = $("#chat_padre_contactos").height();
