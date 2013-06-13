@@ -61,8 +61,8 @@ if(mysqli_num_rows($q_users)>0){
 			if ($r_novedades['tipo'] == "foto_principal") {
 				$q_novedad = mysqli_query($link, "SELECT * FROM fotos, usuarios WHERE idfotos = {$r_novedades['datos']} AND idusuarios={$r_novedades['propietario']}");
 				echo mysqli_error($link);
-				$r_novedad = mysqli_fetch_assoc($q_novedad);
-				echo "cambi&oacute; su foto principal <div class='fecha'>" . fecha($r_novedades['fecha'], "now") . "</div><img src='" . $r_novedad['archivo'] . "' style='max-height:100px'>";
+				$r_novedad = mysqli_fetch_assoc($q_novedad);					
+				echo "cambi&oacute; su foto principal <div class='fecha'>" . fecha($r_novedades['fecha'], "now") . "</div><br><img src='" . $r_novedad['archivo'] . "' style='max-height:100px'>";
 			}
 	
 			if ($r_novedades['tipo'] == "estado") {

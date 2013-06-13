@@ -584,6 +584,7 @@ span.ayuda {
 
 #seccion_novedades div.novedad {
 	line-height: 20px;
+	max-width: 660px;
 }
 
 #seccion_novedades div.fecha {
