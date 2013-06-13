@@ -193,7 +193,9 @@ function chat_conv_init(iduser, nombre, img, modo) {
 		
 		$("#chat_anclaje").append(chat_ventana);
 		if(modo == 'normal' || modo == "msg"){
-			chat_conv_show(iduser, 'normal');
+			
+			if(modo == 'normal')
+				chat_conv_show(iduser, 'normal');
 			
 			// Añadimos la conversacion a las existentes
 			if(typeof(Storage)!=="undefined"){
