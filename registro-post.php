@@ -23,9 +23,9 @@ if(	(!$_POST['Nombre'] OR !$_POST['Apellidos'] OR !$_POST['contrasenia'] OR !$_P
 		</div>
 		<?php
 	}else{
-		if($_POST['Sexo']=="H"){
+		if($_POST['Sexo']=="h"){
 			$img_princ=1;
-		}elseif($_POST['Sexo']=="M"){
+		}elseif($_POST['Sexo']=="m"){
 			$img_princ=2;
 		}else{
 			$img_princ=NULL;
@@ -58,7 +58,8 @@ activar_cuenta=1&amp;codigo=".$codigo_activacion."</a><br><br>
 		}
 		
 		mysqli_query($link,"INSERT INTO usuarios (nombre, apellidos, fnac, password, email, fecha_reg, sexo, idfotos_princi, provincia, activacion)
-			values ( '".$_POST['Nombre']."', '".$_POST['Apellidos']."', '".$_POST['nacimiento_hidden']."', '".sha1($_POST['contrasenia'])."', '".$_POST['Email']."', now(), '".$_POST['Sexo']."', '{$img_princ}', '".$_POST['Provincia']."', '{$codigo_activacion}' )");
+			values ( '".$_POST['Nombre']."', '".$_POST['Apellidos']."', '".$_POST['nacimiento_hidden']."', '".sha1($_POST['contrasenia'])."',
+			 '".$_POST['Email']."', now(), '".$_POST['Sexo']."', '{$img_princ}', '".$_POST['Provincia']."', '{$codigo_activacion}' )");
 		error_mysql();
 		?>
 		<div class="centrar">

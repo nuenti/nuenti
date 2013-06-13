@@ -305,6 +305,8 @@ if ($_POST['foto_principal']) {
 if ($_POST['foto_borrar']) {
 	$result = mysqli_query($link, "SELECT * from fotos WHERE uploader='" . $global_idusuarios . "' AND idfotos='" . $_POST['foto_borrar'] . "'");
 	if (mysqli_num_rows($result) == 1) {
+		mysqli_query($link, "UPDATE usuarios SET idfotos_princi = '1' WHERE idfotos_princi = '" . $_POST['foto_borrar'] . "' AND sexo = 'h'");
+		mysqli_query($link, "UPDATE usuarios SET idfotos_princi = '2' WHERE idfotos_princi = '" . $_POST['foto_borrar'] . "' AND sexo = 'm'");
 		$result = mysqli_fetch_assoc($result);
 		unlink($result['archivo']);
 
