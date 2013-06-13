@@ -45,7 +45,7 @@
 		
 		####### FOTO	
 		echo "<div id='foto_marco_padre'><div id='foto_marco_medio' style='width:700px;'><div id='foto_marco'>";
-			echo "<img id='foto' style='max-width:700px;max-height:600px;' alt='".$r_fotos['titulo']."' src='".$r_fotos['archivo']."'";
+			echo "<img id='foto' style='max-width:700px;max-height:600px;cursor:pointer;' alt='".$r_fotos['titulo']."' src='".$r_fotos['archivo']."'";
 				if($r_fotos['siguiente']){
 					?>
 					onclick="location.href='<?php echo $navegar_siguiente; ?>'"

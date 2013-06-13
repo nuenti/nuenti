@@ -1213,6 +1213,7 @@ div.etiqueta_seleccionada {
 	bottom: 0;
 	position: fixed;
 	height: 55px;
+	z-index: 1;
 }
 
 #chat_boton {

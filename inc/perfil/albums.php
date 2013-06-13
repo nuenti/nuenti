@@ -3,7 +3,7 @@
 	<?php
 	
 	//Subidas
-	echo "<div class='album'><div class='album_titulo'><a href='fotos.php?iduser=" . $_GET['id'] . "&idalbum=subidas'>Fotos subidas</a></div>";
+	echo "<div class='album'><div class='album_titulo'><a href='album.php?iduser=" . $_GET['id'] . "&idalbum=subidas'>Fotos subidas</a></div>";
 	$fotos = mysqli_query($link,"SELECT * FROM fotos WHERE uploader='" . $_GET['id'] . "' ORDER BY idfotos DESC LIMIT 3");
 	if (mysqli_num_rows($fotos)) {
 		while ($row = mysqli_fetch_assoc($fotos)) {
@@ -15,7 +15,7 @@
 	echo "</div>";
 
 	//Etiquetadas
-	echo "<div class='album'><div class='album_titulo'><a href='fotos.php?id=" . $_GET['id'] . "&idalbum=etiquetadas'>Fotos etiquetadas</a></div>";
+	echo "<div class='album'><div class='album_titulo'><a href='album.php?iduser=" . $_GET['id'] . "&idalbum=etiquetadas'>Fotos etiquetadas</a></div>";
 	$fotos = mysqli_query($link,"SELECT * FROM fotos, etiquetas WHERE usuarios_idusuarios = '" . $_GET['id'] . "' AND idfotos = fotos_idfotos ORDER BY idfotos DESC LIMIT 3");
 	if (mysqli_num_rows($fotos)) {
 		while ($row = mysqli_fetch_assoc($fotos)) {
@@ -33,7 +33,7 @@
 		while ($row = mysqli_fetch_assoc($personalizados)) {
 			print("<div class='album'>
 					<div class='album_titulo'>
-						<a href='fotos.php?iduser=" . $_GET['id'] . "&idalbum=" . $row['idalbums'] . "'>" . $row['album'] . "</a>
+						<a href='album.php?iduser=" . $_GET['id'] . "&idalbum=" . $row['idalbums'] . "'>" . $row['album'] . "</a>
 						<div class='album_renombrar' onclick=\"album_renombrar('" . $row['idalbums'] . "','" . $row['album'] . "')\"></div>
 						<div class='album_borrar' onclick=\"album_borrar('" . $row['idalbums'] . "','" . $row['album'] . "')\"></div>
 					</div>");

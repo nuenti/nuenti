@@ -22,7 +22,7 @@ require ("inc/estructura.inc.php");
 	}
 
 	//Subidas
-	echo "<div class='album'><div class='album_titulo'><a href='fotos.php?iduser=" . $_GET['iduser'] . "&idalbum=subidas'>Fotos subidas</a></div>";
+	echo "<div class='album'><div class='album_titulo'><a href='album.php?iduser=" . $_GET['iduser'] . "&idalbum=subidas'>Fotos subidas</a></div>";
 	$fotos = mysqli_query($link,"SELECT * FROM fotos WHERE uploader='" . $_GET['iduser'] . "' ORDER BY idfotos DESC LIMIT 3");
 	if (mysqli_num_rows($fotos)) {
 		$bottom = 0;
@@ -39,7 +39,7 @@ require ("inc/estructura.inc.php");
 	echo "</div>";
 
 	//Etiquetadas
-	echo "<div class='album'><div class='album_titulo'><a href='fotos.php?iduser=" . $_GET['iduser'] . "&idalbum=etiquetadas'>Fotos etiquetadas</a></div>";
+	echo "<div class='album'><div class='album_titulo'><a href='album.php?iduser=" . $_GET['iduser'] . "&idalbum=etiquetadas'>Fotos etiquetadas</a></div>";
 	$fotos = mysqli_query($link,"SELECT * FROM fotos, etiquetas WHERE usuarios_idusuarios = '" . $_GET['iduser'] . "' AND idfotos = fotos_idfotos ORDER BY idfotos DESC LIMIT 3");
 	if (mysqli_num_rows($fotos)) {
 		$bottom = 0;
@@ -62,7 +62,7 @@ require ("inc/estructura.inc.php");
 		while ($row = mysqli_fetch_assoc($personalizados)) {
 			print("<div class='album'>
 					<div class='album_titulo'>
-						<a href='fotos.php?iduser=" . $_GET['iduser'] . "&idalbum=" . $row['idalbums'] . "'>" . $row['album'] . "</a>
+						<a href='album.php?iduser=" . $_GET['iduser'] . "&idalbum=" . $row['idalbums'] . "'>" . $row['album'] . "</a>
 						<div class='album_renombrar' onclick=\"album_renombrar('" . $row['idalbums'] . "','" . $row['album'] . "')\"></div>
 						<div class='album_borrar' onclick=\"album_borrar('" . $row['idalbums'] . "','" . $row['album'] . "')\"></div>
 					</div>");
