@@ -2,3 +2,4 @@
 .settings
 .*user_fotos
 user_fotos/*
+*Thumbs.db
