@@ -1,6 +1,6 @@
 <?php
 require ("inc/verify_login.php");
-head("Ajustes - Social");
+head("Ajustes");
 require ("inc/estructura.inc.php");
 ?>
 <div class="barra_izq">

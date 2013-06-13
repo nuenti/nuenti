@@ -25,9 +25,9 @@ $q_user = mysqli_query($link, $sql);
 $r_user = mysqli_fetch_assoc($q_user);
 
 if ($perfil == "ajeno") {
-	head(NombreApellido($r_user['nombre'] . " " . $r_user['apellidos']) . " - Social");
+	head(NombreApellido($r_user['nombre'] . " " . $r_user['apellidos']));
 } else {
-	head("Perfil - Social");
+	head("Perfil");
 }
 echo "<script type='text/javascript' src='jscripts/perfil.js'></script>";
 echo "<body id='seccion_perfil'>";

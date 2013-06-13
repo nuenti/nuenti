@@ -1,6 +1,6 @@
 <?php
 require ("inc/verify_login.php");
-head("Albums - Social");
+head("Albums");
 echo "<body id='seccion_albums'>";
 require ("inc/estructura.inc.php");
 ?>

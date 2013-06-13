@@ -1,8 +1,8 @@
 <?php
 require_once "inc/config.php";
-head();
+head("Terminos de uso");
 ?>
-<body>
+<body id="seccion_tos">
 	<style>
 		div.marco li {
 			margin-bottom:10px;

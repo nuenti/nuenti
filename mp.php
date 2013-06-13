@@ -2,15 +2,15 @@
 	require("inc/verify_login.php");
 	
 	if($_GET['modo'] == "enviar"){
-		head("MPs Enviar - Social");
+		head("MPs Enviar");
 		estructura("seccion_mp_enviar");
 		require("inc/mps/enviar.inc.php");
 	}elseif($_GET['modo'] == "recibidos" OR !$_GET['modo']){
-		head("MPs Recibidos - Social");
+		head("MPs Recibidos");
 		estructura("seccion_mp_recibidos");
 		require("inc/mps/recibidos.inc.php");
 	}elseif($_GET['modo'] == "enviados"){
-		head("MPs Enviados - Social");
+		head("MPs Enviados");
 		estructura("seccion_mp_enviados");
 		require("inc/mps/enviados.inc.php");
 	}

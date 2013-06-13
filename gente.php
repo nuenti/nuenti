@@ -1,6 +1,6 @@
 <?php
 	require("inc/verify_login.php");
-	head("Gente - Social");
+	head("Gente");
 	echo "<body id='seccion_gente'>";
 	require("inc/estructura.inc.php");
 ?>

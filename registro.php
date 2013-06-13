@@ -1,6 +1,6 @@
 <?php
 require ('inc/config.php');
-head("Registro - Social");
+head("Registro");
 ?>
 <script type="text/javascript" src="jscripts/registro_js.php"></script>
 <script type="text/javascript" src="jscripts/forms.js"></script>

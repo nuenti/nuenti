@@ -1,6 +1,6 @@
 <?php
 require ("inc/verify_login.php");
-head("Fotos - Social");
+head("Fotos");
 echo "<script type='text/javascript' src='jscripts/foto_edicion.js'></script>";
 echo "<script type='text/javascript' src='jscripts/foto_visualizador.js'></script>";
 echo "<body id='seccion_fotos'>";

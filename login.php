@@ -42,7 +42,7 @@ if($_POST['email']){
 	
 }
 
-head("Login - Social");
+head("Login");
 echo "<script type='text/javascript' src='jscripts/login_js.php'></script>";
 echo "<script type='text/javascript' src='jscripts/forms.js'></script>";
 ?>

@@ -2,7 +2,7 @@
 
 //TODO: Pulir estetica
 require ("inc/verify_login.php");
-head("Subir fotos - Social");
+head("Subir fotos");
 require ("upload/subida.html");
 ?>
 </head>
