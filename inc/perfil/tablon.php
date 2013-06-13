@@ -25,7 +25,7 @@
 					
 		<div class="input">
 			<span>
-				<input id="estado" name="estado" placeholder="Escribe algo sobre ti" type="text" value="<?php echo $estado; ?>" size='80' maxlength='40' autofocus>
+				<input id="estado" name="estado" placeholder="Escribe algo sobre ti" type="text" value="<?php echo $estado; ?>" size='80' maxlength='40'>
 			</span>
 		</div>
 		<button type='button' class="azul" onclick="estado_cambiar(estado_ori)"><span><b>Cambiar</b></span></button>
