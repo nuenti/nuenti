@@ -178,7 +178,8 @@ function chat_conv_init(iduser, nombre, img, modo) {
 							"<div class='mensajes'></div>" + 
 						"</div>" + 
 						"<div id='chat_conv_" + iduser + "' class='chat_ventana' iduser='" + iduser + "'>" +
-							"<div class='estado_conexion'></div>"+ nombre + 
+							"<div class='estado_conexion'></div>"+
+							"<a class='link' href='perfil.php?id=" + iduser + "'>" + nombre + "</a>" + 
 							"<div class='boton cerr' onclick=\"chat_conv_cerrar('" + iduser + "')\"></div>" + 
 							"<div class='boton max' onclick=\"chat_conv_resize('" + iduser + "')\"></div>" + 
 							"<div class='boton mini' onclick=\"chat_conv_mini('" + iduser + "')\"></div>" + 
