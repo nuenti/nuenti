@@ -405,6 +405,21 @@ span.ayuda {
 	box-shadow: 2px 2px 3px black;
 }
 
+#menudrop div.icono {
+	display: inline-block;
+	float: left;
+	margin: 1px -5px 1px 1px;
+	padding: 0;
+}
+
+#menudrop div.icono img {
+	cursor: pointer;
+	display: inherit;
+	margin: 0;
+	padding: 0;
+	width: 23px;
+}
+
 #menudrop li {
 	float: left;
 	margin-left: 10px;
