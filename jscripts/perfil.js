@@ -1,4 +1,4 @@
-$(window).ready(function(){
+$(window).load(function(){
 	
 	//Fotos del album
 	$("div.album").each(function(){
