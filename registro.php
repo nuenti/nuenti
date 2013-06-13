@@ -104,7 +104,7 @@ head("Registro");
 							<td colspan="2" style="text-align: center;">
 								<div class="checkbox">
 									<input type="checkbox" id="checkbox_tos" name="tos" class="validable" value="tos_yes">
-									<label for="checkbox_tos" name="tos">Acepto los <a href="post.php?tos=1" target="_blank">terminos de uso</a></label>
+									<label for="checkbox_tos" name="tos">Acepto los <a href="otros.php?tos=1" target="_blank">terminos de uso</a></label>
 								</div>
 							</td>
 						</tr>
