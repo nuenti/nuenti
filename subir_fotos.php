@@ -37,7 +37,26 @@ require ("upload/subida.html");
 				}else{
 					mysqli_query($link,"INSERT INTO novedades (fecha,tipo, propietario, datos) VALUES (now(),'subida_fotos','{$global_idusuarios}','{$count}')");
 				}
-				echo "Fotos subidas con exito<br><br>";
+				?>
+				
+				<div class='centrar' style='color: green;font-style: italic;font-weight: bold;'>
+					Fotos subidas con exito, puedes verlas en tus <a href='albums.php' class='link'>albums</a>
+				</div><br><br>
+				<script>
+					$(window).load(function(){
+						$("body").append("<div id='ajax_cargando_padre'><div id='ajax_cargando' class='ajax_ok'><img src='css/ok.png'></div></div>");
+						$("#ajax_cargando_padre").fadeIn(function() {
+							setTimeout(function() {
+								$("#ajax_cargando").fadeOut("slow");
+							}, 2000);
+						});
+						$("#ajax_cargando").click(function(){
+							$(this).remove();
+						});
+					});
+				</script>
+				
+				<?php
 			} else {
 				echo "Faltan las imagenes<br><br>";
 			}
