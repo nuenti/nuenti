@@ -213,3 +213,7 @@
 			</form>
 	</div>
 </div>
+
+<?php
+require ("inc/chat.php");
+?>

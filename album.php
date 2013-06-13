@@ -2,6 +2,7 @@
 require ("inc/verify_login.php");
 head("Albums");
 require ("inc/estructura.inc.php");
+require ("inc/chat.php");
 ?>
 <div class="barra_full">
 	<div class="marco">

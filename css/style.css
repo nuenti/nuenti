@@ -1296,6 +1296,7 @@ div.etiqueta_seleccionada {
 	right: 60px;
 	width: 300px;
 	display: none;
+	z-index: 5;
 }
 
 .chat_ventana .boton {

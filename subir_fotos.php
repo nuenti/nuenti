@@ -94,5 +94,8 @@ require ("upload/subida.html");
 			<button type='submit' class="azul"><span><b>Subir fotos</b></span></button>
 		</form>
 
+<?php
+require ("inc/chat.php");
+?>
 </body>
 </html>

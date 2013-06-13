@@ -1,18 +1,20 @@
 <?php
 require ("inc/verify_login.php");
+
+if (!$_GET['idalbum']) 
+	header("inicio.php?noidalbum");
+
 head("Fotos");
 echo "<script type='text/javascript' src='jscripts/foto_edicion.js'></script>";
 echo "<script type='text/javascript' src='jscripts/foto_visualizador.js'></script>";
 echo "<body id='seccion_fotos'>";
 require ("inc/estructura.inc.php");
+require ("inc/chat.php");
 
 if (!$_GET['iduser']) {
 	$_GET['iduser'] = $global_idusuarios;
 }
 
-if (!$_GET['idalbum']) {
-	die("no idalbum");
-}
 if (!$_GET['idfotos']) {
 	$_GET['idfotos'] = "999999999";
 }

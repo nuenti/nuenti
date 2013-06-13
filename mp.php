@@ -15,10 +15,12 @@
 		require("inc/mps/enviados.inc.php");
 	}
 	
+
 	function estructura($seccion){
 		global $link;
 		echo "<body id='{$seccion}'>";
 		require("inc/estructura.inc.php");
+		require ("inc/chat.php");
 		print "<div class='barra_izq'>
 					<div class='marco_small lista_enlaces' style='padding: 0;'>
 						<ul>
