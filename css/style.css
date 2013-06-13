@@ -1300,6 +1300,28 @@ div.etiqueta_seleccionada {
 	z-index: 5;
 }
 
+.chat_ventana div.estado_conexion {
+	vertical-align: top;
+	display: inline-block;
+}
+
+.chat_ventana div.conectado {
+	background-position: -9px -812px;
+	background-image: url("../css/iconos3.png");
+	display: inline-block;
+	height: 8px;
+	margin: 0 4px;
+	width: 8px;
+}
+.chat_ventana div.desconectado {
+	background-position: -154px -812px;
+	background-image: url("../css/iconos3.png");
+	display: inline-block;
+	height: 8px;
+	margin: 0 4px;
+	width: 8px;
+}
+
 .chat_ventana .boton {
 	cursor: pointer;
 	float: right;

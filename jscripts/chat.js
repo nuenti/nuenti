@@ -128,6 +128,21 @@ function chat_contactos() {
 			bottom = $("#chat_padre_contactos").height();
 			$("#chat_padre_contactos").css("bottom",bottom+30);
 		}
+		
+		//Actualizar estado conexion
+		$(".chat_ventana").each(function(){
+			//alert($(this).attr("id").match(/[0-9]{1,}/gim)[0]);
+			id = $(this).attr("id").match(/[0-9]{1,}/gim)[0];
+			
+			if($("#chat_contactos").find("li").filter(function(index) {
+					expr = "chat_conv_init\\('" + id;
+					return $(this).attr("onclick").search(expr) != -1;
+				}).find("div").hasClass("conectado")){
+				$(this).find(".estado_conexion").html("<div class='conectado'></div>");
+			}else{
+				$(this).find(".estado_conexion").html("<div class='desconectado'></div>");
+			}
+		});
 	});
 }
 
@@ -162,7 +177,8 @@ function chat_conv_init(iduser, nombre, img, modo) {
 							"<img src='" + img + "' alt='" + nombre + "'/>" + 
 							"<div class='mensajes'></div>" + 
 						"</div>" + 
-						"<div id='chat_conv_" + iduser + "' class='chat_ventana' iduser='" + iduser + "'>" + nombre + 
+						"<div id='chat_conv_" + iduser + "' class='chat_ventana' iduser='" + iduser + "'>" +
+							"<div class='estado_conexion'></div>"+ nombre + 
 							"<div class='boton cerr' onclick=\"chat_conv_cerrar('" + iduser + "')\"></div>" + 
 							"<div class='boton max' onclick=\"chat_conv_resize('" + iduser + "')\"></div>" + 
 							"<div class='boton mini' onclick=\"chat_conv_mini('" + iduser + "')\"></div>" + 
@@ -206,6 +222,8 @@ function chat_conv_init(iduser, nombre, img, modo) {
 				open_convs.push(new_conv);
 				sessionStorage["open_convs"] = JSON.stringify(open_convs);
 			}
+			//Para detectar estado de conexion
+			chat_contactos();
 		}
 	//Mostramos una conversacion existente
 	} else {
