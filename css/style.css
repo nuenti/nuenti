@@ -971,7 +971,7 @@ div.etiqueta_seleccionada {
 	max-height: 30px;
 	vertical-align: middle;
 }
-#seccion_mp_enviar textarea[name='mensaje'] {
+#seccion_mp_enviar textarea[name='mensaje_mp'] {
 	min-height: 60px;
 	min-width: 650px;
 	max-width: 650px;

@@ -5,13 +5,13 @@
 		if(!$_GET['receptor']){
 			$Validador->SetInput(array('name' => 'receptor', 'alias' => 'Destinatario', 'obligatorio' => 'si'));
 		}
-		$Validador->SetInput(array('name' => 'mensaje', 'alias' => 'Mensaje', 'min' => '1'));
+		$Validador->SetInput(array('name' => 'mensaje_mp', 'alias' => 'Mensaje', 'min' => '1'));
 		$Validador->GeneraValidadorJS();
 	?>
 		function mp_enviar(){
 			if(validador()=="form_ok"){
 				receptor=$("input[name='receptor_id']").val();
-				mensaje=$("textarea[name='mensaje']").val();
+				mensaje=$("textarea[name='mensaje_mp']").val();
 				
 				ajax_post({
 					data : "mp_enviar=1&receptor=" + receptor + "&mensaje=" + mensaje,
@@ -129,7 +129,7 @@
 	Mensaje:<br>
 	<div class="input">
 		<span>
-			<textarea name="mensaje" class="validable" placeholder="Escribele tu mensaje aqui"></textarea>
+			<textarea name="mensaje_mp" class="validable" placeholder="Escribele tu mensaje aqui"></textarea>
 		</span>
 	</div>
 	<button type='button' class="azul" onclick="mp_enviar();"><span><b>Enviar</b></span></button>

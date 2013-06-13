@@ -215,7 +215,7 @@ if ($_POST['peticion_amistad_ignorar']) {
 
 if ($_POST['mp_enviar']) {
 	// Insertar mensaje
-	mysqli_query($link, "INSERT INTO mps (emisor,receptor,mp,fecha) VALUES ('{$global_idusuarios}','{$_POST['receptor']}','{$_POST['mensaje']}',now())");
+	mysqli_query($link, "INSERT INTO mps (emisor,receptor,mp,fecha) VALUES (\"{$global_idusuarios}\",\"{$_POST['receptor']}\",\"".mysqli_real_escape_string($link, $_POST['mensaje'])."\", now())");
 	
 	// Notificacion
 	$notificacion = array("propietario" => $_POST['receptor'], "tipo" => 'mp');
@@ -386,7 +386,7 @@ if ($_POST['chat_estado']!="") {
 }
 
 if ($_POST['chat_enviar']) {
-	mysqli_query($link, "INSERT INTO chat (emisor,receptor,mensaje,fecha) VALUES ('" . $global_idusuarios . "','" . $_POST['receptor'] . "','" . $_POST['mensaje'] . "',now())");
+	mysqli_query($link, "INSERT INTO chat (emisor,receptor,mensaje,fecha) VALUES (\"" . $global_idusuarios . "\",\"" .mysqli_real_escape_string($link, $_POST['receptor']) . "\",\"" . $_POST['mensaje'] . "\",now())");
 	error_mysql();
 	$idchat = mysqli_insert_id($link);
 	echo $idchat;

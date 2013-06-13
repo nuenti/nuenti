@@ -31,7 +31,7 @@
 							</a>
 						</div>
 						<div class='datos'>
-							<div class='nombre'><a href='perfil.php?id={$r_mensajes['emisor']}'>{$nombre_apellido}</a></div>
+							<div class='nombre'><a class='link' href='perfil.php?id={$r_mensajes['emisor']}'>{$nombre_apellido}</a></div>
 							<div class='fecha'>".utf8_encode($r_mensajes['fechaf'])."</div><br>
 							<div class='resumen'>{$resumen_mp}</div>
 						</div>
