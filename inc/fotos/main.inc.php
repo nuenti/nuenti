@@ -26,7 +26,7 @@
 			tecla_ultima = "<?php echo $navegar_ultima; ?>";
 		</script>
 		
-		<div class="barra_izq_centro" style="height: 600px !important;">
+		<div class="barra_izq_centro">
 			<div class="marco">
 		<?php
 		###### TITULO FOTO
