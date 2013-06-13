@@ -15,6 +15,7 @@ body {
 
 .link {
 	color: #3869A0;
+	text-decoration: none;
 }
 
 h2.encabezado {
@@ -86,6 +87,18 @@ div.error_ajustable {
 	padding: 15px;
 	margin: auto auto 30px;
 	background-color: #FFDDDD;
+	vertical-align: middle;
+	border-radius: 10px;
+	box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.2), 0 6px 5px -5px rgba(0, 0, 0, 0.5) inset;
+}
+
+div.ok_ajustable {
+	text-align: left;
+	display: inline-block;
+	border: 2px solid green;
+	padding: 15px;
+	margin: auto auto 30px;
+	background-color: #60D160;
 	vertical-align: middle;
 	border-radius: 10px;
 	box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.2), 0 6px 5px -5px rgba(0, 0, 0, 0.5) inset;
