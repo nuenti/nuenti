@@ -47,9 +47,13 @@ echo "<script type='text/javascript' src='jscripts/login_js.php'></script>";
 echo "<script type='text/javascript' src='jscripts/forms.js'></script>";
 ?>
 <body id="seccion_login">
-		<h1><?php echo Sitio; ?></h1>
-		
-		<?php
+		<div class="centrar">
+			<div id="titulo">
+				<img src="css/logosocial.png">
+				<h1><?php echo Sitio; ?></h1>
+			</div>
+			
+			<?php
 			if($error){
 				echo "<div class='centrar'><div class='error_ajustable'>";
 				if($error == "datos"){
@@ -59,8 +63,7 @@ echo "<script type='text/javascript' src='jscripts/forms.js'></script>";
 				}
 				echo "</div></div>";
 			}
-		?>		
-		<?php
+			
 			if($_GET['activacion']){
 				echo "<div class='centrar'><div class='error_ajustable'>";
 				if($_GET['activacion'] == "ok"){
@@ -70,8 +73,7 @@ echo "<script type='text/javascript' src='jscripts/forms.js'></script>";
 				}
 				echo "</div></div>";
 			}
-		?>			
-		<div class="centrar">
+			?>	
 				<form id='form_login' method='POST' action='login.php'>
 					Email: 					
 						<div class="input">

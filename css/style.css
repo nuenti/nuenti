@@ -489,15 +489,28 @@ span.ayuda {
 }
 /************	LOGIN	**********************/
 
-body#seccion_login h1 {
+#seccion_login #titulo {
 	text-align: center;
-	font-size: 80px;
+	display: inline-block;
+	width: 100%;
+	margin: 66px 0px;
+	word-spacing: 30px;
+}
+#seccion_login #titulo img {
+	display: inline;
+	max-width: 100px;
+	vertical-align: bottom;
+	border-radius: 39px 38px 12px 37px;
+	box-shadow: 2px 2px 5px black;
+}
+#seccion_login #titulo h1 {
 	color: #F0F0F0;
-	text-shadow: 2px 5px 20px black;
-	margin-bottom: 90px;
+	display: inline;
+	font-size: 80px;
+	text-shadow: 2px 2px 3px black;
 }
 
-body#seccion_login form {
+#seccion_login form {
 	text-align: center !important;
 	padding: 15px;
 	margin: 0px auto 0 auto;
@@ -510,7 +523,7 @@ body#seccion_login form {
 	display: inline-block;
 }
 
-body#seccion_login input {
+#seccion_login input {
 	width: 200px;
 }
 
@@ -543,9 +556,9 @@ body#seccion_login input {
 
 /************	NOVEDADES	*****************/
 #seccion_novedades .novedades {
-    left: 65px;
-    position: relative;
-    top: -15px;
+	left: 65px;
+	position: relative;
+	top: -15px;
 }
 
 #seccion_novedades div.user {
@@ -1161,7 +1174,8 @@ div.etiqueta_seleccionada {
 
 /*******************	CHAT	*****************/
 #chat #encabezado {
-	display: inline-block;    margin-bottom: 10px;
+	display: inline-block;
+	margin-bottom: 10px;
 }
 
 #chat #encabezado h2 {
