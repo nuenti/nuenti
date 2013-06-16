@@ -57,7 +57,9 @@ echo "<script type='text/javascript' src='jscripts/forms.js'></script>";
 			if($error){
 				echo "<div class='centrar'><div class='error_ajustable'>";
 				if($error == "datos"){
-					echo "El email o la contraseña introducidos son incorrectos";
+					print "El email o la contraseña introducidos son incorrectos.<br>
+							<a href='otros.php?restore_pass=1'>¿Quieres recuperar la contrase&ntilde;a?</a>
+						";
 				}elseif($error == "activacion"){
 					echo "La cuenta no est&aacute; activada a&uacute;n, revisa tu cuenta de email";
 				}
@@ -65,13 +67,13 @@ echo "<script type='text/javascript' src='jscripts/forms.js'></script>";
 			}
 			
 			if($_GET['activacion']){
-				echo "<div class='centrar'><div class='error_ajustable'>";
 				if($_GET['activacion'] == "ok"){
-					echo "La cuenta se ha activado correctamente, ahora puedes entrar con tus datos";
+					echo "<div class='centrar'><div class='ok_ajustable'>La cuenta se ha activado correctamente, ahora puedes entrar con tus datos</div></div>";
 				}elseif($_GET['activacion'] == "fail"){
-					echo "La activacion de la cuenta ha fallado";
+					echo "<div class='centrar'><div class='error_ajustable'>La activacion de la cuenta ha fallado</div></div>";
+				}elseif($_GET['activacion'] == "fail_email"){
+					print "<div class='centrar'><div class='error_ajustable'>Se ha producido un error al enviar el correo</div></div>";
 				}
-				echo "</div></div>";
 			}
 			?>	
 				<form id='form_login' method='POST' action='login.php'>

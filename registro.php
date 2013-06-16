@@ -11,7 +11,7 @@ head("Registro");
 			<a href="login.php">Login</a>
 		</li>
 		<li>
-			<a href="contacto.php">Contacto</a>
+			<a href="otros.php?contacto=1">Contacto</a>
 		</li>
 	</ul>
 
@@ -28,14 +28,14 @@ head("Registro");
 	<div class="centrar">
 		<div class="marco">
 			<div id="error_ajustable"></div>
-				<form name="registro" method='post' action='registro.php' autocomplete="off">
+				<form name="registro" method='post' action='registro.php'>
 					<table>
 						<tr>
 							<td> Nombre </td>
 							<td>
 							<div class="input">
 								<span>
-									<input id="Nombre" name="Nombre" class="validable" type="text" value="<?php echo $_POST['Nombre']; ?>" autocomplete="off" placeholder="Nombre">
+									<input id="Nombre" name="Nombre" class="validable" type="text" value="<?php echo $_POST['Nombre']; ?>" placeholder="Nombre">
 								</span>
 							</div></td>
 						</tr>
@@ -44,7 +44,7 @@ head("Registro");
 							<td>
 							<div class="input">
 								<span>
-									<input id="Apellidos" name="Apellidos" class="validable" type="text" value="<?php echo $_POST['Apellidos']; ?>" autocomplete="off" placeholder="Apellidos">
+									<input id="Apellidos" name="Apellidos" class="validable" type="text" value="<?php echo $_POST['Apellidos']; ?>" placeholder="Apellidos">
 								</span>
 							</div></td>
 						</tr>
@@ -53,7 +53,7 @@ head("Registro");
 							<td>
 							<div class="input">
 								<span>
-									<input id="contrasenia" name="contrasenia" class="validable" type="password" value="" autocomplete="off" placeholder="Contrase&ntilde;a">
+									<input id="contrasenia" name="contrasenia" class="validable" type="password" value="" placeholder="Contrase&ntilde;a">
 								</span>
 							</div></td>
 						</tr>
@@ -62,7 +62,7 @@ head("Registro");
 							<td>
 							<div class="input">
 								<span>
-									<input id="Email" name="Email" class="validable" type="text" value="<?php echo $_POST['Email']; ?>" autocomplete="off" placeholder="Email">
+									<input id="Email" name="Email" class="validable" type="text" value="<?php echo $_POST['Email']; ?>" placeholder="Email">
 								</span>
 							</div></td>
 
@@ -72,8 +72,8 @@ head("Registro");
 							<td>
 								<div class="input">
 									<span>
-										<input id="nacimiento" name="nacimiento" class="validable" type="text" value="<?php echo $_POST['nacimiento']; ?>" autocomplete="off">
-										<input id="nacimiento_hidden" name="nacimiento_hidden" type="text" style="display:none;" value="<?php echo $_POST['nacimiento_hidden']; ?>" autocomplete="off" placeholder="Fecha nacimiento">
+										<input id="nacimiento" name="nacimiento" class="validable" type="text" value="<?php echo $_POST['nacimiento']; ?>">
+										<input id="nacimiento_hidden" name="nacimiento_hidden" type="text" style="display:none;" value="<?php echo $_POST['nacimiento_hidden']; ?>" placeholder="Fecha nacimiento">
 									</span>
 								</div>
 							</td>
@@ -104,7 +104,7 @@ head("Registro");
 							<td colspan="2" style="text-align: center;">
 								<div class="checkbox">
 									<input type="checkbox" id="checkbox_tos" name="tos" class="validable" value="tos_yes">
-									<label for="checkbox_tos" name="tos">Acepto los <a href="post.php?tos=1" target="_blank">terminos de uso</a></label>
+									<label for="checkbox_tos" name="tos">Acepto los <a href="otros.php?tos=1" target="_blank">terminos de uso</a></label>
 								</div>
 							</td>
 						</tr>

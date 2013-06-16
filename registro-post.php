@@ -45,10 +45,10 @@ $mensaje = "
 margin: 10px;padding:20px;text-align:left;font-size:15px;\">
 Hola ".$_POST['Nombre'].", has iniciado el proceso de registro en ".Sitio.".<br>
 Para completarlo, visita la siguiente direccion:<br>
-<a href=\"http://".Sitio_direccion."/post.php?activar_cuenta=1&amp;
-codigo=".$codigo_activacion."\">http://".Sitio_direccion."/post.php?
-activar_cuenta=1&amp;codigo=".$codigo_activacion."</a><br><br>
-<center><i style=\"font-size:12px; color: grey;\">".Sitio." (c)</i></center>
+<a href=\"http://".Sitio_direccion."/otros.php?activar_cuenta=1&amp;
+codigo=".$codigo_activacion."\">
+http://".Sitio_direccion."/otros.php?activar_cuenta=1&amp;codigo=".$codigo_activacion."</a>
+<br><br><center><i style=\"font-size:12px; color: grey;\">".Sitio." (c)</i></center>
 </div>
 </body></html>";
 

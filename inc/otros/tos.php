@@ -12,7 +12,7 @@ head("Terminos de uso");
 		<li><a href="login.php">Login</a></li>
 		<li><a href="inicio.php">Inicio</a></li>
 		<li><a href="registro.php">Registro</a></li>
-		<li><a href="contacto.php">Contacto</a></li>
+		<li><a href="otros.php?contacto=1">Contacto</a></li>
 	</ul>
 
 	<h2 class="encabezado">Decálogo de Condiciones de <?php echo Sitio; ?></h2>
