@@ -82,6 +82,8 @@ function foto_principal() {
 
 function foto_borrar() {
 	ajax_post({
-		data : "foto_borrar=" + idfoto
+		data : "foto_borrar=" + idfoto,
+		nextUrl : "fotos.php" + tecla_siguiente,
+		reload : false
 	});
 }

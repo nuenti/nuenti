@@ -92,7 +92,7 @@ function ajax_post(p) {
 
 			if (p.nextUrl)
 				window.setTimeout((function() {
-					window.location = nextUrl;
+					window.location = p.nextUrl;
 				}), 1000);
 
 		} else if (msg == "ERROR") {

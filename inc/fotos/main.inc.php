@@ -81,9 +81,9 @@
 		<div class="error_ajustable">
 		<?php
 		if($_GET['iduser']==$global_idusuarios){
-			if($_GET['idalbums']=='subidas'){
+			if($_GET['idalbum']=='subidas'){
 				echo "No has subido ninguna foto";
-			}elseif($_GET['idalbums']=='etiquetadas'){
+			}elseif($_GET['idalbum']=='etiquetadas'){
 				echo "No estas etiquetado en ninguna foto";
 			}else{
 				echo "Este album todavia no contiene ninguna fotografia";
