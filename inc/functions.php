@@ -246,7 +246,7 @@ function novedades($novedad){
 
 function email_send($destinatario_name, $destinatario_email, $titulo, $mensaje){
 	 $TextMessage = strip_tags(nl2br($mensaje), "<br>");
-	 $HTMLMessage = nl2br($mensaje);
+	 $HTMLMessage = $mensaje;
 	 	
 	$boundary = rand(0, 9) . "-" . rand(10000000000, 9999999999) . "-" . rand(10000000000, 9999999999) . "=:" . rand(10000, 99999);
 	
