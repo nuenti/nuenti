@@ -98,7 +98,7 @@ echo "<script type='text/javascript' src='jscripts/forms.js'></script>";
 		<div id="creditos">
 			<div>
 				<p>Social &copy; 2012 - 2013</p>
-				<p>Social Inc.&#8482;</p>
+				<p>Javier González Rastrojo</p>
 			</div>
 		</div>
 </body>
