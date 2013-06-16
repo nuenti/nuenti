@@ -1461,6 +1461,22 @@ div.etiqueta_seleccionada {
 	width: 40px;
 }
 
+
+/*******************	CONTACTO	****************/
+
+#seccion_contacto div.input input{
+	width: 400px;
+	
+}
+
+#seccion_contacto div.input textarea{
+    min-height: 150px;
+    min-width: 890px;
+    width: 890px;
+    max-width: 890px;
+	
+}
+
 /*******************	VALIDACION	****************/
 
 .input_error {

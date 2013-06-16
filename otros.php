@@ -1,6 +1,12 @@
 <?php
 require ('inc/config.php');
 
+########	Contacto
+if($_GET['contacto']){
+	require 'inc/otros/contacto.php';
+	die();
+}
+
 ########	TERMINOS DE USO
 if($_GET['tos']){
 	require 'inc/otros/tos.php';
@@ -18,4 +24,5 @@ if($_GET['activar_cuenta']){
 	require 'inc/otros/activacion.php';
 	die();
 }
+header("location: index.php");
 ?>
