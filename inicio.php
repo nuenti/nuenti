@@ -1,5 +1,4 @@
 <?php
-$tiempo_inicio = microtime(true);
 require ("inc/verify_login.php");
 head("Inicio");
 require ("inc/estructura.inc.php");
@@ -68,10 +67,4 @@ require ("inc/estructura.inc.php");
 </div>
 <?php
 require ("inc/chat.php");
-$tiempo_fin = microtime(true);
-echo "<br>Tiempo de ejecución redondeado: " . round($tiempo_fin - $tiempo_inicio, 4) . "<br>";
-$q_querys = mysqli_query($link, "SHOW SESSION STATUS LIKE 'Questions'");
-$r_querys = mysqli_fetch_array($q_querys);
-define("STOP_QUERIES", $r_querys['Value']);
-echo "No of queries: " . (STOP_QUERIES - START_QUERIES - 1);
 ?>
