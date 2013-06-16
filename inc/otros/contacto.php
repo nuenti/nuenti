@@ -29,7 +29,6 @@
 	if($_POST['enviado']){
 		$destinatario_email = Email_Address;
 		$destinatario_name = $_POST['nombreapellidos'];
-		$emisor = $_POST['email'];
 		$titulo = $_POST['asunto']." - ".$_POST['nombreapellidos'];
 
 		// No separar del borde
@@ -39,7 +38,7 @@
 		<b>Email:</b> ".$_POST['email']."<br>
 		<b>Mensaje:</b><br><br> ".$_POST['mensaje'];
 
-		$email_state = email_send($destinatario_name, $destinatario_email, $titulo, $mensaje, $emisor);
+		$email_state = email_send($destinatario_name, $destinatario_email, $titulo, $mensaje);
 		if($email_state != TRUE){
 			print "<div class='centrar'><div class='error_ajustable'>Se ha producido un error al enviar el correo</div></div>";
 		}else{

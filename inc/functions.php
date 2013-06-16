@@ -246,15 +246,8 @@ function novedades($novedad){
 
 function email_send($destinatario_name, $destinatario_email, $titulo, $mensaje){
 	 $TextMessage = strip_tags(nl2br($mensaje), "<br>");
-	 $HTMLMessage = $mensaje;
-	 
-	/*$To = strip_tags($to);
-	 $TextMessage = strip_tags(nl2br($comment), "<br>");
-	 $HTMLMessage = nl2br($comment);
-	 $FromName = strip_tags($name);
-	 $FromEmail = strip_tags($email);
-	 $Subject = strip_tags($subject);*/
-	
+	 $HTMLMessage = nl2br($mensaje);
+	 	
 	$boundary = rand(0, 9) . "-" . rand(10000000000, 9999999999) . "-" . rand(10000000000, 9999999999) . "=:" . rand(10000, 99999);
 	
 	//CABECERAS
