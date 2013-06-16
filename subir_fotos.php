@@ -39,26 +39,19 @@ require ("upload/subida.html");
 				}
 				?>
 				
-				<div class='centrar' style='color: green;font-style: italic;font-weight: bold;'>
+				<div class='centrar'>
+					<div class="ok_ajustable">
 					Fotos subidas con exito, puedes verlas en tus <a href='albums.php' class='link'>albums</a>
-				</div><br><br>
-				<script>
-					$(window).load(function(){
-						$("body").append("<div id='ajax_cargando_padre'><div id='ajax_cargando' class='ajax_ok'><img src='css/ok.png'></div></div>");
-						$("#ajax_cargando_padre").fadeIn(function() {
-							setTimeout(function() {
-								$("#ajax_cargando").fadeOut("slow");
-							}, 2000);
-						});
-						$("#ajax_cargando").click(function(){
-							$(this).remove();
-						});
-					});
-				</script>
+					</div>
+				</div>
 				
 				<?php
 			} else {
-				echo "Faltan las imagenes<br><br>";
+				echo "<div class='centrar'>
+					<div class='error_ajustable'>
+						Faltan las imagenes
+					</div>
+				</div>";
 			}
 		}
 		?>
