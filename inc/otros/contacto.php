@@ -36,7 +36,7 @@
 		<b>Emisor:</b> ".$_POST['nombreapellidos']."<br>
 		<b>Asunto:</b> ".$_POST['asunto']."<br>
 		<b>Email:</b> ".$_POST['email']."<br>
-		<b>Mensaje:</b><br><br> ".$_POST['mensaje'];
+		<b>Mensaje:</b><br><br> ".nl2br($_POST['mensaje']);
 
 		$email_state = email_send($destinatario_name, $destinatario_email, $titulo, $mensaje);
 		if($email_state != TRUE){
