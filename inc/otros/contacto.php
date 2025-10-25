@@ -27,7 +27,7 @@
 <div class="marco">
 	<?php
 	if($_POST['enviado']){
-		$destinatario_email = Email_Address;
+		$destinatario_email = SITE_EMAIL;
 		$destinatario_name = $_POST['nombreapellidos'];
 		$titulo = $_POST['asunto']." - ".$_POST['nombreapellidos'];
 

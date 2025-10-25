@@ -50,7 +50,7 @@ echo "<script type='text/javascript' src='jscripts/forms.js'></script>";
 		<div class="centrar">
 			<div id="titulo">
 				<img src="css/logosocial.png">
-				<h1><?php echo Sitio; ?></h1>
+				<h1><?php echo SITE; ?></h1>
 			</div>
 			
 			<?php

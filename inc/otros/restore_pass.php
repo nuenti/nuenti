@@ -31,22 +31,22 @@ head("Recuperar la contraseña");
 					
 					$destinatario_email = $_POST['email'];
 					$destinatario_name = $r_user['nombre']." ".$r_user['apellidos'];
-					$titulo = "Recuperar la contraseña - ".Sitio;
+					$titulo = "Recuperar la contraseña - ".SITE;
 
 // No separar del borde
 $mensaje = "
 <html>
 <body style=\"background-color:#3869A0;text-align:center;padding:20px;\">
-<b style=\"color:white;font-size:40px;\">".Sitio."</b><br>
+<b style=\"color:white;font-size:40px;\">".SITE."</b><br>
 <div style=\"background-color:white;border-radius:10px;display: inline-block;
 margin: 10px;padding:20px;text-align:left;font-size:15px;\">
 Hola ".$r_user['nombre'].", alguien ha solicitado recuperar 
-la contrase&ntilde;a para tu cuenta de ".Sitio."<br>
+la contrase&ntilde;a para tu cuenta de ".SITE."<br>
 Si has sido t&uacute;, abre la siguiente direccion para crear una contrase&ntilde;a nueva:<br><br>
-<a href=\"http://".Sitio_direccion."/otros.php?restore_pass=1&amp;codigo=".$codigo."\">
-http://".Sitio_direccion."/otros.php?restore_pass=1&amp;codigo=".$codigo."</a><br><br>
+<a href=\"http://".SITE_URL."/otros.php?restore_pass=1&amp;codigo=".$codigo."\">
+http://".SITE_URL."/otros.php?restore_pass=1&amp;codigo=".$codigo."</a><br><br>
 Si tu no has solicitado recuperar tu contrase&ntilde;a, ignora este correo.
-<center><i style=\"font-size:12px; color: grey;\">".Sitio." (c)</i></center>
+<center><i style=\"font-size:12px; color: grey;\">".SITE." (c)</i></center>
 </div></body></html>";
 
 				$email_state = email_send($destinatario_name, $destinatario_email, $titulo, $mensaje);
@@ -106,25 +106,25 @@ Si tu no has solicitado recuperar tu contrase&ntilde;a, ignora este correo.
 						$sql = "UPDATE usuarios SET recuperacion = '0' WHERE recuperacion = '".$_POST['codigo']."'";
 						//mysqli_query($link, $sql);
 					
-						print "<div class='centrar'><div class='ok_ajustable'>Enhorabuena, tu contrase&ntilde;a nueva se a guardado, ya puedes acceder a <a href='login.php'>".Sitio."</a> con ella.<br>
+						print "<div class='centrar'><div class='ok_ajustable'>Enhorabuena, tu contrase&ntilde;a nueva se a guardado, ya puedes acceder a <a href='login.php'>".SITE."</a> con ella.<br>
 								Tambien te hemos mandado un email a tu direccion con la contrase&ntilde;a nueva</div></div>";
 												
 						$destinatario_email = $r_user['email'];
 						$destinatario_name = $r_user['nombre']." ".$r_user['apellidos'];
-						$titulo = "Contraseña nueva - ".Sitio;
+						$titulo = "Contraseña nueva - ".SITE;
 					
 // No separar del borde
 $mensaje = "
 <html>
 <body style=\"background-color:#3869A0;text-align:center;padding:20px;\">
-<b style=\"color:white;font-size:40px;\">".Sitio."</b><br>
+<b style=\"color:white;font-size:40px;\">".SITE."</b><br>
 <div style=\"background-color:white;border-radius:10px;display: inline-block;
 margin: 10px;padding:20px;text-align:left;font-size:15px;\">
 Hola ".$r_user['nombre'].", la contraseña nueva para tu cuenta es:<br><br>
 <b>".$_POST['pass']."</b><br><br>
-Ya puedes entrar con ella:<a href=\"http://".Sitio_direccion."/login.php\">
-http://".Sitio_direccion."/login.php</a><br>
-<center><i style=\"font-size:12px; color: grey;\">".Sitio." (c)</i></center>
+Ya puedes entrar con ella:<a href=\"http://".SITE_URL."/login.php\">
+http://".SITE_URL."/login.php</a><br>
+<center><i style=\"font-size:12px; color: grey;\">".SITE." (c)</i></center>
 </div>
 </body></html>";
 

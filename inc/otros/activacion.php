@@ -10,13 +10,13 @@ if($_GET['activar_cuenta']){
 		
 		$destinatario_email = $r_user['email'];
 		$destinatario_name = $r_user['nombre']." ".$r_user['apellidos'];
-		$titulo = "Registro completado - ".Sitio;
+		$titulo = "Registro completado - ".SITE;
 				
 // No separar del borde
 $mensaje = "
 <html>
 <body style=\"background-color:#3869A0;text-align:center;padding:20px;\">
-<b style=\"color:white;font-size:40px;\">".Sitio."</b><br>
+<b style=\"color:white;font-size:40px;\">".SITE."</b><br>
 <div style=\"background-color:white;border-radius:10px;display: inline-block;
 margin: 10px;padding:20px;text-align:left;font-size:15px;\">
 ¡Enhorabuena ".$r_user['nombre']."!, has completado con &eacute;xito
@@ -24,10 +24,10 @@ margin: 10px;padding:20px;text-align:left;font-size:15px;\">
 <b>Tus datos son:</b><br>
 Nombre: ".$r_user['nombre']." ".$r_user['apellidos']."<br>
 Email: ".$r_user['email']."<br><br>
-Ahora podr&aacute; disfrutar de ".Sitio.", no esperes m&aacute;s y
+Ahora podr&aacute; disfrutar de ".SITE.", no esperes m&aacute;s y
  entra ya<br><br>
-<a href=\"http://".Sitio_direccion."\">http://".Sitio_direccion."/</a><br><br>
-<center><i style=\"font-size:12px; color: grey;\">".Sitio." (c)</i></center>
+<a href=\"http://".SITE_URL."\">http://".SITE_URL."/</a><br><br>
+<center><i style=\"font-size:12px; color: grey;\">".SITE." (c)</i></center>
 </div>
 </body></html>";
 		

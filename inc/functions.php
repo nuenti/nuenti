@@ -112,7 +112,7 @@ function fecha($fecha) {
 }
 
 //CABECERA
-function head($title = Sitio) {
+function head($title = SITE) {
 	print "
 		<!DOCTYPE html>
 		<html lang='es'>
@@ -253,8 +253,8 @@ function email_send($destinatario_name, $destinatario_email, $titulo, $mensaje){
 	//CABECERAS
 	$Headers = "MIME-Version: 1.0\r\n";
 	$Headers .= "To: {$destinatario_name} <{$destinatario_email}>\r\n";
-	$Headers .= "From: ".Sitio." <".Email_Address.">\r\n";
-	$Headers .= "Reply-To: ".Email_Address."\r\n";
+	$Headers .= "From: ".SITE." <".SITE_EMAIL.">\r\n";
+	$Headers .= "Reply-To: ".SITE_EMAIL."\r\n";
 	$Headers .= "Content-Type: multipart/alternative; boundary=$boundary\r\n";
 	
 

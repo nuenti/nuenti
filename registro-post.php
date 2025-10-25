@@ -32,7 +32,7 @@ if(	(!$_POST['Nombre'] OR !$_POST['Apellidos'] OR !$_POST['contrasenia'] OR !$_P
 		}
 		$destinatario_email = $_POST['Email'];
 		$destinatario_name = $_POST['Nombre']." ".$_POST['Apellidos'];
-		$titulo = "Registro - ".Sitio;
+		$titulo = "Registro - ".SITE;
 		
 		$codigo_activacion = rand(100000000, 999999999);
 		
@@ -40,15 +40,15 @@ if(	(!$_POST['Nombre'] OR !$_POST['Apellidos'] OR !$_POST['contrasenia'] OR !$_P
 $mensaje = "
 <html>
 <body style=\"background-color:#3869A0;text-align:center;padding:20px;\">
-<b style=\"color:white;font-size:40px;\">".Sitio."</b><br>
+<b style=\"color:white;font-size:40px;\">".SITE."</b><br>
 <div style=\"background-color:white;border-radius:10px;display: inline-block;
 margin: 10px;padding:20px;text-align:left;font-size:15px;\">
-Hola ".$_POST['Nombre'].", has iniciado el proceso de registro en ".Sitio.".<br>
+Hola ".$_POST['Nombre'].", has iniciado el proceso de registro en ".SITE.".<br>
 Para completarlo, visita la siguiente direccion:<br>
-<a href=\"http://".Sitio_direccion."/otros.php?activar_cuenta=1&amp;
+<a href=\"http://".SITE_URL."/otros.php?activar_cuenta=1&amp;
 codigo=".$codigo_activacion."\">
-http://".Sitio_direccion."/otros.php?activar_cuenta=1&amp;codigo=".$codigo_activacion."</a>
-<br><br><center><i style=\"font-size:12px; color: grey;\">".Sitio." (c)</i></center>
+http://".SITE_URL."/otros.php?activar_cuenta=1&amp;codigo=".$codigo_activacion."</a>
+<br><br><center><i style=\"font-size:12px; color: grey;\">".SITE." (c)</i></center>
 </div>
 </body></html>";
 
