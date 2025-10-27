@@ -8,9 +8,6 @@ head("Registro");
 		<li>
 			<a href="login.php">Login</a>
 		</li>
-		<li>
-			<a href="otros.php?contacto=1">Contacto</a>
-		</li>
 	</ul>
 
 	<h2 class="encabezado">Registro de usuario</h2>

@@ -19,9 +19,7 @@ head("Terminos de uso");
 	<br>
 <div class="marco">
 	<ul>
-		<li> <?php echo SITE; ?> es la plataforma social privada de <?php echo Sitio_Largo; ?> S.L., 
-			(<?php echo SITE; ?>) para usuarios mayores de 14&nbsp;años o menores de esa
-			edad con autorización parental.</li>
+		<li> <?php echo SITE; ?> es la plataforma social privada para usuarios mayores de 18&nbsp;años.</li>
 		<li> Los perfiles de <?php echo SITE; ?> son sólo para uso personal. No podrás
 			utilizar tu perfil para hacer publicidad, vender o cualquier otra
 			finalidad comercial, a menos que te hayamos autorizado expresamente
