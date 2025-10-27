@@ -1,6 +1,23 @@
 <?php
 session_start();
+require('inc/config.php');
+
+if (isset($_SESSION['idusuarios'])) {
+    $idusuarios = $_SESSION['idusuarios'];
+}
+
+$_SESSION = array();
+
+if (ini_get("session.use_cookies")) {
+    $params = session_get_cookie_params();
+    setcookie(session_name(), '', time() - 42000,
+        $params["path"], $params["domain"],
+        $params["secure"], $params["httponly"]
+    );
+}
+
 session_destroy();
+
 header("Location: index.php");
-//<a href="index.php">Entrar</a>
+exit;
 ?>
