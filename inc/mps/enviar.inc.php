@@ -44,7 +44,6 @@
 
 		if(mysqli_num_rows($query)>0){
 			?>
-			<script src="jscripts/forms.js"></script>
 			<form action="#" onsubmit="return false">
 				<div class="ui-widget">
 					<?php //TODO: al borrar letras, deseleccionar amigo ?>

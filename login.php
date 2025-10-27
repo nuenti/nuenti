@@ -43,8 +43,6 @@ if($_POST['email']){
 }
 
 head("Login");
-echo "<script type='text/javascript' src='jscripts/login_js.php'></script>";
-echo "<script type='text/javascript' src='jscripts/forms.js'></script>";
 ?>
 <body id="seccion_login">
 		<div class="centrar">
@@ -90,7 +88,7 @@ echo "<script type='text/javascript' src='jscripts/forms.js'></script>";
 								<input id="password" name="password" class="validable" type="password" value="" maxlength='30' placeholder="Contrase&ntilde;a">
 							</span>
 						</div><br>
-					<button type='button' name='registro' value='Registrarse' class="azul" onclick="validador('submit')"><span><b>Entrar</b></span></button>
+					<button type='submit' name='registro' value='Registrarse' class="azul"><span><b>Entrar</b></span></button>
 					<button type='button' class="azul" onclick="location.href='registro.php';"><span><b>Registrarse</b></span></button>
 				  </form>
 			</div>

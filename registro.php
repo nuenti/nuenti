@@ -2,8 +2,6 @@
 require ('inc/config.php');
 head("Registro");
 ?>
-<script type="text/javascript" src="jscripts/registro_js.php"></script>
-<script type="text/javascript" src="jscripts/forms.js"></script>
 </head>
 <body id="seccion_registro">
 	<ul id="menudrop">
@@ -24,6 +22,21 @@ head("Registro");
 		}
 	?>
 	<script>
+		// JS REGISTRO (CALENDARIO CUSTOM)
+		$(function() {
+			var date = new Date();
+			var year = date.getFullYear();
+			var top_year = year - 14;
+			$("#nacimiento").datepicker({
+				changeMonth : true,
+				changeYear : true,
+				yearRange : "1940:"+top_year,
+				defaultDate : "-20 y",
+				dateFormat: "d 'de' MM 'de' yy",
+				altField: "#nacimiento_hidden",
+				altFormat: "yy-mm-dd",
+			});
+		});
 	</script>
 	<div class="centrar">
 		<div class="marco">
@@ -112,7 +125,7 @@ head("Registro");
 							<td colspan="2" style="text-align: center;">
 							
 							<input type="hidden" name="Registro" value="yes"/>
-							<button type='button' name='registro' value='Registrarse' class="azul" onclick="validador('submit')">
+							<button type='submit' name='registro' value='Registrarse' class="azul" onclick="validador('submit')">
 								<span><b>Registrarse</b></span>
 							</button></td>
 						</tr>
