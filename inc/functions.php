@@ -122,11 +122,16 @@ function head($title = SITE) {
 				<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
 				<meta name='Keywords' content='Social,red social,gratuito,asir'>
 				<meta name='Description' content='Proyecto de Red Social de 2 ASIR'>
-				 <meta name='author' content='Javier Gonzalez Rastrojo'>
+				<meta name='author' content='Javier Gonzalez Rastrojo'>
 				
 				<!-- FAVICON -->
 				<link rel='icon' href='css/favicon.png' sizes='16x16 32x32 64x64 289x289' type='image/png'>
- 				 
+ 				
+				<!-- ACTIVE RESPONSIVE VIEW & TAILWIND -->
+				<meta name='viewport' content='width=device-width, initial-scale=1.0' />
+				<script src='jscripts/tailwind.js'></script>
+				<link rel='stylesheet' href='css/tailwind.css' />
+
 				<!-- CSS -->
 				<link rel='stylesheet' href='css/style.css' type='text/css' />
 				<link rel='stylesheet' href='jscripts/jquery-ui/css/redmond/jquery-ui-1.9.0.custom.css' type='text/css' />

@@ -2,15 +2,12 @@
 
 * {
 	font-family: Arial, Helvetica, sans-serif;
-	color: #333333;
 	font-size: 14px;
 }
 
 body {
 	background-color: #3869A0;
-	width: 997px;
 	margin: 0 auto;
-	padding: 5px;
 }
 
 .link {
@@ -408,11 +405,9 @@ span.ayuda {
 #menudrop {
 	list-style: none;
 	font-weight: bold;
-	margin: 0 0 10px 0;
 	float: left;
-	width: 997px;
+	width: 100vw;
 	background-color: white;
-	border-radius: 7px 7px 7px 7px;
 	border-style: solid;
 	border-width: 0px;
 	box-shadow: 2px 2px 3px black;
@@ -1590,4 +1585,66 @@ input[type=radio]:checked + label {
 }
 .ui-menu .ui-menu-item {
 	width: 200px !important;
+}
+
+
+/********************
+*	NUEVOS ESTILOS	*
+********************/
+
+.nuenti-blue {
+  background: linear-gradient(180deg, #6b9ac4 0%, #5487ba 100%);
+}
+        
+.nuenti-nav-item {
+	color: white;
+	padding: 8px 12px;
+	text-decoration: none;
+	font-size: 13px;
+	font-weight: 600;
+	transition: background 0.2s;
+}
+        
+.nuenti-nav-item:hover {
+ 	background: rgba(255, 255, 255, 0.15);
+}
+        
+.nuenti-nav-item.active {
+	background: rgba(255, 255, 255, 0.2);
+}
+        
+.nuenti-button {
+	background: linear-gradient(180deg, #4a90e2 0%, #357abd 100%);
+	border: 1px solid #2e6da4;
+	color: white;
+	padding: 6px 14px;
+	border-radius: 3px;
+	font-size: 12px;
+	font-weight: 600;
+	cursor: pointer;
+	box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.nuenti-button:hover {
+	background: linear-gradient(180deg, #5a9ef2 0%, #4580cd 100%);
+}
+
+.nuenti-button:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+.nuenti-sidebar {
+	background: white;
+	border: 1px solid #d3d8dd;
+	border-radius: 4px;
+	box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.nuenti-logo {
+	font-size: 24px;
+	font-weight: 700;
+	color: white;
+	text-decoration: none;
+	letter-spacing: -0.5px;
 }
