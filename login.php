@@ -6,40 +6,37 @@ if(isset($_SESSION['idsesion']) AND !$_GET['activacion'])
 	header("Location: inicio.php");
 
 
-if($_POST['email']){
-	//TODO: blowfish
-	//COMPROBAR DATOS LOGIN
-	$login=mysqli_query($link,"SELECT * FROM usuarios WHERE email='".$_POST['email']."' AND password='".sha1($_POST['password'])."' AND activacion = '1'");
+if ($_POST['email']) {
+    $email = $_POST['email'];
+    $password_input = $_POST['password'];
 
-	//LOGIN OK
-	if(mysqli_num_rows($login)==1){
-		$codigo_temp=rand(0, 99999999999);
-		$r_login=mysqli_fetch_assoc($login);
-		mysqli_query($link,"UPDATE usuarios SET idsesion='".$codigo_temp."' WHERE idusuarios='".$r_login['idusuarios']."'");
-		
-		// Log de acceso con IP & fecha
-		mysqli_query($link,"INSERT INTO accesos (usuarios_idusuarios, ip, fecha) VALUES ('{$r_login["idusuarios"]}','{$_SERVER["REMOTE_ADDR"]}',now())");
-		$_SESSION['idsesion']=$codigo_temp;
-		
-		header( "Location: inicio.php" );
-		die();
-		// TODO: funcionalidad de URL al loguear.
-		// TODO: duracion de la sesion al cerrar la pagina
+    $stmt = mysqli_prepare($link, "SELECT idusuarios, password, activacion FROM usuarios WHERE email = ?");
+    mysqli_stmt_bind_param($stmt, "s", $email);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_store_result($stmt);
+    mysqli_stmt_bind_result($stmt, $idusuarios, $password_hash, $activacion);
 
-	//LOGIN FAIL
-	}else{
-		//COMPROBAR ACTIVACION CUENTA
-		$sql = "SELECT * FROM usuarios WHERE email='".$_POST['email']."' AND activacion != '1'";
-		$q_activacion = mysqli_query($link, $sql);
-	
-		//CUENTA NO ACTIVADA
-		if(mysqli_num_rows($q_activacion)==1){
-			$error = "activacion";
-		}else{
-			$error = "datos";
-		}
-	}
-	
+    if (mysqli_stmt_num_rows($stmt) === 1) {
+        mysqli_stmt_fetch($stmt);
+
+        if ($activacion == '1' && password_verify($password_input, $password_hash)) {
+            // LOGIN OK
+            $codigo_temp = rand(0, 99999999999);
+            mysqli_query($link, "UPDATE usuarios SET idsesion='" . $codigo_temp . "' WHERE idusuarios='" . $idusuarios . "'");
+            mysqli_query($link, "INSERT INTO accesos (usuarios_idusuarios, ip, fecha) VALUES ('{$idusuarios}','{$_SERVER["REMOTE_ADDR"]}',now())");
+            $_SESSION['idsesion'] = $codigo_temp;
+            header("Location: inicio.php");
+            die();
+        } else {
+            // Contraseña incorrecta o cuenta no activada
+            $error = ($activacion != '1') ? "activacion" : "datos";
+        }
+    } else {
+        // Usuario no encontrado
+        $error = "datos";
+    }
+
+    mysqli_stmt_close($stmt);
 }
 
 head("Login");
@@ -93,10 +90,13 @@ head("Login");
 				  </form>
 			</div>
 		</div>
+		<!-- MOVER CREDITOS A NUEVA PAGINA -->
+		<!--
 		<div id="creditos">
 			<div>
 				<p>Social &copy; 2012 - 2013</p>
 				<p>Javier González Rastrojo</p>
 			</div>
 		</div>
+		-->
 </body>
