@@ -25,7 +25,7 @@
 												<nav class="hidden md:flex items-center gap-1">
 													<a class="nuenti-nav-item " href="inicio.php">Inicio</a>
 													<a class="nuenti-nav-item " href="perfil.php">Perfil</a>
-													<a class="nuenti-nav-item " href="mensajes.php">Mensajes</a>
+													<a class="nuenti-nav-item " href="mp.php">Mensajes</a>
 													<a class="nuenti-nav-item " href="gente.php">Gente</a>
 												</nav>
 												<div class="flex items-center gap-2">
