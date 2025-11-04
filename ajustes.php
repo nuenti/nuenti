@@ -30,17 +30,13 @@ require ("inc/estructura.inc.php");
 
 <script>
 	$(document).ready(function() {
-		// Señala en el menu horizontal la pagina actual
+		// Señala en el menú horizontal la página actual
 		var url = location.href.match(/[a-z0-9_-]{1,}.php[/?seccion=a-z]{0,}/gi);
 		$(".lista_enlaces").find("a").each(function() {
-			if ($(this).attr("href") == url) {
-				//alert(url);
-				$(this).css({
-					"color" : "white"
-				});
-				$(this).parent().css({
-					"background-color" : "#3869A0"
-				});
+			if ($(this).attr("href") == url)
+			{
+				$(this).css({"color" : "white"});
+				$(this).parent().css({"background-color" : "#3869A0"});
 			}
 		});
 	});
