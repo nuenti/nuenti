@@ -1,3 +1,7 @@
+> ⚠️ **Importante:** 
+> Este git se encuentra varias versiones por detrás del codigo actual de nuenti.xyz. Sera actualizado proximamente.
+
+
 # Nuenti
 
 Basado en el trabajo original de [javyyk](https://github.com/javyyk/social)
@@ -36,7 +40,7 @@ Estoy centrando los esfuerzos en localizar y parchear todas las funciones obsole
 ## ¿Puedo colaborar?
 
 ¡Absolutamente!  
-Si sabes de **PHP**, **JavaScript**, **diseño o maquetación web**, o crees que puedes aportar algo al proyecto, [enviame un correo](mailto:colaboracion@Nuenti.xyz).
+Si sabes de **PHP**, **JavaScript**, **diseño o maquetación web**, o crees que puedes aportar algo al proyecto, [enviame un correo](mailto:soporte@nuenti.xyz).
 
 
 
