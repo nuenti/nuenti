@@ -1,47 +1,30 @@
-> ⚠️ **Importante:** 
-> Este git se encuentra varias versiones por detrás del codigo actual de nuenti.xyz. Sera actualizado proximamente.
+```markdown
+# Aviso a la comunidad: requerimiento y cambios de identidad
 
+Se ha recibido un requerimiento de Telefónica, S.A., indicando que es titular de la marca **“TUENTI”** y que considera que ciertos elementos del proyecto podrían vulnerar sus derechos de marca y generar confusión o asociación con dicha marca. [file:1]  
+Según el escrito, el problema se centra en el uso de la denominación **“NUENTI”**, el dominio **nuenti.xyz**, una identidad visual que describen como similar/evocadora, y la existencia de referencias explícitas a “TUENTI” en comunicaciones públicas. [file:1]
 
-# Nuenti
+## Qué elementos mencionan
+En el requerimiento se citan como ejemplos de presencia pública del proyecto, entre otros: [file:1]
+- El sitio web accesible desde **nuenti.xyz**. [file:1]
+- El repositorio de GitHub asociado al proyecto. [file:1]
+- El perfil **@nuenti** en la red social X. [file:1]
+- Canales/comunidad en Discord vinculados al proyecto. [file:1]
 
-Basado en el trabajo original de [javyyk](https://github.com/javyyk/social)
+## Sobre la solicitud “NUENTI” en la OEPM
+El requerimiento también menciona la existencia de una solicitud “NUENTI” nº **N0491001** (26/09/2025) y pide que, si estuviera relacionada con el proyecto, se desista; o, si no lo está, que se confirme por escrito la inexistencia de relación con dicha solicitud. [file:1]
 
+## Qué exige el requerimiento
+El escrito solicita que, en un plazo indicado como **“improrrogable de tres días hábiles”** desde la recepción, se realicen estas acciones: [file:1]
+- Cese inmediato y definitivo del uso de cualquier signo/denominación/logotipo o elemento idéntico o confundiblemente similar a “TUENTI”, incluyendo el uso de “NUENTI”, en cualquier medio (web, repositorios, redes sociales y comunidad). [file:1]
+- Retirada y cese de uso de cualquier logotipo/diseño/identidad visual similar o evocadora de “TUENTI”. [file:1]
+- Cese del uso del dominio **nuenti.xyz** y de cualquier otro dominio que incorpore esa denominación. [file:1]
+- Remisión de “prueba fehaciente” de cancelación del dominio y retirada de contenido del sitio, o alternativamente transmisión del dominio (según se indica en el propio escrito). [file:1]
+- Eliminación inmediata de toda referencia a “TUENTI” en comunicaciones, redes sociales, páginas web y materiales promocionales. [file:1]
+- Confirmación por escrito de la aceptación del requerimiento y de la ejecución íntegra de las actuaciones solicitadas. [file:1]
+- Compromiso de abstenerse en lo sucesivo de utilizar cualquier signo o elemento que pueda generar riesgo de confusión, asociación o aprovechamiento indebido. [file:1]
 
-## ¿Qué es Nuenti?
+El requerimiento advierte de la posibilidad de acciones legales en caso de no atender lo solicitado. [file:1]
+```
 
-**Nuenti** (xyz) es un proyecto red social de *código abierto*. Tomando como partida el código de Javvyk y la comunidad de X construida por el creador de la idea original de Nuenti.  
-El código en el que se basa tiene más de **12 años**, por lo que inicialmente me estoy centrando en:
-
-- Corregir fallos de seguridad  
-- Actualizar funciones obsoletas  
-- Modernizar los estándares de desarrollo  
-
-> ⚠️ Los dominios asociados anteriormente a Nuenti no han sido cedidos por su anterior propietario, por lo que el unico dominio real para este proyecto por el momento es [nuenti.xyz](https://nuenti.xyz)
-
-> ⚠️ Cualquier otro dominio "nuenti" no está relacionado con el proyecto actual, ¡cuida tus datos!
-
-
-## ¿Quién es Nuenti?
-
-Nuenti ha sido creado por **Cristian Radu** (*thelittlemander*), actualmente único desarrollador. Puedes encontrarme en:
-
-- [X (Twitter)](https://x.com/thelittlemander)
-
-
-## ⚠️ Notas importantes
-
-Recuerda que **Nuenti** parte de un código **muy antiguo**.  
-Estoy centrando los esfuerzos en localizar y parchear todas las funciones obsoletas y los fallos de seguridad, pero aún queda muchísimo trabajo por delante.
-
-> ⚡ **Recomendación:**  
-> Si usas Nuenti, hazlo con precaución. Utiliza correos, contraseñas poco habituales o aleatorias con gestores y generadores de contraseñas y **nunca compartas datos importantes** a través de su mensajería interna.
-
-
-## ¿Puedo colaborar?
-
-¡Absolutamente!  
-Si sabes de **PHP**, **JavaScript**, **diseño o maquetación web**, o crees que puedes aportar algo al proyecto, [enviame un correo](mailto:soporte@nuenti.xyz).
-
-
-
-*Nuenti es un proyecto en constante evolución. Gracias por tu apoyo en su desarrollo y ayudar a mantener viva la esencia de la antigua internet.*
+[1](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/105276673/506c5c4e-597b-4b2b-91f4-bd44190533e0/Requerimiento-Legal-Tuenti-Nuenti.pdf)
