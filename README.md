@@ -1,4 +1,3 @@
-```markdown
 # Aviso a la comunidad: requerimiento y cambios de identidad
 
 Se ha recibido un requerimiento de Telefónica, S.A., indicando que es titular de la marca **“TUENTI”** y que considera que ciertos elementos del proyecto podrían vulnerar sus derechos de marca y generar confusión o asociación con dicha marca. [file:1]  
@@ -24,7 +23,5 @@ El escrito solicita que, en un plazo indicado como **“improrrogable de tres d�
 - Confirmación por escrito de la aceptación del requerimiento y de la ejecución íntegra de las actuaciones solicitadas. [file:1]
 - Compromiso de abstenerse en lo sucesivo de utilizar cualquier signo o elemento que pueda generar riesgo de confusión, asociación o aprovechamiento indebido. [file:1]
 
-El requerimiento advierte de la posibilidad de acciones legales en caso de no atender lo solicitado. [file:1]
-```
+El requerimiento advierte de la posibilidad de acciones legales en caso de no atender lo solicitado.
 
-[1](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/105276673/506c5c4e-597b-4b2b-91f4-bd44190533e0/Requerimiento-Legal-Tuenti-Nuenti.pdf)
